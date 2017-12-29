@@ -1,0 +1,15 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+
+[deps]
+
+files=[ "res://resources/texts.en.translation", "res://resources/texts.hu.translation" ]
+
+source_md5="8b28bfbf98658941f5920b91f12bf446"
+
+[params]
+
+compress=true
+delimiter=0

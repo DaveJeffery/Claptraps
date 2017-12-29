@@ -11,6 +11,7 @@ const MAP_CONTENT = [0, 0]			# Default map square content [Object, Target (optio
 var minimum_score 
 var level_size      
 var dave_pos
+var map
 
 func _ready():
 	# Called every time the node is added to the scene.
