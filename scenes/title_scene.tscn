@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://scenes/title_scene.gd" type="Script" id=1]
+[ext_resource path="res://scripts/title_scene.gd" type="Script" id=1]
 [ext_resource path="res://sprites/title_screen.png" type="Texture" id=2]
 [ext_resource path="res://resources/claptraps_styleboxflat.tres" type="StyleBox" id=3]
 [ext_resource path="res://fonts/eartm.font" type="BitmapFont" id=4]
 [ext_resource path="res://music/ct_title.ogg" type="AudioStream" id=5]
+[ext_resource path="res://scenes/quit_scene.tscn" type="PackedScene" id=6]
 
 [node name="Node" type="Node" index="0"]
 
@@ -159,6 +160,16 @@ autoplay = false
 mix_target = 0
 bus = "Master"
 
+[node name="QuitScreen" parent="." index="4" instance=ExtResource( 6 )]
+
+pause_mode = 2
+visible = false
+_sections_unfolded = [ "Pause", "Rect" ]
+
 [connection signal="timeout" from="MenuTimer" to="." method="_on_MenuTimer_timeout"]
+
+[connection signal="draw" from="QuitScreen" to="." method="_on_QuitScreen_draw"]
+
+[connection signal="hide" from="QuitScreen" to="." method="_on_QuitScreen_hide"]
 
 
