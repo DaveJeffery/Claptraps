@@ -21,7 +21,7 @@ func _input(event):
 		print("Space!")
 	elif event.is_action_pressed("ui_cancel"):
 		$QuitScreen.show()
-	elif event.is_action_pressed("ui_music"):
+	elif event.is_action_pressed("clap_music"):
 		toggle_music()
 
 func toggle_music():

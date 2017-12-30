@@ -8,7 +8,7 @@ func _ready():
 	pass
 
 func _input(event):
-	if event.is_action_pressed("ui_yes"):
+	if event.is_action_pressed("clap_yes"):
 		get_tree().quit()
-	elif event.is_action_pressed("ui_no"):
+	elif event.is_action_pressed("clap_no"):
 		hide()
