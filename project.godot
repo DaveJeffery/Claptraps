@@ -18,8 +18,7 @@ name="Claptraps"
 
 [autoload]
 
-direction="*res://scripts/direction.gd"
-level_set="*res://scripts/level_set.gd"
+Settings="*res://scripts/settings.gd"
 
 [display]
 
@@ -34,6 +33,8 @@ window/width=640
 ui_yes=[ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":89,"unicode":0,"echo":false,"script":null)
  ]
 ui_no=[ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":78,"unicode":0,"echo":false,"script":null)
+ ]
+ui_music=[ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":77,"unicode":0,"echo":false,"script":null)
  ]
 
 [locale]
