@@ -12,7 +12,7 @@ signal key_pressed
 func _ready():
 	# Called every time the node is added to the scene.
 	# Initialization here
-	define_keys()
+	pass
 
 func _unhandled_input(event):
 	if event is InputEventKey and event.is_pressed() and not event.is_echo():

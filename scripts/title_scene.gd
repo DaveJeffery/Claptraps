@@ -29,6 +29,12 @@ func _input(event):
 	elif event.is_action_pressed("clap_redefine"):
 		get_tree().set_input_as_handled()
 		$RedefineScreen.show()
+	elif event.is_action_pressed("clap_userdef"):
+		get_tree().set_input_as_handled()
+		print("User Levels!")
+	elif event.is_action_pressed("clap_editor"):
+		get_tree().set_input_as_handled()
+		get_tree().change_scene("res://scenes/editor_scene.tscn")
 
 func toggle_music():
 	if Settings.audio:
@@ -57,3 +63,6 @@ func _on_QuitScreen_draw():
 	$AudioStreamPlayer.stop()
 	$QuitScreen.set_process_input(true)
 	get_tree().set_pause(true)
+
+func _on_RedefineScreen_draw():
+	$RedefineScreen.define_keys()
