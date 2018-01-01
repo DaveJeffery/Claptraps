@@ -44,6 +44,10 @@ func load_settings():
 	audio = _settings["audio"]["audio"]
 	keys = _settings["keys"]
 	
+	update_key_events()
+
+func update_key_events():
+	# It's best to erase old key events before adding new ones
 	erase_key_events(keys)
 	add_key_events(keys)
 	add_key_events(ARROW_KEYS)
