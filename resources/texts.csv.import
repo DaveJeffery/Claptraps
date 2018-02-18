@@ -7,7 +7,11 @@ type="Translation"
 
 files=[ "res://resources/texts.en.translation", "res://resources/texts.hu.translation" ]
 
-source_md5="55eac9b299fe2b3d5f44c1d3d62f8eb3"
+source_file="res://resources/texts.csv"
+source_md5="8b28bfbf98658941f5920b91f12bf446"
+
+dest_files=[ "res://resources/texts.en.translation", "res://resources/texts.hu.translation" ]
+dest_md5="b8f12f837101cd4560f682e1d0de4eee"
 
 [params]
 
