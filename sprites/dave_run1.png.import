@@ -3,16 +3,21 @@
 importer="texture"
 type="StreamTexture"
 path="res://.import/dave_run1.png-2db78cd7423ce678bb203b1ac6efda6d.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
-source_md5="d16bd5920e1d57b1cdd964a3d045db3f"
+source_file="res://sprites/dave_run1.png"
+dest_files=[ "res://.import/dave_run1.png-2db78cd7423ce678bb203b1ac6efda6d.stex" ]
 
 [params]
 
 compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
+compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=true
@@ -22,6 +27,8 @@ flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
+process/invert_color=false
+process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=true

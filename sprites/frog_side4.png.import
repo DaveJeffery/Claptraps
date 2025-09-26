@@ -3,16 +3,21 @@
 importer="texture"
 type="StreamTexture"
 path="res://.import/frog_side4.png-64d8d3d2f97e98ac583186b1025cd6cd.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
-source_md5="8e3b20d179592d9ec80d90f515d49f55"
+source_file="res://sprites/frog_side4.png"
+dest_files=[ "res://.import/frog_side4.png-64d8d3d2f97e98ac583186b1025cd6cd.stex" ]
 
 [params]
 
 compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
+compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=true
@@ -22,6 +27,8 @@ flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
+process/invert_color=false
+process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=true

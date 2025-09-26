@@ -3,16 +3,21 @@
 importer="texture"
 type="StreamTexture"
 path="res://.import/bush.png-45f5a4c69f3b2138555afd42f7f650d3.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
-source_md5="23ca1f1b7e2eec2c523091dc9df086bc"
+source_file="res://sprites/bush.png"
+dest_files=[ "res://.import/bush.png-45f5a4c69f3b2138555afd42f7f650d3.stex" ]
 
 [params]
 
 compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
+compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=true
@@ -22,6 +27,8 @@ flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
+process/invert_color=false
+process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=true

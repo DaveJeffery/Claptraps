@@ -6,7 +6,8 @@ path="res://.import/ct_game1.ogg-c127c3e1a4029ce1fa578d63e2635e74.oggstr"
 
 [deps]
 
-source_md5="c5d9a4f40f236ac643fcea0d1a5110e6"
+source_file="res://music/ct_game1.ogg"
+dest_files=[ "res://.import/ct_game1.ogg-c127c3e1a4029ce1fa578d63e2635e74.oggstr" ]
 
 [params]
 

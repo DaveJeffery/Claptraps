@@ -7,7 +7,8 @@ type="Translation"
 
 files=[ "res://resources/texts.en.translation", "res://resources/texts.hu.translation" ]
 
-source_md5="8b28bfbf98658941f5920b91f12bf446"
+source_file="res://resources/texts.csv"
+dest_files=[ "res://resources/texts.en.translation", "res://resources/texts.hu.translation" ]
 
 [params]
 

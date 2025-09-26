@@ -6,7 +6,8 @@ path="res://.import/twiddle.wav-afb50f0da53095beacb64a41478e7f6c.sample"
 
 [deps]
 
-source_md5="05671857f181f9919d7d5c303fbb76ab"
+source_file="res://sounds/twiddle.wav"
+dest_files=[ "res://.import/twiddle.wav-afb50f0da53095beacb64a41478e7f6c.sample" ]
 
 [params]
 
@@ -16,5 +17,7 @@ force/max_rate=false
 force/max_rate_hz=44100
 edit/trim=true
 edit/normalize=true
-edit/loop=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
 compress/mode=0
