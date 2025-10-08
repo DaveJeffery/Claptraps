@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/twiddle.wav-afb50f0da53095beacb64a41478e7f6c.sample"
+type="AudioStreamWAV"
+uid="uid://cqdcyepnxs31a"
+path="res://.godot/imported/twiddle.wav-afb50f0da53095beacb64a41478e7f6c.sample"
 
 [deps]
 
 source_file="res://sounds/twiddle.wav"
-dest_files=[ "res://.import/twiddle.wav-afb50f0da53095beacb64a41478e7f6c.sample" ]
+dest_files=["res://.godot/imported/twiddle.wav-afb50f0da53095beacb64a41478e7f6c.sample"]
 
 [params]
 

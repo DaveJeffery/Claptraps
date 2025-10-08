@@ -14,3 +14,6 @@
 
 # Godot3 import directory
 .import/
+
+# Godot4 godot directory
+.godot/

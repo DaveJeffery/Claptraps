@@ -6,22 +6,22 @@ const SAVE_PATH = "res://config.cfg"
 const ARROW_KEYS = {"clap_right": KEY_RIGHT, "clap_left": KEY_LEFT, 
 		"clap_up": KEY_UP, "clap_down": KEY_DOWN, "clap_use": KEY_ENTER}
 
-var audio setget audio_set, audio_get
+var audio : get = audio_get, set = audio_set
 var keys
 
 var _config_file = ConfigFile.new()
-var _settings
+var _settings = {}
 
 func _ready():
 	init_settings()
 	load_settings()
 
 func init_settings():
-	audio = true
 	keys = {"clap_right": KEY_X, "clap_left": KEY_Z, "clap_up": KEY_APOSTROPHE, 
 			"clap_down": KEY_SLASH, "clap_use": KEY_ENTER}
 	
-	_settings = {"audio":{"audio": audio}, "keys": keys}
+	_settings = {"audio":{}, "keys": keys}
+	audio = true
 
 func save_settings():
 	for section in _settings.keys():
@@ -54,22 +54,22 @@ func update_key_events():
 
 func erase_key_events(keys):
 	for action in keys:
-		for old_event in InputMap.get_action_list(action):
+		for old_event in InputMap.action_get_events(action):
 			if old_event is InputEventKey:
 				InputMap.action_erase_event(action, old_event)
 
 func add_key_events(keys):
 	# User-defined key definitions
-	var scancode
+	var keycode
 	var event
 
 	for action in keys:
 		# Get the key scancode
-		scancode = keys[action]
+		keycode = keys[action]
 		
 		# Create a new event object based on the saved scancode
 		event = InputEventKey.new()
-		event.scancode = scancode
+		event.keycode = keycode
 		
 		# Add the event object to the input map action
 		InputMap.action_add_event(action, event)

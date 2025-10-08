@@ -1,7 +1,7 @@
 extends ColorRect
 
-onready var label = $CenterContainer/Label
-onready var action_names = Settings.keys.keys()
+@onready var label = $CenterContainer/Label
+@onready var action_names = Settings.keys.keys()
 
 var key_names = [tr("KEY_RIGHT"), tr("KEY_LEFT"), tr("KEY_UP"), 
 		tr("KEY_DOWN"), tr("KEY_USE")]
@@ -16,7 +16,7 @@ func _ready():
 
 func _unhandled_input(event):
 	if event is InputEventKey and event.is_pressed() and not event.is_echo():
-		emit_signal("key_pressed", event.scancode)
+		emit_signal("key_pressed", event.keycode)
 
 func define_keys():
 	var i = 0
@@ -25,7 +25,7 @@ func define_keys():
 	
 	while(i < key_names.size()):
 		label.text = tr("KEY_SET") + key_names[i]
-		keycode = yield(self, "key_pressed")
+		keycode = await self.key_pressed
 		
 		# Check key is not a duplicate or arrow key
 		if (not keycode in arrows) and (not keycode in selection):

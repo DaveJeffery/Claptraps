@@ -18,23 +18,23 @@ func _ready():
 
 func _input(event):
 	if event.is_action_pressed("ui_select"):
-		get_tree().set_input_as_handled()
+		get_viewport().set_input_as_handled()
 		print("Space!")
 	elif event.is_action_pressed("ui_cancel"):
-		get_tree().set_input_as_handled()
+		get_viewport().set_input_as_handled()
 		$QuitScreen.show()
 	elif event.is_action_pressed("clap_music"):
-		get_tree().set_input_as_handled()
+		get_viewport().set_input_as_handled()
 		toggle_music()
 	elif event.is_action_pressed("clap_redefine"):
-		get_tree().set_input_as_handled()
+		get_viewport().set_input_as_handled()
 		$RedefineScreen.show()
 	elif event.is_action_pressed("clap_userdef"):
-		get_tree().set_input_as_handled()
+		get_viewport().set_input_as_handled()
 		print("User Levels!")
 	elif event.is_action_pressed("clap_editor"):
-		get_tree().set_input_as_handled()
-		get_tree().change_scene("res://scenes/editor_scene.tscn")
+		get_viewport().set_input_as_handled()
+		get_tree().change_scene_to_file("res://scenes/editor_scene.tscn")
 
 func toggle_music():
 	if Settings.audio:
