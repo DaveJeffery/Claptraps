@@ -3,12 +3,12 @@
 extends Node
 
 var menu_items := [
-	"MENU_USER",
-	"MENU_EDITOR", 
-	"MENU_MUSIC",
-	"MENU_REDEFINE",
-	"MENU_EXIT"
-	]
+	tr("MENU_USER"),
+	tr("MENU_EDITOR"), 
+	tr("MENU_MUSIC"),
+	tr("MENU_REDEFINE"),
+	tr("MENU_EXIT")
+]
 	
 var menu_counter := 0
 var audio_position := 0.0
