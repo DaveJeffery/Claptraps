@@ -5,8 +5,8 @@
 [ext_resource type="StyleBox" path="res://resources/claptraps_styleboxflat.tres" id="3"]
 [ext_resource type="FontFile" uid="uid://c5aukp5wo5erg" path="res://fonts/eartm.ttf" id="3_s8xmt"]
 [ext_resource type="AudioStream" uid="uid://dyv0ynfoknlnq" path="res://music/ct_title.ogg" id="5"]
-[ext_resource type="PackedScene" path="res://scenes/redefine_scene.tscn" id="6"]
-[ext_resource type="PackedScene" path="res://scenes/quit_scene.tscn" id="7"]
+[ext_resource type="PackedScene" uid="uid://c2huw8u43p5vk" path="res://scenes/redefine_scene.tscn" id="6"]
+[ext_resource type="PackedScene" uid="uid://crymprjskn36x" path="res://scenes/quit_scene.tscn" id="7"]
 
 [node name="Node" type="Node"]
 script = ExtResource("1")
