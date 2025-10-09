@@ -1,0 +1,14 @@
+# Ignore Godot engine metadata and binary imports
+*.import linguist-vendored
+*.stex linguist-vendored
+*.import/* linguist-vendored
+
+# Treat GDScript as Python-like (optional)
+*.gd linguist-language=GDScript
+
+# Ignore assets and other non-source content
+*.png linguist-vendored
+*.wav linguist-vendored
+*.ogg linguist-vendored
+*.tscn linguist-vendored
+*.tres linguist-vendored
