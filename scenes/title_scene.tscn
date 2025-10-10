@@ -28,6 +28,7 @@ size_flags_stretch_ratio = 4.0
 [node name="PlayLabel" type="Label" parent="VBoxContainer/PlayContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_s8xmt")
+theme_override_font_sizes/font_size = 35
 theme_override_styles/normal = ExtResource("3")
 text = "PLAY"
 
@@ -38,6 +39,7 @@ size_flags_vertical = 3
 [node name="MenuLabel" type="Label" parent="VBoxContainer/MenuContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_s8xmt")
+theme_override_font_sizes/font_size = 35
 theme_override_styles/normal = ExtResource("3")
 text = "MENU_USER"
 
@@ -48,6 +50,7 @@ size_flags_vertical = 3
 [node name="VersionLabel" type="Label" parent="VBoxContainer/VersionContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_s8xmt")
+theme_override_font_sizes/font_size = 35
 theme_override_styles/normal = ExtResource("3")
 text = "VERSION"
 
