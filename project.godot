@@ -88,6 +88,10 @@ clap_editor={
 ]
 }
 
+[internationalization]
+
+locale/translations=PackedStringArray("res://resources/texts.en.translation", "res://resources/texts.hu.translation")
+
 [locale]
 
 translations=PackedStringArray("res://resources/texts.en.translation", "res://resources/texts.hu.translation")
