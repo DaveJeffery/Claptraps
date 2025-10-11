@@ -3,17 +3,17 @@
 extends Node
 
 # Default values for game data
-const POSITION = Vector2(0, 0)		# Default position for Dave
-const LEVEL_SIZE = Vector2(16, 12)	# Default level size
-const MIN_SCORE = 0					# Default minimum score
-const MAP_CONTENT = [0, 0]			# Default map square content [Object, Target (optional)]
+const POSITION := Vector2i.ZERO			# Default position for Dave
+const LEVEL_SIZE := Vector2i(16, 12)	# Default level size
+const MIN_SCORE := 0					# Default minimum score
+const MAP_CONTENT = [0, 0]				# Default map square content [Object, Target (optional)]
 
-var minimum_score 
-var level_size      
-var dave_pos
-var map
+var minimum_score: Array
+var level_size: Array      
+var dave_pos: Array
+var map: Array
 
-func _ready():
+func _ready() -> void:
 	# Called every time the node is added to the scene.
 	
 	# Arrays that store data for each map in current set
@@ -22,13 +22,14 @@ func _ready():
 	level_size = [LEVEL_SIZE]
 	minimum_score = [MIN_SCORE]
 
-func create_map(size):
+func create_map(size: Vector2i) -> Array:
 	# Creates a blank map of size
-	var map = []
+	var blank_map := []
 	
 	for x in range(size.x):
-		var col = []
+		# We have to append a *different* col each time
+		var col := []
 		col.resize(size.y)
-		map.append(col)
+		blank_map.append(col)
 
-		return map
+	return blank_map
