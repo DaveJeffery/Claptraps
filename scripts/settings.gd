@@ -31,7 +31,7 @@ func save_settings() -> void:
 	
 	_config_file.save(SAVE_PATH)
 
-func load_settings():
+func load_settings() -> void:
 	var error := _config_file.load(SAVE_PATH)
 	
 	if error != OK:
@@ -47,7 +47,7 @@ func load_settings():
 	
 	update_key_events()
 
-func update_key_events():
+func update_key_events() -> void:
 	# It's best to erase old key events before adding new ones
 	erase_key_events(keys)
 	add_key_events(keys)
