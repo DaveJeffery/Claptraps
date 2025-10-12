@@ -1,7 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://buupfp3vrewld"]
+[gd_scene load_steps=3 format=3 uid="uid://buupfp3vrewld"]
 
 [ext_resource type="PackedScene" uid="uid://dsr6nyispdr8t" path="res://scenes/select_levelset.tscn" id="1"]
+[ext_resource type="Script" uid="uid://b30ixfn7gnbur" path="res://scenes/editor_scene.gd" id="1_iymsf"]
 
 [node name="Node" type="Node"]
+script = ExtResource("1_iymsf")
 
 [node name="SelectLevelSet" parent="." instance=ExtResource("1")]
