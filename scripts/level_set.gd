@@ -1,5 +1,5 @@
 #script: level_set.gd
-
+class_name LevelSet
 extends Node
 
 # Default values for game data
