@@ -13,6 +13,7 @@ var menu_items := [
 var menu_counter := 0
 var audio_position := 0.0
 
+
 func _ready() -> void:
 	# Called every time the node is added to the scene.
 	# Initialization here
@@ -22,10 +23,11 @@ func _ready() -> void:
 	if Settings.audio:
 		$AudioStreamPlayer.play()
 
+
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_select"):
 		get_viewport().set_input_as_handled()
-		print("Space!")
+		get_tree().change_scene_to_file("res://scenes/game_scene.tscn")
 	elif event.is_action_pressed("ui_cancel"):
 		get_viewport().set_input_as_handled()
 		$QuitScreen.show()
@@ -42,6 +44,7 @@ func _input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 		get_tree().change_scene_to_file("res://scenes/editor_scene.tscn")
 
+ 
 func toggle_music() -> void:
 	if Settings.audio:
 		$AudioStreamPlayer.stop()
@@ -56,6 +59,7 @@ func _on_MenuTimer_timeout() -> void:
 	menu_counter = (menu_counter + 1) % menu_items.size()
 	$VBoxContainer/MenuContainer/MenuLabel.text = menu_items[menu_counter]
 
+
 func _on_QuitScreen_hide() -> void:
 	# Resumes audio and menu when QuitScreen hidden
 	$QuitScreen.set_process_input(false)
@@ -69,6 +73,7 @@ func _on_QuitScreen_draw() -> void:
 	$AudioStreamPlayer.stop()
 	$QuitScreen.set_process_input(true)
 	get_tree().set_pause(true)
+
 
 func _on_RedefineScreen_draw() -> void:
 	$RedefineScreen.define_keys()
