@@ -4,7 +4,7 @@
 [ext_resource type="StyleBox" path="res://resources/claptraps_styleboxflat.tres" id="2"]
 [ext_resource type="FontFile" uid="uid://c5aukp5wo5erg" path="res://fonts/eartm.ttf" id="2_vjq4y"]
 
-[node name="RedefineScreen" type="ColorRect"]
+[node name="RedefineKeys" type="ColorRect"]
 offset_right = 640.0
 offset_bottom = 480.0
 color = Color(0.588235, 0.588235, 1, 1)

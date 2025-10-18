@@ -6,7 +6,7 @@
 [ext_resource type="StyleBox" path="res://resources/claptraps_styleboxflat.tres" id="4_ju3lf"]
 [ext_resource type="AudioStream" uid="uid://dyv0ynfoknlnq" path="res://music/ct_title.ogg" id="5_xetrx"]
 [ext_resource type="PackedScene" uid="uid://c2huw8u43p5vk" path="res://scenes/title_screen/redefine_keys/redefine_keys.tscn" id="6_yepnq"]
-[ext_resource type="PackedScene" uid="uid://crymprjskn36x" path="res://scenes/title_screen/quit/quit.tscn" id="7_4u6ih"]
+[ext_resource type="PackedScene" uid="uid://crymprjskn36x" path="res://scenes/title_screen/quit_screen/quit_screen.tscn" id="7_4u6ih"]
 
 [node name="TitleScreen" type="Node"]
 script = ExtResource("1_j12ko")

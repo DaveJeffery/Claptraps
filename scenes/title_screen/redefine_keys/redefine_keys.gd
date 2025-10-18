@@ -1,3 +1,4 @@
+#script: redefine_keys.gd
 extends ColorRect
 
 signal key_pressed

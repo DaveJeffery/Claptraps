@@ -1,4 +1,4 @@
-#script: quit_scene.gd
+#script: quit_screen.gd
 
 extends ColorRect
 

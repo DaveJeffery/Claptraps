@@ -1,3 +1,4 @@
+#script game.gd
 extends Node
 
 var game_state:GameState

@@ -1,4 +1,4 @@
-#script: title_scene.gd
+#script: title_screen.gd
 
 extends Node
 
