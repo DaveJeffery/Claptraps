@@ -1,0 +1,64 @@
+[gd_scene load_steps=4 format=3 uid="uid://copbryejmr5rx"]
+
+[ext_resource type="Script" uid="uid://b4dbw2tnxb73q" path="res://scenes/game/select_episode/select_episode.gd" id="1_iovw8"]
+[ext_resource type="FontFile" uid="uid://c5aukp5wo5erg" path="res://fonts/eartm.ttf" id="2_vm44r"]
+[ext_resource type="StyleBox" path="res://resources/claptraps_styleboxflat.tres" id="3_gd1h1"]
+
+[node name="SelectEpisode" type="ColorRect"]
+offset_right = 640.0
+offset_bottom = 480.0
+color = Color(0.5882353, 0.5882353, 1, 1)
+script = ExtResource("1_iovw8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -240.0
+offset_right = 320.0
+offset_bottom = 240.0
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="LevelsetSelect" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_vm44r")
+theme_override_font_sizes/font_size = 35
+theme_override_styles/normal = ExtResource("3_gd1h1")
+text = "LEVELSET_SELECT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LevelsetOne" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_vm44r")
+theme_override_font_sizes/font_size = 35
+theme_override_styles/normal = ExtResource("3_gd1h1")
+text = "LEVELSET_ONE"
+vertical_alignment = 1
+
+[node name="LevelsetTwo" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_vm44r")
+theme_override_font_sizes/font_size = 35
+theme_override_styles/normal = ExtResource("3_gd1h1")
+text = "LEVELSET_TWO"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LevelsetThree" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_vm44r")
+theme_override_font_sizes/font_size = 35
+theme_override_styles/normal = ExtResource("3_gd1h1")
+text = "LEVELSET_THREE"
+horizontal_alignment = 1
+vertical_alignment = 1
