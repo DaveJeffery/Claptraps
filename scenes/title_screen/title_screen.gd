@@ -37,6 +37,7 @@ func _input(event: InputEvent) -> void:
 	elif event.is_action_pressed("clap_redefine"):
 		get_viewport().set_input_as_handled()
 		$RedefineScreen.show()
+		set_process_input(false)
 	elif event.is_action_pressed("clap_userdef"):
 		get_viewport().set_input_as_handled()
 		print("User Levels!")
@@ -77,3 +78,7 @@ func _on_QuitScreen_draw() -> void:
 
 func _on_RedefineScreen_draw() -> void:
 	$RedefineScreen.define_keys()
+
+
+func _on_redefine_screen_hidden() -> void:
+	set_process_input(true)

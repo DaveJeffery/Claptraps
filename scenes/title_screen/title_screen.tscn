@@ -68,4 +68,5 @@ visible = false
 
 [connection signal="timeout" from="MenuTimer" to="." method="_on_MenuTimer_timeout"]
 [connection signal="draw" from="RedefineScreen" to="." method="_on_RedefineScreen_draw"]
+[connection signal="hidden" from="RedefineScreen" to="." method="_on_redefine_screen_hidden"]
 [connection signal="draw" from="QuitScreen" to="." method="_on_QuitScreen_draw"]
