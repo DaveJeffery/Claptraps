@@ -27,7 +27,9 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_select"):
 		get_viewport().set_input_as_handled()
-		get_tree().change_scene_to_file("res://scenes/game_scene.tscn")
+		get_tree().change_scene_to_file(
+			"res://scenes/game/game.tscn"
+		)
 	elif event.is_action_pressed("ui_cancel"):
 		get_viewport().set_input_as_handled()
 		$QuitScreen.show()
@@ -40,10 +42,10 @@ func _input(event: InputEvent) -> void:
 		set_process_input(false)
 	elif event.is_action_pressed("clap_userdef"):
 		get_viewport().set_input_as_handled()
-		print("User Levels!")
+		print_debug("User Levels!")
 	elif event.is_action_pressed("clap_editor"):
 		get_viewport().set_input_as_handled()
-		get_tree().change_scene_to_file("res://scenes/editor_scene.tscn")
+		get_tree().change_scene_to_file("res://scenes/editor_scene.tscn") #BUG
 
  
 func toggle_music() -> void:

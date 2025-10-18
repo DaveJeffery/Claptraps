@@ -7,3 +7,5 @@
 script = ExtResource("1_w5aja")
 
 [node name="SelectEpisode" parent="." instance=ExtResource("2_7h61r")]
+
+[connection signal="episode" from="SelectEpisode" to="." method="_on_select_episode_episode"]

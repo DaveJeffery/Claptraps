@@ -11,14 +11,14 @@ var key_names := [
 	tr("KEY_LEFT"), 
 	tr("KEY_UP"), 
 	tr("KEY_DOWN"), 
-	tr("KEY_USE")
+	tr("KEY_USE"),
 ]
 		
 var arrows := [
 	KEY_LEFT, 
 	KEY_RIGHT, 
 	KEY_UP, 
-	KEY_DOWN
+	KEY_DOWN,
 ]
 
 func _ready() -> void:
@@ -49,7 +49,7 @@ func define_keys() -> void:
 		# Cancel requested (Escape) -> discard local selection, do not modify Settings
 		if keycode == null:
 			label.text = tr("KEY_CANCELLED")
-			await get_tree().create_timer(0.5).timeout
+			await get_tree().create_timer(1).timeout
 			hide()
 			return
 		
@@ -61,7 +61,7 @@ func define_keys() -> void:
 			# Visual feedback for invalid selection (duplicate or disallowed arrow)
 			var prev: String = String(label.text)
 			label.text = tr("KEY_INVALID")
-			await get_tree().create_timer(0.5).timeout
+			await get_tree().create_timer(1).timeout
 			# restore prompt for the same key
 			label.text = prev
 			# continue to wait for a valid key for the same index
