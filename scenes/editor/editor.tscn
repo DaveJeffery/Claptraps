@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://buupfp3vrewld"]
+
+[ext_resource type="PackedScene" uid="uid://dsr6nyispdr8t" path="res://scenes/title_screen/select_levelset/select_levelset.tscn" id="1_vux8p"]
+
+[node name="Node" type="Node"]
+
+[node name="SelectLevelSet" parent="." instance=ExtResource("1_vux8p")]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://crymprjskn36x"]
 
-[ext_resource type="Script" uid="uid://cbtsqjo6dgax0" path="res://scripts/quit_scene.gd" id="1"]
+[ext_resource type="Script" uid="uid://cbtsqjo6dgax0" path="res://scenes/title_screen/quit/quit.gd" id="1"]
 [ext_resource type="StyleBox" path="res://resources/claptraps_styleboxflat.tres" id="2"]
 [ext_resource type="FontFile" uid="uid://c5aukp5wo5erg" path="res://fonts/eartm.ttf" id="2_04v81"]
 

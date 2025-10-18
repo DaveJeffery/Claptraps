@@ -1,6 +1,6 @@
 #script: game_state.gd
 class_name GameState
-extends RefCounted
+extends Node
 
 var score: int
 
