@@ -8,8 +8,8 @@ extends Node
 
 var game_state: GameState
 var game_filename: String
-var intro_text: Array[String]
-var outro_text: Array[String]
+var intro_text: Array
+var outro_text: Array
 
 
 func _init() -> void:
@@ -23,12 +23,14 @@ func _init() -> void:
 func _ready() -> void:
 	select_episode()
 	
-func select_episode() -> void:	
+func select_episode() -> void:
 	$SelectEpisode.show()
 	$SelectEpisode.set_process_input(true)
+	
 	var episode_data:Dictionary = await $SelectEpisode.episode
 	game_filename = episode_data["game_filename"]
-	intro_text = episode_data["intro_text"]
+	intro_text = episode_data["intro_text"] 
 	outro_text = episode_data["outro_text"]
+	
 	$SelectEpisode.set_process_input(false)
 	$SelectEpisode.hide()
