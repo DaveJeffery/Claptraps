@@ -21,15 +21,14 @@ func _init() -> void:
 
 
 func _ready() -> void:
-	$SelectEpisode.set_process_input(true)
+	select_episode()
+	
+func select_episode() -> void:	
 	$SelectEpisode.show()
-
-
-func _on_select_episode_episode(
-	filename: String, 
-	intro: Array[String], 
-	outro: Array[String]
-) -> void:
-	game_filename = filename
-	intro_text = intro
-	outro_text = outro
+	$SelectEpisode.set_process_input(true)
+	var episode_data:Dictionary = await $SelectEpisode.episode
+	game_filename = episode_data["game_filename"]
+	intro_text = episode_data["intro_text"]
+	outro_text = episode_data["outro_text"]
+	$SelectEpisode.set_process_input(false)
+	$SelectEpisode.hide()

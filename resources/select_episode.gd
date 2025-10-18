@@ -2,14 +2,21 @@
 
 extends ColorRect
 
-signal episode(episode_data: Dictionary)
-
+signal episode(
+	game_filename:String,
+	intro_text:Array[String],
+	outro_text:Array[String],
+)
 
 enum Levelset {
 	ONE = 1,
 	TWO,
 	THREE,
 }
+
+var game_filename: String
+var intro_text: Array[String] = []
+var outro_text: Array[String] = []
 
 # Centralised level data to remove repetition and make adding new sets trivial
 const LEVEL_DATA := {
@@ -80,14 +87,18 @@ func _input(event: InputEvent) -> void:
 		hide()
 	elif event.is_action_pressed("ui_cancel"):
 		get_viewport().set_input_as_handled()
-		# TODO $QuitScreen.show()  
+		# TODO $QuitScreen.show()
 
 
 func _process_selection(levelset:int) -> void:
 	# Look up the data for the given levelset, set fields and emit the episode signal.
-	var episode_data: Dictionary = LEVEL_DATA.get(levelset, null)
-	if episode_data == null:
+	var data := LEVEL_DATA.get(levelset, null)
+	if data == null:
 		push_error("select_episode: unknown levelset %s" % str(levelset))
 		return
 
-	emit_signal("episode", episode_data)
+	game_filename = data["game_filename"]
+	intro_text = data["intro_text"]
+	outro_text = data["outro_text"]
+
+	emit_signal("episode", game_filename, intro_text, outro_text)
