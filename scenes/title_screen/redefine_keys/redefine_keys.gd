@@ -27,27 +27,49 @@ func _ready() -> void:
 	pass
 
 func _unhandled_input(event: InputEvent) -> void:
-	if (
-		event is InputEventKey and event.is_pressed() 
-		and not event.is_echo()
-	):
-		emit_signal("key_pressed", event.keycode)
+	if event is InputEventKey and event.is_pressed() and not event.is_echo():
+		# Allow the user to cancel remapping with Escape by emitting a null
+		if event.keycode == KEY_ESCAPE:
+			emit_signal("key_pressed", null)
+		else:
+			emit_signal("key_pressed", event.keycode)
 
 func define_keys() -> void:
+	# Start remapping sequence. This function uses `await self.key_pressed`
+	# to receive keycodes emitted from _unhandled_input.
 	var i := 0
-	var keycode: Key
+	var keycode
 	var selection := []
+	show()
 	
-	while(i < key_names.size()):
+	while (i < key_names.size()):
 		label.text = tr("KEY_SET") + key_names[i]
 		keycode = await self.key_pressed
 		
-		# Check key is not a duplicate or arrow key
+		# Cancel requested (Escape) -> discard local selection, do not modify Settings
+		if keycode == null:
+			label.text = tr("KEY_CANCELLED")
+			await get_tree().create_timer(0.5).timeout
+			hide()
+			return
+		
+		# Check key is not a duplicate or arrow key (validate against local selection only)
 		if (not keycode in arrows) and (not keycode in selection):
 			selection.append(keycode)
-			Settings.keys[action_names[i]] = keycode
 			i += 1
+		else:
+			# Visual feedback for invalid selection (duplicate or disallowed arrow)
+			var prev: String = String(label.text)
+			label.text = tr("KEY_INVALID")
+			await get_tree().create_timer(0.5).timeout
+			# restore prompt for the same key
+			label.text = prev
+			# continue to wait for a valid key for the same index
 	
+	# Only now commit all changes so partial state cannot be left behind
+	for j in range(selection.size()):
+		Settings.keys[action_names[j]] = selection[j]
+
 	Settings.update_key_events()
 	Settings.save_settings()
 	hide()
