@@ -1,18 +1,18 @@
 [gd_scene load_steps=8 format=3 uid="uid://c0yrxms05v6hk"]
 
-[ext_resource type="Script" uid="uid://br8awmhg5dwab" path="res://scenes/title_screen/title_scene.gd" id="1_hy27r"]
-[ext_resource type="Texture2D" uid="uid://bi0mewf26qpuf" path="res://sprites/title_screen.png" id="2_5gh0b"]
-[ext_resource type="FontFile" uid="uid://c5aukp5wo5erg" path="res://fonts/eartm.ttf" id="3_88ku7"]
-[ext_resource type="StyleBox" path="res://resources/claptraps_styleboxflat.tres" id="4_8jtcp"]
-[ext_resource type="AudioStream" uid="uid://dyv0ynfoknlnq" path="res://music/ct_title.ogg" id="5_y2ewv"]
-[ext_resource type="PackedScene" uid="uid://c2huw8u43p5vk" path="res://scenes/title_screen/redefine_keys/redefine_keys.tscn" id="6_n458l"]
-[ext_resource type="PackedScene" uid="uid://crymprjskn36x" path="res://scenes/title_screen/quit/quit.tscn" id="7_l60q2"]
+[ext_resource type="Script" uid="uid://br8awmhg5dwab" path="res://scenes/title_screen/title_screen.gd" id="1_j12ko"]
+[ext_resource type="Texture2D" uid="uid://bi0mewf26qpuf" path="res://sprites/title_screen.png" id="2_yegqs"]
+[ext_resource type="FontFile" uid="uid://c5aukp5wo5erg" path="res://fonts/eartm.ttf" id="3_xoykc"]
+[ext_resource type="StyleBox" path="res://resources/claptraps_styleboxflat.tres" id="4_ju3lf"]
+[ext_resource type="AudioStream" uid="uid://dyv0ynfoknlnq" path="res://music/ct_title.ogg" id="5_xetrx"]
+[ext_resource type="PackedScene" uid="uid://c2huw8u43p5vk" path="res://scenes/title_screen/redefine_keys/redefine_keys.tscn" id="6_yepnq"]
+[ext_resource type="PackedScene" uid="uid://crymprjskn36x" path="res://scenes/title_screen/quit/quit.tscn" id="7_4u6ih"]
 
-[node name="Node" type="Node"]
-script = ExtResource("1_hy27r")
+[node name="TitleScreen" type="Node"]
+script = ExtResource("1_j12ko")
 
 [node name="TitleScreen" type="Sprite2D" parent="."]
-texture = ExtResource("2_5gh0b")
+texture = ExtResource("2_yegqs")
 offset = Vector2(320, 240)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -27,9 +27,9 @@ size_flags_stretch_ratio = 4.0
 
 [node name="PlayLabel" type="Label" parent="VBoxContainer/PlayContainer"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("3_88ku7")
+theme_override_fonts/font = ExtResource("3_xoykc")
 theme_override_font_sizes/font_size = 35
-theme_override_styles/normal = ExtResource("4_8jtcp")
+theme_override_styles/normal = ExtResource("4_ju3lf")
 text = "PLAY"
 
 [node name="MenuContainer" type="CenterContainer" parent="VBoxContainer"]
@@ -38,9 +38,9 @@ size_flags_vertical = 3
 
 [node name="MenuLabel" type="Label" parent="VBoxContainer/MenuContainer"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("3_88ku7")
+theme_override_fonts/font = ExtResource("3_xoykc")
 theme_override_font_sizes/font_size = 35
-theme_override_styles/normal = ExtResource("4_8jtcp")
+theme_override_styles/normal = ExtResource("4_ju3lf")
 text = "MENU_USER"
 
 [node name="VersionContainer" type="CenterContainer" parent="VBoxContainer"]
@@ -49,20 +49,20 @@ size_flags_vertical = 3
 
 [node name="VersionLabel" type="Label" parent="VBoxContainer/VersionContainer"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("3_88ku7")
+theme_override_fonts/font = ExtResource("3_xoykc")
 theme_override_font_sizes/font_size = 35
-theme_override_styles/normal = ExtResource("4_8jtcp")
+theme_override_styles/normal = ExtResource("4_ju3lf")
 text = "VERSION"
 
 [node name="MenuTimer" type="Timer" parent="."]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("5_y2ewv")
+stream = ExtResource("5_xetrx")
 
-[node name="RedefineScreen" parent="." instance=ExtResource("6_n458l")]
+[node name="RedefineScreen" parent="." instance=ExtResource("6_yepnq")]
 visible = false
 
-[node name="QuitScreen" parent="." instance=ExtResource("7_l60q2")]
+[node name="QuitScreen" parent="." instance=ExtResource("7_4u6ih")]
 process_mode = 3
 visible = false
 
