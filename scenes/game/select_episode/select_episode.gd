@@ -2,62 +2,13 @@
 
 extends ColorRect
 
-signal episode(episode_data: Dictionary)
+signal episode(episode_data: EpisodeData)
 
 
 enum Levelset {
 	ONE = 1,
 	TWO,
 	THREE,
-}
-
-# Centralised level data to remove repetition and make adding new sets trivial
-const LEVEL_DATA := {
-	Levelset.ONE: {
-		"game_filename": "game_data1.json",
-		"intro_text": [
-			"SET1_INTRO1",
-			"SET1_INTRO2",
-			"SET1_INTRO3",
-			"SET1_INTRO4",
-		],
-		"outro_text": [
-			"SET1_OUTRO1",
-			"SET1_OUTRO2",
-			"SET1_OUTRO3",
-			"SET1_OUTRO4",
-		],
-	},
-	Levelset.TWO: {
-		"game_filename": "game_data2.json",
-		"intro_text": [
-			"SET2_INTRO1",
-			"SET2_INTRO2",
-			"SET2_INTRO3",
-			"SET2_INTRO4",
-		],
-		"outro_text": [
-			"SET2_OUTRO1",
-			"SET2_OUTRO2",
-			"SET2_OUTRO3",
-			"SET2_OUTRO4",
-		],
-	},
-	Levelset.THREE: {
-		"game_filename": "game_data2.json",
-		"intro_text": [
-			"SET3_INTRO1",
-			"SET3_INTRO2",
-			"SET3_INTRO3",
-			"SET3_INTRO4",
-		],
-		"outro_text": [
-			"SET3_OUTRO1",
-			"SET3_OUTRO2",
-			"SET3_OUTRO3",
-			"SET3_OUTRO4",
-		],
-	},
 }
 
 
@@ -85,9 +36,5 @@ func _input(event: InputEvent) -> void:
 
 func _process_selection(levelset:int) -> void:
 	# Look up the data for the given levelset, set fields and emit the episode signal.
-	var episode_data: Dictionary = LEVEL_DATA.get(levelset, null)
-	if episode_data == null:
-		push_error("select_episode: unknown levelset %s" % str(levelset))
-		return
-
+	var episode_data := EpisodeData.new(levelset)
 	emit_signal("episode", episode_data)
