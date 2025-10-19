@@ -44,4 +44,10 @@ func select_episode() -> void:
 	$SelectEpisode.hide()
 
 func load_episode() -> void:
-	pass
+	# anywhere in your game
+	var level: LevelData = load("res://levels/episode1.tres")
+	print(level.level_map)        # already an Array
+	print(level.def_file)         # String
+	print(level.level_size)       # Array[Vector2i]
+	print(level.dave_pos)         # Array[Vector2i]
+	print(level.minimum_score)    # Array[int]
