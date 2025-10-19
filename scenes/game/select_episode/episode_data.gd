@@ -23,7 +23,7 @@ func _init(episode:int) -> void:
 				"SET1_OUTRO4",
 			]
 		2:
-			game_filename = "episode1.json"
+			game_filename = "episode2.json"
 			intro_text = [
 				"SET2_INTRO1",
 				"SET2_INTRO2",
@@ -37,7 +37,7 @@ func _init(episode:int) -> void:
 				"SET2_OUTRO4",
 			]
 		3:
-			game_filename = "episode1.json"
+			game_filename = "episode3.json"
 			intro_text = [
 				"SET3_INTRO1",
 				"SET3_INTRO2",
