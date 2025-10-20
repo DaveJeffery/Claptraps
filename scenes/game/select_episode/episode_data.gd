@@ -7,50 +7,16 @@ var outro_text: Array[String]
 
 
 func _init(episode:int) -> void:
-	match episode:
-		1:
-			game_filename = "episode1.json"
-			intro_text = [
-				"SET1_INTRO1",
-				"SET1_INTRO2",
-				"SET1_INTRO3",
-				"SET1_INTRO4",
-			]
-			outro_text = [
-				"SET1_OUTRO1",
-				"SET1_OUTRO2",
-				"SET1_OUTRO3",
-				"SET1_OUTRO4",
-			]
-		2:
-			game_filename = "episode2.json"
-			intro_text = [
-				"SET2_INTRO1",
-				"SET2_INTRO2",
-				"SET2_INTRO3",
-				"SET2_INTRO4",
-			]
-			outro_text = [
-				"SET2_OUTRO1",
-				"SET2_OUTRO2",
-				"SET2_OUTRO3",
-				"SET2_OUTRO4",
-			]
-		3:
-			game_filename = "episode3.json"
-			intro_text = [
-				"SET3_INTRO1",
-				"SET3_INTRO2",
-				"SET3_INTRO3",
-				"SET3_INTRO4",
-			]
-			outro_text = [
-				"SET3_OUTRO1",
-				"SET3_OUTRO2",
-				"SET3_OUTRO3",
-				"SET3_OUTRO4",
-			]
-		_:
-			game_filename = ""
-			intro_text = [""]
-			outro_text = [""]
+	game_filename = "res://levels/episode{episode}.tres"
+	intro_text = [
+		"SET{episode}_INTRO1",
+		"SET{episode}_INTRO2",
+		"SET{episode}_INTRO3",
+		"SET{episode}_INTRO4",
+	]
+	outro_text = [
+		"SET{episode}_OUTRO1",
+		"SET{episode}_OUTRO2",
+		"SET{episode}_OUTRO3",
+		"SET{episode}_OUTRO4",
+	]

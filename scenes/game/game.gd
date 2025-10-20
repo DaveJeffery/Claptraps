@@ -21,7 +21,7 @@ func _init() -> void:
 
 
 func _ready() -> void:
-	select_episode()
+	await select_episode()
 	load_episode()
 	#load_definitions()
 	#update game state
@@ -45,9 +45,7 @@ func select_episode() -> void:
 
 func load_episode() -> void:
 	# anywhere in your game
-	var level: LevelData = load("res://levels/episode1.tres")
-	print(level.level_map)        # already an Array
-	print(level.def_file)         # String
-	print(level.level_size)       # Array[Vector2i]
-	print(level.dave_pos)         # Array[Vector2i]
-	print(level.minimum_score)    # Array[int]
+	print("Why am I here already?")
+	#var episode: Episode = load(game_filename)
+	#print(episode.levels)
+	#print(episode.def_file)
