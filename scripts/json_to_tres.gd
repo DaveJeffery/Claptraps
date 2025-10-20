@@ -5,8 +5,8 @@ extends EditorScript
 ## convert.py
 
 func _run() -> void:
-	var json_path := "res://levels/doodles.json"
-	var tres_path := "res://levels/doodles.tres"
+	var json_path := "res://levels/episode3.json"
+	var tres_path := "res://levels/episode3.tres"
 
 	# File checks
 	if not FileAccess.file_exists(json_path):
@@ -50,35 +50,39 @@ func _run() -> void:
 		#TODO Now sort out the map data!
 		var current_map:Array = level_maps[level]
 
+		# Initialise map array
+		var map_array:Array = []
+		
+		for row in range (map_size[1]):
+			map_array.append([])
+			for col in range (map_size[0]):
+				map_array[row].append([])
+
+		# Fill map array from json map
 		for col in range (map_size[0]):
 			for row in range (map_size[1]):
-				var map_element:MapElement = MapElement.new()
-				var position:= Vector2i(col, row)
+				
 				var cell_content: Array = current_map[col][row]
+				var output := [null, null]
 				var tile: int = cell_content[0]
+				output[0] = tile
+				
 				var destination:Variant = cell_content[1]
 				var dest: Vector2i
 				if typeof(destination) == TYPE_FLOAT: 
 					dest = Vector2i(-1, -1)
 				else:
 					dest = Vector2i(destination[0], destination[1])
-				map_element.position = position
-				map_element.tile = tile
-				map_element.destination = dest
+				output[1] = dest
 				
-				level_data.map.append(map_element)
-		
+				map_array[row][col] = output
+
+		level_data.map = map_array
+
+		# save level to episode data
 		episode_data.levels.append(level_data)
-
-	#
-	#var level_size = parse_result.get("level_size")
-	#var vector_array: Array[Vector2i] = []
-	#for a in level_size:
-		#vector_array.append(Vector2i(int(a[0]), int(a[1])))
-	#level_data.level_size = vector_array
-	#
-
 	
+	# Save .tres file
 	var err = ResourceSaver.save(episode_data, tres_path)
 	if err != OK:
 		printerr("Failed to save resource: ", err)
