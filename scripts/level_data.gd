@@ -4,7 +4,7 @@ class_name LevelData
 # @export_category("Level")
 
 # Use typed properties so loaded resource gives you properly typed fields.
-@export var level_map: Array = []                # keep nested arrays (tile pairs etc.)
+@export var level_map: Array[MapElement] = []                # keep nested arrays (tile pairs etc.)
 @export var def_file: String = ""
 @export var level_size: Array[Vector2i] = []     # Array of Vector2i
 @export var dave_pos: Array[Vector2i] = []       # Array of Vector2i
