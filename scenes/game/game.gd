@@ -6,6 +6,7 @@ extends Node
 ## built in level sets, including losing lives, game over or
 ## game completion screen.
 
+var episode_data: EpisodeData
 var game_state: GameState
 var game_filename: String
 var intro_text: Array[String]
@@ -35,17 +36,15 @@ func select_episode() -> void:
 	$SelectEpisode.show()
 	$SelectEpisode.set_process_input(true)
 	
-	var episode_data:EpisodeData = await $SelectEpisode.episode
-	game_filename = episode_data.game_filename
-	intro_text = episode_data.intro_text
-	outro_text = episode_data.outro_text
+	var episode_metadata:EpisodeMetadata = await $SelectEpisode.episode
+	game_filename = episode_metadata.game_filename
+	intro_text = episode_metadata.intro_text
+	outro_text = episode_metadata.outro_text
 	
 	$SelectEpisode.set_process_input(false)
 	$SelectEpisode.hide()
 
 func load_episode() -> void:
 	# anywhere in your game
-	print("Why am I here already?")
-	#var episode: Episode = load(game_filename)
-	#print(episode.levels)
-	#print(episode.def_file)
+	episode_data = load(game_filename)
+	print(episode_data.def_file)

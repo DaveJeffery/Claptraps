@@ -24,7 +24,7 @@ func _run() -> void:
 	# Parse JSON. JSON.parse_string returns a Dictionary in this context.
 	var parse_result = JSON.parse_string(json_text)
 
-	var episode_data:Episode = Episode.new()
+	var episode_data:EpisodeData = EpisodeData.new()
 
 	# Fill resource fields
 	episode_data.def_file = parse_result.get("def_file")

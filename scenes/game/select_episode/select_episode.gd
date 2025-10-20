@@ -2,7 +2,7 @@
 
 extends ColorRect
 
-signal episode(episode_data: EpisodeData)
+signal episode(episode_metadata: EpisodeMetadata)
 
 
 enum Levelset {
@@ -32,5 +32,5 @@ func _input(event: InputEvent) -> void:
 
 func _process_selection(levelset:int) -> void:
 	# Look up the data for the given levelset, set fields and emit the episode signal.
-	var episode_data := EpisodeData.new(levelset)
-	emit_signal("episode", episode_data)
+	var episode_metadata := EpisodeMetadata.new(levelset)
+	emit_signal("episode", episode_metadata)
