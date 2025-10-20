@@ -24,32 +24,43 @@ func _run() -> void:
 	# Parse JSON. JSON.parse_string returns a Dictionary in this context.
 	var parse_result = JSON.parse_string(json_text)
 
-	var level_data = LevelData.new()
+	var episode_data:Episode = Episode.new()
 
 	# Fill resource fields
-	level_data.level_map = parse_result.get("level_map")
+	episode_data.def_file = parse_result.get("def_file")
 	
-	level_data.def_file = parse_result.get("def_file")
-	
+	var level_maps = parse_result.get("level_map")
 	var level_size = parse_result.get("level_size")
-	var vector_array: Array[Vector2i] = []
-	for a in level_size:
-		vector_array.append(Vector2i(int(a[0]), int(a[1])))
-	level_data.level_size = vector_array
-	
 	var dave_pos = parse_result.get("dave_pos")
-	vector_array = []
-	for a in dave_pos:
-		vector_array.append(Vector2i(int(a[0]), int(a[1])))
-	level_data.dave_pos = vector_array
-	
 	var minimum_score = parse_result.get("minimum_score")
-	var int_array: Array[int] = []
-	for a in minimum_score:
-		int_array.append(int(a))
-	level_data.minimum_score = int_array
+	var level_number:int = level_maps.size()
+
+	for level in range(level_number):
+		var level_data:LevelData = LevelData.new()
+		
+		## Add stuff to the levels
+		var map_size:Array = level_size[level]
+		level_data.map_size = Vector2i(map_size[0], map_size[1])
+		
+		var dave_place:Array =  dave_pos[level]
+		level_data.dave_pos = Vector2i(dave_place[0], dave_place[1])
+		
+		level_data.minimum_score = int(minimum_score[level])
+		
+		#TODO Now sort out the map data!
+		
+		episode_data.levels.append(level_data)
+
+	#
+	#var level_size = parse_result.get("level_size")
+	#var vector_array: Array[Vector2i] = []
+	#for a in level_size:
+		#vector_array.append(Vector2i(int(a[0]), int(a[1])))
+	#level_data.level_size = vector_array
+	#
+
 	
-	var err = ResourceSaver.save(level_data, tres_path)
+	var err = ResourceSaver.save(episode_data, tres_path)
 	if err != OK:
 		printerr("Failed to save resource: ", err)
 	else:

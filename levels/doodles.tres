@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Episode" load_steps=6 format=3 uid="uid://dnwhsuoj2q4ef"]
+
+[ext_resource type="Script" uid="uid://cq63hr07j8jma" path="res://scripts/level_data.gd" id="1_rkeop"]
+[ext_resource type="Script" uid="uid://cw3i5gdhpk50p" path="res://scripts/episode_data.gd" id="2_cbso3"]
+[ext_resource type="Script" uid="uid://bos8ecwi18g2t" path="res://scripts/map_element.gd" id="2_utqu0"]
+
+[sub_resource type="Resource" id="Resource_4el1s"]
+script = ExtResource("1_rkeop")
+map_size = Vector2i(16, 12)
+minimum_score = 12
+
+[sub_resource type="Resource" id="Resource_1cep7"]
+script = ExtResource("1_rkeop")
+map_size = Vector2i(32, 12)
+dave_pos = Vector2i(7, 5)
+minimum_score = 1
+
+[resource]
+script = ExtResource("2_cbso3")
+levels = Array[ExtResource("1_rkeop")]([SubResource("Resource_4el1s"), SubResource("Resource_1cep7")])
+def_file = "ctdefs.py"
