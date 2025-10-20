@@ -48,6 +48,25 @@ func _run() -> void:
 		level_data.minimum_score = int(minimum_score[level])
 		
 		#TODO Now sort out the map data!
+		var current_map:Array = level_maps[level]
+
+		for col in range (map_size[0]):
+			for row in range (map_size[1]):
+				var map_element:MapElement = MapElement.new()
+				var position:= Vector2i(col, row)
+				var cell_content: Array = current_map[col][row]
+				var tile: int = cell_content[0]
+				var destination:Variant = cell_content[1]
+				var dest: Vector2i
+				if typeof(destination) == TYPE_FLOAT: 
+					dest = Vector2i(-1, -1)
+				else:
+					dest = Vector2i(destination[0], destination[1])
+				map_element.position = position
+				map_element.tile = tile
+				map_element.destination = dest
+				
+				level_data.map.append(map_element)
 		
 		episode_data.levels.append(level_data)
 
