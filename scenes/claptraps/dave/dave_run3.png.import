@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bqip43lf5al3g"
-path="res://.godot/imported/dave_run_v1.png-4aeb76aeb4bf83383b0c6ce6409051d0.ctex"
+uid="uid://c1oe43jxjri48"
+path="res://.godot/imported/dave_run3.png-a965436bec09e59da850ef8b03694dcc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/dave_run_v1.png"
-dest_files=["res://.godot/imported/dave_run_v1.png-4aeb76aeb4bf83383b0c6ce6409051d0.ctex"]
+source_file="res://scenes/claptraps/dave/dave_run3.png"
+dest_files=["res://.godot/imported/dave_run3.png-a965436bec09e59da850ef8b03694dcc.ctex"]
 
 [params]
 
