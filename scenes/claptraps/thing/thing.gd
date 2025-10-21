@@ -1,6 +1,7 @@
 class_name Thing
 extends Node2D
 
+var game_state: GameState
 var game_object := 0
 var game_object_name := ""
 var sprite := 1
@@ -30,14 +31,20 @@ var anim_timer := 0
 var trigger_button := false
 var solid_to_red_frog := true
 var break_box := false
-
 var startle_frog := false
+
+
+func _init(current_game_state: GameState) -> void:
+	game_state = current_game_state
+
 
 func hit(hitby: Thing) -> void:
 	return
 
+
 func action() -> void:
 	return
+
 
 func check_squash(obj: Thing) -> bool:
 	return squash
