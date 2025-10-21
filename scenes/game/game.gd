@@ -24,13 +24,15 @@ func _init() -> void:
 func _ready() -> void:
 	await select_episode()
 	load_episode()
-	#load_definitions()
+	load_definitions()
 	#update game state
+	
 	#show intro screen + play twiddle
 	
 	# GAME LOOP
 	#start music
 	#play level
+	
 	
 func select_episode() -> void:
 	$SelectEpisode.show()
@@ -44,5 +46,10 @@ func select_episode() -> void:
 	$SelectEpisode.set_process_input(false)
 	$SelectEpisode.hide()
 
+
 func load_episode() -> void:
 	episode_data = load(game_filename)
+
+
+func load_definitions() -> void:
+	pass

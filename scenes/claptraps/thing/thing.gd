@@ -5,8 +5,7 @@ var game_state: GameState
 var game_object := 0
 var game_object_name := ""
 var sprite := 1
-var x :=0
-var y := 0
+var grid_pos := Vector2i.ZERO
 var solid := true
 var squash := false
 var ignore := false
@@ -24,8 +23,9 @@ var move_speed := 0
 var is_dave := false
 var empty := false
 var needs_target := false
-var target := 0
-var animation := 0
+var target := Vector2i(-1,-1)
+#NOTE animation should probably be changed into a string for animated sprites
+var animation := 0  
 var anim_frame := 0
 var anim_timer := 0
 var trigger_button := false
