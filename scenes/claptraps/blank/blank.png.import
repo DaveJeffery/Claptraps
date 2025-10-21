@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b0cjyqytbeax6"
-path="res://.godot/imported/blank.png-dd538ed94672476a29f919c6f4306fec.ctex"
+path="res://.godot/imported/blank.png-55ece89af9aa68c98cc628d325b921ae.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/blank.png"
-dest_files=["res://.godot/imported/blank.png-dd538ed94672476a29f919c6f4306fec.ctex"]
+source_file="res://scenes/claptraps/blank/blank.png"
+dest_files=["res://.godot/imported/blank.png-55ece89af9aa68c98cc628d325b921ae.ctex"]
 
 [params]
 
