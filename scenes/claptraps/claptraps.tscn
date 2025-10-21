@@ -1,10 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://bg8fmgyeod3hh"]
+[gd_scene load_steps=4 format=3 uid="uid://bg8fmgyeod3hh"]
 
 [ext_resource type="PackedScene" uid="uid://l514fnyacsy8" path="res://scenes/claptraps/thing/thing.tscn" id="1_qi1rq"]
 [ext_resource type="PackedScene" uid="uid://cgm35phtgvd3u" path="res://scenes/claptraps/dave/dave.tscn" id="2_hhlqv"]
+[ext_resource type="PackedScene" uid="uid://cfyenukc6nd7l" path="res://scenes/claptraps/blank/blank.tscn" id="3_fpxfw"]
 
 [node name="Claptraps" type="Node"]
 
 [node name="Thing" parent="." instance=ExtResource("1_qi1rq")]
 
 [node name="Dave" parent="." instance=ExtResource("2_hhlqv")]
+
+[node name="Blank" parent="." instance=ExtResource("3_fpxfw")]
