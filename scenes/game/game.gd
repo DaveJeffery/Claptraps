@@ -45,6 +45,4 @@ func select_episode() -> void:
 	$SelectEpisode.hide()
 
 func load_episode() -> void:
-	# anywhere in your game
 	episode_data = load(game_filename)
-	print(episode_data.def_file)
