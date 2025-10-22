@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://1pvsc655km8r"]
+
+[ext_resource type="Script" uid="uid://bp027msrq6okv" path="res://scenes/claptraps/red_frog/red_frog.gd" id="1_mqgtk"]
+[ext_resource type="Texture2D" uid="uid://dasg600ghhhsf" path="res://scenes/claptraps/red_frog/red_frog.png" id="2_6fe76"]
+
+[node name="RedFrog" type="Node2D"]
+script = ExtResource("1_mqgtk")
+metadata/_custom_type_script = "uid://b6ixxea4gjxgj"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_6fe76")

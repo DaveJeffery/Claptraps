@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://h2ke3p3e4vu2"
-path="res://.godot/imported/red_frog_back2.png-386dda3aa355bb1ab97976f532f4329f.ctex"
+uid="uid://ci0y5nxu57cdv"
+path="res://.godot/imported/red_frog_side4.png-3bb55a8c12910b27397e0b0ae9d00cf0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/red_frog_back2.png"
-dest_files=["res://.godot/imported/red_frog_back2.png-386dda3aa355bb1ab97976f532f4329f.ctex"]
+source_file="res://scenes/claptraps/angry_red_frog/red_frog_side4.png"
+dest_files=["res://.godot/imported/red_frog_side4.png-3bb55a8c12910b27397e0b0ae9d00cf0.ctex"]
 
 [params]
 

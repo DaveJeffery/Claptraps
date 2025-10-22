@@ -1,0 +1,73 @@
+[gd_scene load_steps=11 format=3 uid="uid://c4b6pm5umvhgl"]
+
+[ext_resource type="Script" uid="uid://6aoqi2fisg3d" path="res://scenes/claptraps/angry_red_frog/angry_red_frog.gd" id="1_h02kb"]
+[ext_resource type="Texture2D" uid="uid://dasg600ghhhsf" path="res://scenes/claptraps/red_frog/red_frog.png" id="2_k5f81"]
+[ext_resource type="Texture2D" uid="uid://pme7x3wgf8n4" path="res://scenes/claptraps/angry_red_frog/red_frog_down.png" id="3_8eb1y"]
+[ext_resource type="Texture2D" uid="uid://d3exavek5kyw7" path="res://scenes/claptraps/angry_red_frog/red_frog_side3.png" id="3_bdywv"]
+[ext_resource type="Texture2D" uid="uid://bbxkeilc4oh8r" path="res://scenes/claptraps/angry_red_frog/red_frog_back1.png" id="3_t05w1"]
+[ext_resource type="Texture2D" uid="uid://ci0y5nxu57cdv" path="res://scenes/claptraps/angry_red_frog/red_frog_side4.png" id="4_fpxal"]
+[ext_resource type="Texture2D" uid="uid://h2ke3p3e4vu2" path="res://scenes/claptraps/angry_red_frog/red_frog_back2.png" id="4_ng5ay"]
+[ext_resource type="Texture2D" uid="uid://dsji4vhjhjf6s" path="res://scenes/claptraps/angry_red_frog/red_frog_side1.png" id="8_2kn57"]
+[ext_resource type="Texture2D" uid="uid://ch86lyxaeqo06" path="res://scenes/claptraps/angry_red_frog/red_frog_side2.png" id="9_cr3qd"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_t05w1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_8eb1y")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 2.0,
+"texture": ExtResource("3_bdywv")
+}, {
+"duration": 2.0,
+"texture": ExtResource("4_fpxal")
+}],
+"loop": true,
+"name": &"east",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 2.0,
+"texture": ExtResource("3_t05w1")
+}, {
+"duration": 2.0,
+"texture": ExtResource("4_ng5ay")
+}],
+"loop": true,
+"name": &"north",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 2.0,
+"texture": ExtResource("2_k5f81")
+}, {
+"duration": 2.0,
+"texture": ExtResource("3_8eb1y")
+}],
+"loop": true,
+"name": &"south",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 2.0,
+"texture": ExtResource("8_2kn57")
+}, {
+"duration": 2.0,
+"texture": ExtResource("9_cr3qd")
+}],
+"loop": true,
+"name": &"west",
+"speed": 5.0
+}]
+
+[node name="AngryRedFrog" type="Node2D"]
+script = ExtResource("1_h02kb")
+metadata/_custom_type_script = "uid://b6ixxea4gjxgj"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_t05w1")
