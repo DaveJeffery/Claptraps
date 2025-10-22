@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://3hgj6nsf58iu"]
+
+[ext_resource type="Script" uid="uid://kxl8uxie2p7k" path="res://scenes/claptraps/apple/apple.gd" id="1_5lm18"]
+[ext_resource type="Texture2D" uid="uid://bca7ve1efpet1" path="res://scenes/claptraps/apple/apple.png" id="2_68ssk"]
+
+[node name="Apple" type="Node2D"]
+script = ExtResource("1_5lm18")
+metadata/_custom_type_script = "uid://b6ixxea4gjxgj"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_68ssk")
