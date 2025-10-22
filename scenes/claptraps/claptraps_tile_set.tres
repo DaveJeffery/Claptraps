@@ -1,0 +1,19 @@
+[gd_resource type="TileSet" load_steps=7 format=3 uid="uid://ydir2qnbbnnd"]
+
+[ext_resource type="PackedScene" uid="uid://cfyenukc6nd7l" path="res://scenes/claptraps/blank/blank.tscn" id="1_2ob7a"]
+[ext_resource type="PackedScene" uid="uid://be0fnwe416uym" path="res://scenes/claptraps/wall/wall.tscn" id="2_xqcan"]
+[ext_resource type="PackedScene" uid="uid://3fqpccigjhnw" path="res://scenes/claptraps/smiley/smiley.tscn" id="3_1ur7v"]
+[ext_resource type="PackedScene" uid="uid://bsp15qn0tdfk6" path="res://scenes/claptraps/calm_frog/calm_frog.tscn" id="4_xqcan"]
+[ext_resource type="PackedScene" uid="uid://dnmoko0wqydy5" path="res://scenes/claptraps/startled_frog/startled_frog.tscn" id="5_1ur7v"]
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_p7gka"]
+resource_name = "ClaptrapsTileSet"
+scenes/0/scene = ExtResource("1_2ob7a")
+scenes/1/scene = ExtResource("2_xqcan")
+scenes/2/scene = ExtResource("3_1ur7v")
+scenes/3/scene = ExtResource("4_xqcan")
+scenes/4/scene = ExtResource("5_1ur7v")
+
+[resource]
+tile_size = Vector2i(40, 40)
+sources/1 = SubResource("TileSetScenesCollectionSource_p7gka")

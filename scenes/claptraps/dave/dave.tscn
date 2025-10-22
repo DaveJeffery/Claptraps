@@ -86,4 +86,3 @@ metadata/_custom_type_script = "uid://b6ixxea4gjxgj"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_d1idy")
-centered = false

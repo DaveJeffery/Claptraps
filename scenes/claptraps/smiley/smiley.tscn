@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://3fqpccigjhnw"]
+
+[ext_resource type="Script" uid="uid://dlg67vrywbjcj" path="res://scenes/claptraps/smiley/smiley.gd" id="1_yjf5t"]
+[ext_resource type="Texture2D" uid="uid://xb26uwnqg526" path="res://scenes/claptraps/smiley/smiley.png" id="2_yjf5t"]
+
+[node name="Smiley" type="Node2D"]
+script = ExtResource("1_yjf5t")
+metadata/_custom_type_script = "uid://b6ixxea4gjxgj"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_yjf5t")

@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://bsp15qn0tdfk6"]
+
+[ext_resource type="Script" uid="uid://dspwhsucjoanw" path="res://scenes/claptraps/calm_frog/calm_frog.gd" id="1_7ys7x"]
+[ext_resource type="Texture2D" uid="uid://bp2paxu5dk5i6" path="res://sprites/frog.png" id="2_ypm1o"]
+[ext_resource type="Texture2D" uid="uid://cmbsl210ix1po" path="res://sprites/frog_side1.png" id="3_y56r6"]
+[ext_resource type="Texture2D" uid="uid://vifbr6224v4y" path="res://sprites/frog_side3.png" id="4_vphsn"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pcsto"]
+animations = [{
+"frames": [{
+"duration": 10.0,
+"texture": ExtResource("2_ypm1o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_y56r6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_vphsn")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="CalmFrog" type="Node2D"]
+script = ExtResource("1_7ys7x")
+metadata/_custom_type_script = "uid://b6ixxea4gjxgj"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_pcsto")
+frame_progress = 0.059583634

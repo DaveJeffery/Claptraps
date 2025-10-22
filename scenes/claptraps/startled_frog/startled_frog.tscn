@@ -1,0 +1,74 @@
+[gd_scene load_steps=11 format=3 uid="uid://dnmoko0wqydy5"]
+
+[ext_resource type="Script" uid="uid://cgbr3ddw8efq0" path="res://scenes/claptraps/startled_frog/startled_frog.gd" id="1_m6wc2"]
+[ext_resource type="Texture2D" uid="uid://bujd5lw4trqgg" path="res://sprites/frog_down.png" id="2_5w6rq"]
+[ext_resource type="Texture2D" uid="uid://vifbr6224v4y" path="res://sprites/frog_side3.png" id="3_vg84u"]
+[ext_resource type="Texture2D" uid="uid://b4g2542y844oy" path="res://sprites/frog_side4.png" id="4_h2ol2"]
+[ext_resource type="Texture2D" uid="uid://kscspxq2hmhj" path="res://sprites/frog_back1.png" id="5_bx2rn"]
+[ext_resource type="Texture2D" uid="uid://cb5gnp4ci5ft8" path="res://sprites/frog_back2.png" id="6_yrtf2"]
+[ext_resource type="Texture2D" uid="uid://bp2paxu5dk5i6" path="res://sprites/frog.png" id="7_t1sw6"]
+[ext_resource type="Texture2D" uid="uid://cmbsl210ix1po" path="res://sprites/frog_side1.png" id="8_h2ol2"]
+[ext_resource type="Texture2D" uid="uid://dvo1snn5rfo0f" path="res://sprites/frog_side2.png" id="9_bx2rn"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2365k"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_5w6rq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_vg84u")
+}, {
+"duration": 2.0,
+"texture": ExtResource("4_h2ol2")
+}],
+"loop": true,
+"name": &"east",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 2.0,
+"texture": ExtResource("5_bx2rn")
+}, {
+"duration": 2.0,
+"texture": ExtResource("6_yrtf2")
+}],
+"loop": true,
+"name": &"north",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 2.0,
+"texture": ExtResource("7_t1sw6")
+}, {
+"duration": 2.0,
+"texture": ExtResource("2_5w6rq")
+}],
+"loop": true,
+"name": &"south",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_h2ol2")
+}, {
+"duration": 2.0,
+"texture": ExtResource("9_bx2rn")
+}],
+"loop": true,
+"name": &"west",
+"speed": 5.0
+}]
+
+[node name="StartledFrog" type="Node2D"]
+script = ExtResource("1_m6wc2")
+metadata/_custom_type_script = "uid://b6ixxea4gjxgj"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_2365k")
+frame_progress = 0.97741234
