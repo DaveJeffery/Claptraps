@@ -23,8 +23,8 @@ func action() -> void:
 		create("Startled_Frog", 0, grid_pos)
 
 
-func check_squash(obj: Thing) -> bool:
-	if obj.name in ["Box", "Chopper", "Key"]:
+func check_squash(tile: Thing) -> bool:
+	if tile.name in ["Box", "Chopper", "Key"]: #TODO Change to is Box or is...
 		return false
 	else:
 		return true

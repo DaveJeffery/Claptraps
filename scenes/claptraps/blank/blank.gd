@@ -1,3 +1,4 @@
+class_name Blank
 extends Thing
 
 func _ready() -> void:

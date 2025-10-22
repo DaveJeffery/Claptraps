@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b4g2542y844oy"
-path="res://.godot/imported/frog_side4.png-64d8d3d2f97e98ac583186b1025cd6cd.ctex"
+uid="uid://cb5gnp4ci5ft8"
+path="res://.godot/imported/frog_back2.png-74218229e1e1885526c4431e28b0d9b1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/frog_side4.png"
-dest_files=["res://.godot/imported/frog_side4.png-64d8d3d2f97e98ac583186b1025cd6cd.ctex"]
+source_file="res://scenes/claptraps/startled_frog/frog_back2.png"
+dest_files=["res://.godot/imported/frog_back2.png-74218229e1e1885526c4431e28b0d9b1.ctex"]
 
 [params]
 

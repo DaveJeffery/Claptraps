@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://c62v86xtuu62"]
+
+[ext_resource type="Script" uid="uid://bkf5tibp5m5i2" path="res://scenes/claptraps/chopper/chopper.gd" id="1_k423h"]
+[ext_resource type="Texture2D" uid="uid://dg48oc744wc8d" path="res://scenes/claptraps/chopper/chopper.png" id="2_qigp2"]
+
+[node name="Chopper" type="Node2D"]
+script = ExtResource("1_k423h")
+metadata/_custom_type_script = "uid://b6ixxea4gjxgj"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_qigp2")

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bp2paxu5dk5i6"
-path="res://.godot/imported/frog.png-7399d0acadbbeb190024e107565ff756.ctex"
+uid="uid://c6wx3onhf87qo"
+path="res://.godot/imported/box.png-5f2ef28dc1ff7297f5542c24ddd3f73f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/frog.png"
-dest_files=["res://.godot/imported/frog.png-7399d0acadbbeb190024e107565ff756.ctex"]
+source_file="res://scenes/claptraps/box/box.png"
+dest_files=["res://.godot/imported/box.png-5f2ef28dc1ff7297f5542c24ddd3f73f.ctex"]
 
 [params]
 

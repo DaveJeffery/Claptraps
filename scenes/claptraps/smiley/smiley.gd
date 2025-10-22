@@ -1,3 +1,4 @@
+class_name Smiley
 extends Thing
 
 const smiley_squash: = [

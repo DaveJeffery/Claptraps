@@ -1,14 +1,14 @@
 [gd_scene load_steps=11 format=3 uid="uid://dnmoko0wqydy5"]
 
 [ext_resource type="Script" uid="uid://cgbr3ddw8efq0" path="res://scenes/claptraps/startled_frog/startled_frog.gd" id="1_m6wc2"]
-[ext_resource type="Texture2D" uid="uid://bujd5lw4trqgg" path="res://sprites/frog_down.png" id="2_5w6rq"]
-[ext_resource type="Texture2D" uid="uid://vifbr6224v4y" path="res://sprites/frog_side3.png" id="3_vg84u"]
-[ext_resource type="Texture2D" uid="uid://b4g2542y844oy" path="res://sprites/frog_side4.png" id="4_h2ol2"]
-[ext_resource type="Texture2D" uid="uid://kscspxq2hmhj" path="res://sprites/frog_back1.png" id="5_bx2rn"]
-[ext_resource type="Texture2D" uid="uid://cb5gnp4ci5ft8" path="res://sprites/frog_back2.png" id="6_yrtf2"]
-[ext_resource type="Texture2D" uid="uid://bp2paxu5dk5i6" path="res://sprites/frog.png" id="7_t1sw6"]
-[ext_resource type="Texture2D" uid="uid://cmbsl210ix1po" path="res://sprites/frog_side1.png" id="8_h2ol2"]
-[ext_resource type="Texture2D" uid="uid://dvo1snn5rfo0f" path="res://sprites/frog_side2.png" id="9_bx2rn"]
+[ext_resource type="Texture2D" uid="uid://bujd5lw4trqgg" path="res://scenes/claptraps/startled_frog/frog_down.png" id="2_5w6rq"]
+[ext_resource type="Texture2D" uid="uid://vifbr6224v4y" path="res://scenes/claptraps/startled_frog/frog_side3.png" id="3_vg84u"]
+[ext_resource type="Texture2D" uid="uid://b4g2542y844oy" path="res://scenes/claptraps/startled_frog/frog_side4.png" id="4_h2ol2"]
+[ext_resource type="Texture2D" uid="uid://kscspxq2hmhj" path="res://scenes/claptraps/startled_frog/frog_back1.png" id="5_bx2rn"]
+[ext_resource type="Texture2D" uid="uid://cb5gnp4ci5ft8" path="res://scenes/claptraps/startled_frog/frog_back2.png" id="6_yrtf2"]
+[ext_resource type="Texture2D" uid="uid://bp2paxu5dk5i6" path="res://scenes/claptraps/calm_frog/frog.png" id="7_t1sw6"]
+[ext_resource type="Texture2D" uid="uid://cmbsl210ix1po" path="res://scenes/claptraps/startled_frog/frog_side1.png" id="8_h2ol2"]
+[ext_resource type="Texture2D" uid="uid://dvo1snn5rfo0f" path="res://scenes/claptraps/startled_frog/frog_side2.png" id="9_bx2rn"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2365k"]
 animations = [{

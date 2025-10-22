@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c4vqyrkfysy7w"
-path="res://.godot/imported/transporter.png-aec61988ea41538ee85836d34d29a766.ctex"
+uid="uid://d11pp1lryl6ai"
+path="res://.godot/imported/transporter3.png-905a3f9a1750a3ad107dd56c885cfcd1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/transporter.png"
-dest_files=["res://.godot/imported/transporter.png-aec61988ea41538ee85836d34d29a766.ctex"]
+source_file="res://scenes/claptraps/transporter/transporter3.png"
+dest_files=["res://.godot/imported/transporter3.png-905a3f9a1750a3ad107dd56c885cfcd1.ctex"]
 
 [params]
 

@@ -1,3 +1,4 @@
+class_name  Wall
 extends Thing
 
 func _ready() -> void:

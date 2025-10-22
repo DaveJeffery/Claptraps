@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://bsp15qn0tdfk6"]
 
 [ext_resource type="Script" uid="uid://dspwhsucjoanw" path="res://scenes/claptraps/calm_frog/calm_frog.gd" id="1_7ys7x"]
-[ext_resource type="Texture2D" uid="uid://bp2paxu5dk5i6" path="res://sprites/frog.png" id="2_ypm1o"]
-[ext_resource type="Texture2D" uid="uid://cmbsl210ix1po" path="res://sprites/frog_side1.png" id="3_y56r6"]
-[ext_resource type="Texture2D" uid="uid://vifbr6224v4y" path="res://sprites/frog_side3.png" id="4_vphsn"]
+[ext_resource type="Texture2D" uid="uid://bp2paxu5dk5i6" path="res://scenes/claptraps/calm_frog/frog.png" id="2_ypm1o"]
+[ext_resource type="Texture2D" uid="uid://cmbsl210ix1po" path="res://scenes/claptraps/startled_frog/frog_side1.png" id="3_y56r6"]
+[ext_resource type="Texture2D" uid="uid://vifbr6224v4y" path="res://scenes/claptraps/startled_frog/frog_side3.png" id="4_vphsn"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_pcsto"]
 animations = [{

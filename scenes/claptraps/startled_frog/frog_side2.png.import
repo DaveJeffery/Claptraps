@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dvo1snn5rfo0f"
-path="res://.godot/imported/frog_side2.png-9df510eeea4fa5c7cd93a49e263fc0c0.ctex"
+path="res://.godot/imported/frog_side2.png-ec6b1c3839a6f32fe622c4503829e39c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/frog_side2.png"
-dest_files=["res://.godot/imported/frog_side2.png-9df510eeea4fa5c7cd93a49e263fc0c0.ctex"]
+source_file="res://scenes/claptraps/startled_frog/frog_side2.png"
+dest_files=["res://.godot/imported/frog_side2.png-ec6b1c3839a6f32fe622c4503829e39c.ctex"]
 
 [params]
 

@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://cw4xk6fwdsk8f"]
+
+[ext_resource type="Script" uid="uid://b4alxytyx8fs0" path="res://scenes/claptraps/transporter/transporter.gd" id="1_0n5qc"]
+[ext_resource type="Texture2D" uid="uid://dtu1eqjtmgjx2" path="res://scenes/claptraps/transporter/transporter2.png" id="2_3cgqw"]
+[ext_resource type="Texture2D" uid="uid://d11pp1lryl6ai" path="res://scenes/claptraps/transporter/transporter3.png" id="3_mh6yy"]
+[ext_resource type="Texture2D" uid="uid://c4vqyrkfysy7w" path="res://scenes/claptraps/transporter/transporter.png" id="4_sgrvh"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_musqy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_3cgqw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_mh6yy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_sgrvh")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Transporter" type="Node2D"]
+script = ExtResource("1_0n5qc")
+metadata/_custom_type_script = "uid://b6ixxea4gjxgj"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_musqy")
+frame_progress = 0.42225212
