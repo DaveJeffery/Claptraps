@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bcrts854detxa"
-path="res://.godot/imported/button_on.png-a769a549bec93363a14c4f674f511e9a.ctex"
+uid="uid://cpvthh4vdnux2"
+path="res://.godot/imported/button_off.png-d03987f4e834b41d22a05a84ef33dc7c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/button_on.png"
-dest_files=["res://.godot/imported/button_on.png-a769a549bec93363a14c4f674f511e9a.ctex"]
+source_file="res://scenes/claptraps/button_off/button_off.png"
+dest_files=["res://.godot/imported/button_off.png-d03987f4e834b41d22a05a84ef33dc7c.ctex"]
 
 [params]
 

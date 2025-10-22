@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://bg8fmgyeod3hh"]
+[gd_scene load_steps=15 format=4 uid="uid://bg8fmgyeod3hh"]
 
 [ext_resource type="PackedScene" uid="uid://l514fnyacsy8" path="res://scenes/claptraps/thing/thing.tscn" id="1_qi1rq"]
 [ext_resource type="PackedScene" uid="uid://cgm35phtgvd3u" path="res://scenes/claptraps/dave/dave.tscn" id="2_hhlqv"]
@@ -12,6 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://prpf2xgfn7k0" path="res://scenes/claptraps/grass/grass.tscn" id="10_foavx"]
 [ext_resource type="PackedScene" uid="uid://1pvsc655km8r" path="res://scenes/claptraps/red_frog/red_frog.tscn" id="11_foavx"]
 [ext_resource type="PackedScene" uid="uid://c4b6pm5umvhgl" path="res://scenes/claptraps/angry_red_frog/angry_red_frog.tscn" id="12_wl15r"]
+[ext_resource type="PackedScene" uid="uid://coco5rlh030a6" path="res://scenes/claptraps/button_on/button_on.tscn" id="13_nsl6a"]
+[ext_resource type="PackedScene" uid="uid://c8pilavu6uidq" path="res://scenes/claptraps/button_off/button_off.tscn" id="14_2ppij"]
 
 [node name="Claptraps" type="Node"]
 
@@ -50,4 +52,10 @@ visible = false
 visible = false
 
 [node name="AngryRedFrog" parent="." instance=ExtResource("12_wl15r")]
+visible = false
+
+[node name="ButtonOn" parent="." instance=ExtResource("13_nsl6a")]
+visible = false
+
+[node name="ButtonOff" parent="." instance=ExtResource("14_2ppij")]
 visible = false

@@ -1,11 +1,13 @@
-[gd_resource type="TileSet" load_steps=13 format=3 uid="uid://ydir2qnbbnnd"]
+[gd_resource type="TileSet" load_steps=15 format=3 uid="uid://ydir2qnbbnnd"]
 
 [ext_resource type="PackedScene" uid="uid://cfyenukc6nd7l" path="res://scenes/claptraps/blank/blank.tscn" id="1_2ob7a"]
 [ext_resource type="PackedScene" uid="uid://be0fnwe416uym" path="res://scenes/claptraps/wall/wall.tscn" id="2_xqcan"]
 [ext_resource type="PackedScene" uid="uid://3fqpccigjhnw" path="res://scenes/claptraps/smiley/smiley.tscn" id="3_1ur7v"]
 [ext_resource type="PackedScene" uid="uid://c4b6pm5umvhgl" path="res://scenes/claptraps/angry_red_frog/angry_red_frog.tscn" id="3_ed88v"]
+[ext_resource type="PackedScene" uid="uid://coco5rlh030a6" path="res://scenes/claptraps/button_on/button_on.tscn" id="4_nrtrm"]
 [ext_resource type="PackedScene" uid="uid://bsp15qn0tdfk6" path="res://scenes/claptraps/calm_frog/calm_frog.tscn" id="4_xqcan"]
 [ext_resource type="PackedScene" uid="uid://dnmoko0wqydy5" path="res://scenes/claptraps/startled_frog/startled_frog.tscn" id="5_1ur7v"]
+[ext_resource type="PackedScene" uid="uid://c8pilavu6uidq" path="res://scenes/claptraps/button_off/button_off.tscn" id="5_7hpkg"]
 [ext_resource type="PackedScene" uid="uid://dkptn5berjrdw" path="res://scenes/claptraps/box/box.tscn" id="6_fiehg"]
 [ext_resource type="PackedScene" uid="uid://c62v86xtuu62" path="res://scenes/claptraps/chopper/chopper.tscn" id="7_0ab5b"]
 [ext_resource type="PackedScene" uid="uid://cw4xk6fwdsk8f" path="res://scenes/claptraps/transporter/transporter.tscn" id="8_uylp6"]
@@ -25,6 +27,8 @@ scenes/7/scene = ExtResource("8_uylp6")
 scenes/8/scene = ExtResource("9_r4bmh")
 scenes/9/scene = ExtResource("10_r4bmh")
 scenes/10/scene = ExtResource("3_ed88v")
+scenes/11/scene = ExtResource("4_nrtrm")
+scenes/12/scene = ExtResource("5_7hpkg")
 
 [resource]
 tile_size = Vector2i(40, 40)
