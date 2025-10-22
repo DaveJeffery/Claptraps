@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=9 format=3 uid="uid://ydir2qnbbnnd"]
+[gd_resource type="TileSet" load_steps=11 format=3 uid="uid://ydir2qnbbnnd"]
 
 [ext_resource type="PackedScene" uid="uid://cfyenukc6nd7l" path="res://scenes/claptraps/blank/blank.tscn" id="1_2ob7a"]
 [ext_resource type="PackedScene" uid="uid://be0fnwe416uym" path="res://scenes/claptraps/wall/wall.tscn" id="2_xqcan"]
@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://dnmoko0wqydy5" path="res://scenes/claptraps/startled_frog/startled_frog.tscn" id="5_1ur7v"]
 [ext_resource type="PackedScene" uid="uid://dkptn5berjrdw" path="res://scenes/claptraps/box/box.tscn" id="6_fiehg"]
 [ext_resource type="PackedScene" uid="uid://c62v86xtuu62" path="res://scenes/claptraps/chopper/chopper.tscn" id="7_0ab5b"]
+[ext_resource type="PackedScene" uid="uid://cw4xk6fwdsk8f" path="res://scenes/claptraps/transporter/transporter.tscn" id="8_uylp6"]
+[ext_resource type="PackedScene" uid="uid://prpf2xgfn7k0" path="res://scenes/claptraps/grass/grass.tscn" id="9_r4bmh"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_p7gka"]
 resource_name = "ClaptrapsTileSet"
@@ -17,6 +19,8 @@ scenes/3/scene = ExtResource("4_xqcan")
 scenes/4/scene = ExtResource("5_1ur7v")
 scenes/5/scene = ExtResource("6_fiehg")
 scenes/6/scene = ExtResource("7_0ab5b")
+scenes/7/scene = ExtResource("8_uylp6")
+scenes/8/scene = ExtResource("9_r4bmh")
 
 [resource]
 tile_size = Vector2i(40, 40)
