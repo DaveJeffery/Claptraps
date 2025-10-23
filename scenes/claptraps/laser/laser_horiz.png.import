@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c1rd40qqjmcmo"
-path="res://.godot/imported/laser_horiz.png-ccb41f46e7891b29e35a667088a54b8c.ctex"
+path="res://.godot/imported/laser_horiz.png-345a42a6719ab8f3be50c97128bd29f2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/laser_horiz.png"
-dest_files=["res://.godot/imported/laser_horiz.png-ccb41f46e7891b29e35a667088a54b8c.ctex"]
+source_file="res://scenes/claptraps/laser/laser_horiz.png"
+dest_files=["res://.godot/imported/laser_horiz.png-345a42a6719ab8f3be50c97128bd29f2.ctex"]
 
 [params]
 
