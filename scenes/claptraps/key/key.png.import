@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b5akrcq13km2b"
-path="res://.godot/imported/key.png-a2d709fe99edac93aea180e2d39da8db.ctex"
+path="res://.godot/imported/key.png-8774a8325f9a6a4849948a53117f3018.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/key.png"
-dest_files=["res://.godot/imported/key.png-a2d709fe99edac93aea180e2d39da8db.ctex"]
+source_file="res://scenes/claptraps/key/key.png"
+dest_files=["res://.godot/imported/key.png-8774a8325f9a6a4849948a53117f3018.ctex"]
 
 [params]
 

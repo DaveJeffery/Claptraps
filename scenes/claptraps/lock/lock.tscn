@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://di1g7sry3hmfx"]
+
+[ext_resource type="Script" uid="uid://bqq4fsnbdvf8s" path="res://scenes/claptraps/lock/lock.gd" id="1_rhtsa"]
+[ext_resource type="Texture2D" uid="uid://c2xb8w8n1ri72" path="res://scenes/claptraps/lock/lock.png" id="2_gg6d3"]
+
+[node name="Lock" type="Node2D"]
+script = ExtResource("1_rhtsa")
+metadata/_custom_type_script = "uid://b6ixxea4gjxgj"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_gg6d3")

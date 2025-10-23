@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://fm6qd45157sx"]
+
+[ext_resource type="Script" uid="uid://0w7a1mld2i" path="res://scenes/claptraps/key/key.gd" id="1_mrk0x"]
+[ext_resource type="Texture2D" uid="uid://b5akrcq13km2b" path="res://scenes/claptraps/key/key.png" id="2_0m10e"]
+
+[node name="Key" type="Node2D"]
+script = ExtResource("1_mrk0x")
+metadata/_custom_type_script = "uid://b6ixxea4gjxgj"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_0m10e")
