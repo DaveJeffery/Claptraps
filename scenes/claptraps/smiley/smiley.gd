@@ -33,5 +33,5 @@ func action() -> void:
 		):
 			move(moved, self, grid_pos)
 			
-		if look(moved, grid_pos).name == "Box":
-			create("Frog", moved, grid_pos)
+		if look(moved, grid_pos) == Box:
+			create(CalmFrog, moved, grid_pos)

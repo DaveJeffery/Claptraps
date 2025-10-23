@@ -36,7 +36,6 @@ var startle_frog := false
 
 func _init(current_game_state: GameState) -> void:
 	game_state = current_game_state
-	look = GameFunctions.look
 
 
 func hit(hitby: Thing) -> void:

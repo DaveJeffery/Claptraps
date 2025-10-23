@@ -2,14 +2,14 @@ class_name GameFunctions
 extends Node
 
 static var game_state: GameState
-static var game_objects: GameObjects
+#static var game_objects: GameObjects
 
 static func init(
 	gs: GameState, 
-	go: GameObjects,
+	#go: GameObjects,
 ) -> void:
 	game_state = gs
-	game_objects = go
+	#game_objects = go
 
 
 #game_state = None
@@ -25,7 +25,7 @@ static func init(
 	#Wall = wl
 
 static func look(direction, grid_pos:Vector2i) -> Thing:
-	pass
+	return null
 	#if direction == game_state.EAST:
 		#if x < game_state.LEVEL_WIDTH - 1:
 #
@@ -174,7 +174,7 @@ static func look(direction, grid_pos:Vector2i) -> Thing:
 		#return game_state.game_map[x][y]
 
 
-static func move(direction, obj, x, y):
+static func move(direction, obj, grid_pos):
 	pass
 	#if obj.moving == 0:
 		#if direction == game_state.NORTH:
@@ -379,7 +379,7 @@ static func change(obj1: Thing, obj2: Thing) -> void:
 				#game_state.game_map[x_counter][y_counter].y = y_counter
 
 static func dave_is_to(direction, grid_pos: Vector2i) -> bool:
-	pass
+	return true
 	#if direction == game_state.NORTH:
 		#if y > game_state.dave_y:
 			#return True
