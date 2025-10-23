@@ -1,6 +1,7 @@
 class_name Thing
-extends GameFunctions
+extends Node
 
+var game_state: GameState
 var game_object := 0
 var game_object_name := ""
 var sprite := 1

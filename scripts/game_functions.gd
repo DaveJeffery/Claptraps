@@ -12,166 +12,136 @@ static func init(
 	#game_objects = go
 
 
-#game_state = None
-#game_objects = None
-#Dave = None
-#Wall = None
-#
-#def fn_init_defs(gs, go, dv, wl):
-	#global game_state, game_objects, Dave, Wall
-	#game_state = gs
-	#game_objects = go
-	#Dave = dv
-	#Wall = wl
-
 static func look(direction, grid_pos:Vector2i) -> Thing:
-	return null
-	#if direction == game_state.EAST:
-		#if x < game_state.LEVEL_WIDTH - 1:
-#
-			#if game_state.game_map[x+1][y].gobject > 0:
-				#
-				#return game_state.game_map[x+1][y]
-			#
-			#elif (
-				#(game_state.dave_x, game_state.dave_y) == (x+1, y) or 
-				#(game_state.dave_dest_x, game_state.dave_dest_y) == (x+1, y)
-			#):
-				#
-				#return Dave()
-				#
-			#else:
-				#return game_state.game_map[x+1][y]
-		#else:
-			#return Wall()
-#
-	#if direction == game_state.WEST:
-		#if x > 0:
-#
-			#if game_state.game_map[x-1][y].gobject > 0:
-				#
-				#return game_state.game_map[x-1][y]
-			#
-			#elif (game_state.dave_x, game_state.dave_y) == (x - 1, y) or \
-				 #(game_state.dave_dest_x, game_state.dave_dest_y) == (x - 1, y):
-#
-				#return Dave()
-				#
-			#else:
-				#return game_state.game_map[x-1][y]
-		#else:
-			#return Wall()
-#
-	#if direction == game_state.NORTH:
-		#if y > 0:
-#
-			#if game_state.game_map[x][y-1].gobject > 0:
-				#
-				#return game_state.game_map[x][y-1]
-			#
-			#elif (game_state.dave_x, game_state.dave_y) == (x, y - 1) or \
-				 #(game_state.dave_dest_x, game_state.dave_dest_y) == (x, y - 1):
-#
-				#return Dave()
-				#
-			#else:
-				#return game_state.game_map[x][y-1]
-		#else:
-			#return Wall()
-	#
-	#if direction == game_state.SOUTH:
-		#if y < game_state.LEVEL_HEIGHT - 1:
-#
-			#if game_state.game_map[x][y+1].gobject > 0:
-				#
-				#return game_state.game_map[x][y+1]
-			#
-			#elif (game_state.dave_x, game_state.dave_y) == (x, y + 1) or \
-				 #(game_state.dave_dest_x, game_state.dave_dest_y) == (x, y + 1):
-				#
-				#return Dave()
-				#
-			#else:
-				#return game_state.game_map[x][y+1]
-		#else:
-			#return Wall()
-#
-	#if direction == game_state.NE:
-		#if y > 0 and x < game_state.LEVEL_WIDTH - 1:
-			#if game_state.game_map[x+1][y-1].gobject > 0:
-				#
-				#return game_state.game_map[x+1][y-1]
-			#
-			#elif (game_state.dave_x, game_state.dave_y) == (x+1, y - 1) or \
-				 #(game_state.dave_dest_x, game_state.dave_dest_y) == (x+1, y - 1):
-#
-				#return Dave()
-				#
-			#else:
-				#return game_state.game_map[x+1][y-1]
-		#else:
-			#return Wall()
-#
-	#if direction == game_state.SE:
-		#if y < game_state.LEVEL_HEIGHT - 1 and x < game_state.LEVEL_WIDTH - 1:
-			#if game_state.game_map[x+1][y+1].gobject > 0:
-				#
-				#return game_state.game_map[x+1][y+1]
-			#
-			#elif (game_state.dave_x, game_state.dave_y) == (x+1, y + 1) or \
-				 #(game_state.dave_dest_x, game_state.dave_dest_y) == (x+1, y + 1):
-#
-				#return Dave()
-				#
-			#else:
-				#return game_state.game_map[x+1][y+1]
-		#else:
-			#return Wall()
-#
-	#if direction == game_state.SW:
-		#if y < game_state.LEVEL_HEIGHT - 1 and x > 0:
-			#if game_state.game_map[x-1][y+1].gobject > 0:
-				#
-				#return game_state.game_map[x-1][y+1]
-			#
-			#elif (game_state.dave_x, game_state.dave_y) == (x-1, y + 1) or \
-				 #(game_state.dave_dest_x, game_state.dave_dest_y) == (x-1, y + 1):
-#
-				#return Dave()
-				#
-			#else:
-				#return game_state.game_map[x-1][y+1]
-		#else:
-			#return Wall()
-#
-	#if direction == game_state.NW:
-		#if y > 0 and x > 0:
-			#if game_state.game_map[x-1][y-1].gobject > 0:
-				#
-				#return game_state.game_map[x-1][y-1]
-			#
-			#elif (game_state.dave_x, game_state.dave_y) == (x-1, y - 1) or \
-				 #(game_state.dave_dest_x, game_state.dave_dest_y) == (x-1, y - 1):
-#
-				#return Dave()
-				#
-			#else:
-				#return game_state.game_map[x-1][y-1]
-		#else:
-			#return Wall() 
-## If none of the above
-	##return game_state.game_map[x][y]   
-	#if game_state.game_map[x][y].gobject > 0:
-		#
-		#return game_state.game_map[x][y]
-	#
-	#elif (game_state.dave_x, game_state.dave_y) == (x, y) or \
-		 #(game_state.dave_dest_x, game_state.dave_dest_y) == (x, y):
-		#
-		#return Dave()
-		#
-	#else:
-		#return game_state.game_map[x][y]
+	var x := grid_pos.x
+	var y := grid_pos.y
+	
+	if direction == game_state.EAST:
+		if grid_pos.x < game_state.level_size.x - 1:
+			if game_state.game_map[x+1][y].gobject > 0: #TODO
+				return game_state.game_map[x+1][y] #TODO
+			elif (
+				game_state.dave_pos == Vector2i(x+1, y)  
+				or game_state.dave_dest == Vector2i(x+1, y)  
+			):
+				return Dave
+			else:
+				return game_state.game_map[x+1][y] #TODO
+		else:
+			return Wall
+
+	if direction == game_state.WEST:
+		if x > 0:
+			if game_state.game_map[x-1][y].gobject > 0: #TODO
+				return game_state.game_map[x-1][y] #TODO
+			elif (
+				game_state.dave_pos == Vector2i(x - 1, y) 
+				or game_state.dave_dest == Vector2i(x - 1, y)
+			):
+				return Dave
+			else:
+				return game_state.game_map[x-1][y] #TODO
+		else:
+			return Wall
+
+	if direction == game_state.NORTH:
+		if y > 0:
+			if game_state.game_map[x][y-1].gobject > 0:
+				return game_state.game_map[x][y-1] #TODO
+			elif (
+				game_state.dave_pos == Vector2i(x, y - 1)
+				or game_state.dave_dest == Vector2i(x, y - 1)
+			):
+				return Dave
+			else:
+				return game_state.game_map[x][y-1] #TODO
+		else:
+			return Wall
+	
+	if direction == game_state.SOUTH:
+		if y < game_state.level_size.y - 1:
+			if game_state.game_map[x][y+1].gobject > 0: #TODO
+				return game_state.game_map[x][y+1]
+			elif (
+				game_state.dave_pos == Vector2i(x, y + 1)
+				or game_state.dave_dest == Vector2i(x, y + 1)
+			):
+				return Dave
+			else:
+				return game_state.game_map[x][y+1] #TODO
+		else:
+			return Wall
+
+	if direction == game_state.NE:
+		if y > 0 and x < game_state.level_size.x - 1:
+			if game_state.game_map[x+1][y-1].gobject > 0: #TODO
+				return game_state.game_map[x+1][y-1] #TODO
+			elif (
+				game_state.dave_pos == Vector2i(x+1, y - 1)
+				or game_state.dave_dest == Vector2i(x+1, y - 1)
+			):
+				return Dave
+			else:
+				return game_state.game_map[x+1][y-1] #TODO
+		else:
+			return Wall
+
+	if direction == game_state.SE:
+		if (
+			y < game_state.level_size.y - 1 
+			and x < game_state.level_size.x - 1
+		):
+			if game_state.game_map[x+1][y+1].gobject > 0: #TODO
+				return game_state.game_map[x+1][y+1] #TODO
+			elif (
+				game_state.dave_pos == Vector2i(x+1, y + 1)
+				or  game_state.dave_dest == Vector2i(x+1, y + 1)
+			):
+				return Dave
+			else:
+				return game_state.game_map[x+1][y+1] #TODO
+		else:
+			return Wall
+
+	if direction == game_state.SW:
+		if y < game_state.LEVEL_HEIGHT - 1 and x > 0:
+			if game_state.game_map[x-1][y+1].gobject > 0: #TODO
+				return game_state.game_map[x-1][y+1] #TODO
+			elif (
+				game_state.dave_pos == Vector2i(x-1, y + 1)
+				or game_state.dave_dest == Vector2i(x-1, y + 1)
+			):
+				return Dave
+			else:
+				return game_state.game_map[x-1][y+1] #TODO
+		else:
+			return Wall
+
+	if direction == game_state.NW:
+		if y > 0 and x > 0:
+			if game_state.game_map[x-1][y-1].gobject > 0: #TODO
+				return game_state.game_map[x-1][y-1] #TODO
+			elif (
+				game_state.dave_pos == Vector2i(x-1, y - 1)
+				or game_state.dave_dest == Vector2i(x-1, y - 1)
+			):
+				return Dave
+			else:
+				return game_state.game_map[x-1][y-1] #TODO
+		else:
+			return Wall
+			 
+	# If none of the above:
+	# return game_state.game_map[x][y]   
+	if game_state.game_map[x][y].gobject > 0: #TODO
+		return game_state.game_map[x][y] #TODO
+	elif (
+		game_state.dave_pos == grid_pos
+		or game_state.dave_dest == grid_pos
+	):
+		return Dave
+	else:
+		return game_state.game_map[x][y] #TODO
 
 
 static func move(direction, obj, grid_pos):

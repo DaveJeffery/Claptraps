@@ -2,15 +2,22 @@
 class_name GameState
 extends Node
 
-var score: int
+const NORTH := 1
+const EAST := 2
+const SOUTH := 3
+const WEST := 4
+const NE := 5
+const SE := 6
+const SW := 7
+const NW := 8
 
+var game_functions : GameFunctions
+var score: int
+var level_size: Vector2i
 var game_map: TileMapLayer
-var dave_x: int
-var dave_y: int
-var dave_dest_x: int
-var dave_dest_y: int
-var x_offset: int
-var y_offset: int
+var dave_pos: Vector2i
+var dave_dest: Vector2i
+var xy_offset: Vector2i
 var player_moving: int
 var kill_dave: bool
 var obj_names: Dictionary
@@ -30,12 +37,10 @@ var target_img: Texture2D
 
 func _init():
 	score = 0
-	dave_x = 0 #TODO Make Vector 2i
-	dave_y = 0 #TODO Make Vector 2i
-	dave_dest_x = 0 #TODO Make Vector 2i
-	dave_dest_y = 0 #TODO Make Vector 2i
-	x_offset = 0 #TODO Make Vector 2i
-	y_offset = 0 #TODO Make Vector 2i
+	level_size = Vector2i(16, 12)
+	dave_pos = Vector2i.ZERO
+	dave_dest = Vector2i.ZERO
+	xy_offset = Vector2i.ZERO
 	player_moving = 0
 	kill_dave = false
 	obj_names = {}
