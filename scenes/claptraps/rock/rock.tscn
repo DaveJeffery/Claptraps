@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://rmbeuwein354"]
+
+[ext_resource type="Script" uid="uid://drf8fgxgl21g7" path="res://scenes/claptraps/rock/rock.gd" id="1_jw7hi"]
+[ext_resource type="Texture2D" uid="uid://bb8t0c6w4rtqe" path="res://scenes/claptraps/rock/rock.png" id="2_dl65w"]
+
+[node name="Rock" type="Node2D"]
+script = ExtResource("1_jw7hi")
+metadata/_custom_type_script = "uid://b6ixxea4gjxgj"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_dl65w")

@@ -2,7 +2,10 @@ class_name TurretW
 extends Thing
 
 const SOLID_TO_TURRET := [
-		"Wall", 
+		"Wall",
+		"Wall2",
+		"Wall3",
+		"Rock", 
 		"Smiley", 
 		"Gate", 
 		"Laser", 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://di1aa6t1r485a"
-path="res://.godot/imported/wall4.png-5cbe03b7e0a0c224748b3cfd2d9eead0.ctex"
+uid="uid://bb8t0c6w4rtqe"
+path="res://.godot/imported/rock.png-82f153ae99ad7169a8c66700c40944ba.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/wall4.png"
-dest_files=["res://.godot/imported/wall4.png-5cbe03b7e0a0c224748b3cfd2d9eead0.ctex"]
+source_file="res://scenes/claptraps/rock/rock.png"
+dest_files=["res://.godot/imported/rock.png-82f153ae99ad7169a8c66700c40944ba.ctex"]
 
 [params]
 

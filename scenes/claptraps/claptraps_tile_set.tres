@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=25 format=3 uid="uid://ydir2qnbbnnd"]
+[gd_resource type="TileSet" load_steps=28 format=3 uid="uid://ydir2qnbbnnd"]
 
 [ext_resource type="PackedScene" uid="uid://cfyenukc6nd7l" path="res://scenes/claptraps/blank/blank.tscn" id="1_2ob7a"]
 [ext_resource type="PackedScene" uid="uid://be0fnwe416uym" path="res://scenes/claptraps/wall/wall.tscn" id="2_xqcan"]
@@ -23,6 +23,9 @@
 [ext_resource type="PackedScene" uid="uid://fm6qd45157sx" path="res://scenes/claptraps/key/key.tscn" id="14_rvkkf"]
 [ext_resource type="PackedScene" uid="uid://di1g7sry3hmfx" path="res://scenes/claptraps/lock/lock.tscn" id="15_ind8s"]
 [ext_resource type="PackedScene" uid="uid://cn4avo7epi58x" path="res://scenes/claptraps/bush/bush.tscn" id="16_5kds5"]
+[ext_resource type="PackedScene" uid="uid://cmm7bafjl8je6" path="res://scenes/claptraps/wall_2/wall_2.tscn" id="17_f6r6n"]
+[ext_resource type="PackedScene" uid="uid://dcvrnmg0rqskj" path="res://scenes/claptraps/wall_3/wall_3.tscn" id="18_t84ws"]
+[ext_resource type="PackedScene" uid="uid://rmbeuwein354" path="res://scenes/claptraps/rock/rock.tscn" id="19_qh12k"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_p7gka"]
 resource_name = "ClaptrapsTileSet"
@@ -49,6 +52,9 @@ scenes/19/scene = ExtResource("12_o2yal")
 scenes/20/scene = ExtResource("14_rvkkf")
 scenes/21/scene = ExtResource("15_ind8s")
 scenes/22/scene = ExtResource("16_5kds5")
+scenes/23/scene = ExtResource("17_f6r6n")
+scenes/24/scene = ExtResource("18_t84ws")
+scenes/25/scene = ExtResource("19_qh12k")
 
 [resource]
 tile_size = Vector2i(40, 40)
