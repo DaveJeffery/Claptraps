@@ -1,101 +1,11 @@
-[gd_scene load_steps=25 format=4 uid="uid://bg8fmgyeod3hh"]
+[gd_scene load_steps=3 format=4 uid="uid://bg8fmgyeod3hh"]
 
-[ext_resource type="PackedScene" uid="uid://l514fnyacsy8" path="res://scenes/claptraps/thing/thing.tscn" id="1_qi1rq"]
-[ext_resource type="PackedScene" uid="uid://cgm35phtgvd3u" path="res://scenes/claptraps/dave/dave.tscn" id="2_hhlqv"]
-[ext_resource type="PackedScene" uid="uid://cfyenukc6nd7l" path="res://scenes/claptraps/blank/blank.tscn" id="3_fpxfw"]
-[ext_resource type="PackedScene" uid="uid://be0fnwe416uym" path="res://scenes/claptraps/wall/wall.tscn" id="4_ktyty"]
+[ext_resource type="Script" uid="uid://c3gj7kgwat05u" path="res://scenes/claptraps/claptraps.gd" id="1_hhlqv"]
 [ext_resource type="TileSet" uid="uid://ydir2qnbbnnd" path="res://scenes/claptraps/claptraps_tile_set.tres" id="5_p7gka"]
-[ext_resource type="PackedScene" uid="uid://3fqpccigjhnw" path="res://scenes/claptraps/smiley/smiley.tscn" id="6_qv5u0"]
-[ext_resource type="PackedScene" uid="uid://bsp15qn0tdfk6" path="res://scenes/claptraps/calm_frog/calm_frog.tscn" id="7_5eckf"]
-[ext_resource type="PackedScene" uid="uid://dkptn5berjrdw" path="res://scenes/claptraps/box/box.tscn" id="8_8hsxd"]
-[ext_resource type="PackedScene" uid="uid://cw4xk6fwdsk8f" path="res://scenes/claptraps/transporter/transporter.tscn" id="9_qgfwl"]
-[ext_resource type="PackedScene" uid="uid://prpf2xgfn7k0" path="res://scenes/claptraps/grass/grass.tscn" id="10_foavx"]
-[ext_resource type="PackedScene" uid="uid://1pvsc655km8r" path="res://scenes/claptraps/red_frog/red_frog.tscn" id="11_foavx"]
-[ext_resource type="PackedScene" uid="uid://c4b6pm5umvhgl" path="res://scenes/claptraps/angry_red_frog/angry_red_frog.tscn" id="12_wl15r"]
-[ext_resource type="PackedScene" uid="uid://coco5rlh030a6" path="res://scenes/claptraps/button_on/button_on.tscn" id="13_nsl6a"]
-[ext_resource type="PackedScene" uid="uid://c8pilavu6uidq" path="res://scenes/claptraps/button_off/button_off.tscn" id="14_2ppij"]
-[ext_resource type="PackedScene" uid="uid://pennmpnhiafp" path="res://scenes/claptraps/gate/gate.tscn" id="15_2ppij"]
-[ext_resource type="PackedScene" uid="uid://3hgj6nsf58iu" path="res://scenes/claptraps/apple/apple.tscn" id="16_qepg7"]
-[ext_resource type="PackedScene" uid="uid://bcd7bwwmfqe8x" path="res://scenes/claptraps/turret_n/turret_n.tscn" id="17_xeny0"]
-[ext_resource type="PackedScene" uid="uid://c128vqxu2fd1t" path="res://scenes/claptraps/turret_e/turret_e.tscn" id="18_iu2it"]
-[ext_resource type="PackedScene" uid="uid://cs5pyvouh64yy" path="res://scenes/claptraps/turret_s/turret_s.tscn" id="19_2t0fy"]
-[ext_resource type="PackedScene" uid="uid://dqv5jp1twf1da" path="res://scenes/claptraps/turret_w/turret_w.tscn" id="20_asvu2"]
-[ext_resource type="PackedScene" uid="uid://bw7y4jgprareq" path="res://scenes/claptraps/laser/laser.tscn" id="21_iu2it"]
-[ext_resource type="PackedScene" uid="uid://cmm7bafjl8je6" path="res://scenes/claptraps/wall_2/wall_2.tscn" id="22_wh4sp"]
-[ext_resource type="PackedScene" uid="uid://dcvrnmg0rqskj" path="res://scenes/claptraps/wall_3/wall_3.tscn" id="23_v0jby"]
-[ext_resource type="PackedScene" uid="uid://rmbeuwein354" path="res://scenes/claptraps/rock/rock.tscn" id="24_dk1px"]
 
 [node name="Claptraps" type="Node"]
-
-[node name="Thing" parent="." instance=ExtResource("1_qi1rq")]
-visible = false
-
-[node name="Dave" parent="." instance=ExtResource("2_hhlqv")]
-visible = false
-
-[node name="Blank" parent="." instance=ExtResource("3_fpxfw")]
-visible = false
-
-[node name="Wall" parent="." instance=ExtResource("4_ktyty")]
-visible = false
+script = ExtResource("1_hhlqv")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AAALAAAAAQAAAAAAAQAPAAcAAQAAAAAAAQAOAAAAAQAAAAAAAQANAAAAAQAAAAAAAQAMAAEAAQAAAAAAAQAAAAAAAQAAAAAAAQAAAAEAAQAAAAAAAQABAAAAAQAAAAAAAQADAAAAAQAAAAAAAQADAAEAAQAAAAAAGAADAAMAAQAAAAAAEgAAAAQAAQAAAAAAAQAFAAAAAQAAAAAAAQAGAAAAAQAAAAAAAQAMAAAAAQAAAAAAAQAAAAkAAQAAAAAAAQAAAAoAAQAAAAAAAQAAAAsAAQAAAAAAAQABAAsAAQAAAAAAAQACAAsAAQAAAAAAAQADAAsAAQAAAAAAAQAEAAsAAQAAAAAAAQAFAAsAAQAAAAAAAQAGAAsAAQAAAAAAAQAHAAsAAQAAAAAAAQAIAAsAAQAAAAAAAQAJAAsAAQAAAAAAAQAKAAsAAQAAAAAAAQALAAsAAQAAAAAAAQAMAAsAAQAAAAAAAQAPAAgAAQAAAAAAAQAPAAkAAQAAAAAAAQAPAAoAAQAAAAAAAQAPAAsAAQAAAAAAAQAOAAsAAQAAAAAAAQANAAsAAQAAAAAAAQAAAAUAAQAAAAAAAQADAAgAAQAAAAAAAQACAAgAAQAAAAAAGAAEAAUAAQAAAAAAAQAFAAUAAQAAAAAAGQAFAAQAAQAAAAAAAQAIAAEAAQAAAAAAEwAHAAYAAQAAAAAAAQAHAAcAAQAAAAAAAQAGAAcAAQAAAAAAAQAFAAcAAQAAAAAAAQAFAAgAAQAAAAAAAQAIAAkAAQAAAAAAEQAHAAkAAQAAAAAAAQAJAAcAAQAAAAAAAQAKAAcAAQAAAAAAAQALAAcAAQAAAAAAGAAKAAgAAQAAAAAAGAANAAkAAQAAAAAAFwANAAoAAQAAAAAAAQAMAAoAAQAAAAAAFwANAAQAAQAAAAAAEAAMAAIAAQAAAAAAGAAKAAEAAQAAAAAAGAAJAAMAAQAAAAAAAQAHAAIAAQAAAAAAAQAIAAIAAQAAAAAAEwAEAAAAAQAAAAAAAQAHAAAAAQAAAAAAAQAIAAAAAQAAAAAAAQAJAAAAAQAAAAAAAQAKAAAAAQAAAAAAAQAPAAMAAQAAAAAAAQAPAAIAAQAAAAAAAQAPAAEAAQAAAAAAAQAPAAAAAQAAAAAAAQACAAAAAQAAAAAAAQAAAAIAAQAAAAAAAQAAAAYAAQAAAAAAAQAAAAcAAQAAAAAAAQAAAAgAAQAAAAAAAQAPAAQAAQAAAAAAAQAPAAUAAQAAAAAAAQAPAAYAAQAAAAAAAQAIAAMAAQAAAAAAEwAKAAQAAQAAAAAAAQAKAAMAAQAAAAAAAQAKAAoAAQAAAAAAFwAFAAoAAQAAAAAAFwADAAkAAQAAAAAAAQADAAoAAQAAAAAAAQALAAQAAQAAAAAAFwAMAAcAAQAAAAAAGAAOAAcAAQAAAAAAGAAOAAIAAQAAAAAAAQAFAAIAAQAAAAAADwAGAAQAAQAAAAAAGQAIAAQAAQAAAAAADwAJAAYAAQAAAAAAFwALAAUAAQAAAAAAAQANAAUAAQAAAAAAAQABAAYAAQAAAAAAAQACAAQAAQAAAAAAAQADAAcAAQAAAAAAFwACAAEAAQAAAAAAGAAFAAYAAQAAAAAAAgAFAAMAAQAAAAAAAgADAAIAAQAAAAAAAgAKAAkAAQAAAAAAAgABAAEAAQAAAAAABAAHAAEAAQAAAAAAAwANAAcAAQAAAAAAAgAOAAoAAQAAAAAABAAIAAgAAQAAAAAABgANAAgAAQAAAAAABQAFAAkAAQAAAAAABQADAAYAAQAAAAAABQACAAIAAQAAAAAACAAMAAkAAQAAAAAACAACAAoAAQAAAAAACAAOAAMAAQAAAAAABwAJAAEAAQAAAAAACAALAAEAAQAAAAAACAACAAkAAQAAAAAACQALAAMAAQAAAAAACgAOAAUAAQAAAAAACwABAAQAAQAAAAAADAABAAgAAQAAAAAADQANAAIAAQAAAAAADQAHAAUAAQAAAAAADgAMAAYAAQAAAAAADgABAAcAAQAAAAAADgAAAAMAAQAAAAAAAQAIAAoAAQAAAAAAEwAOAAQAAQAAAAAAEwACAAMAAQAAAAAAEwABAAMAAQAAAAAAEwAMAAUAAQAAAAAAFAAMAAMAAQAAAAAAFQACAAYAAQAAAAAAFgAGAAIAAQAAAAAAFgALAAgAAQAAAAAAFgA=")
 tile_set = ExtResource("5_p7gka")
-
-[node name="Smiley" parent="." instance=ExtResource("6_qv5u0")]
-visible = false
-
-[node name="CalmFrog" parent="." instance=ExtResource("7_5eckf")]
-visible = false
-
-[node name="Box" parent="." instance=ExtResource("8_8hsxd")]
-visible = false
-
-[node name="Transporter" parent="." instance=ExtResource("9_qgfwl")]
-visible = false
-
-[node name="Grass" parent="." instance=ExtResource("10_foavx")]
-visible = false
-
-[node name="RedFrog" parent="." instance=ExtResource("11_foavx")]
-visible = false
-
-[node name="AngryRedFrog" parent="." instance=ExtResource("12_wl15r")]
-visible = false
-
-[node name="ButtonOn" parent="." instance=ExtResource("13_nsl6a")]
-visible = false
-
-[node name="ButtonOff" parent="." instance=ExtResource("14_2ppij")]
-visible = false
-
-[node name="Gate" parent="." instance=ExtResource("15_2ppij")]
-visible = false
-
-[node name="Apple" parent="." instance=ExtResource("16_qepg7")]
-visible = false
-
-[node name="TurretN" parent="." instance=ExtResource("17_xeny0")]
-visible = false
-
-[node name="TurretE" parent="." instance=ExtResource("18_iu2it")]
-visible = false
-
-[node name="TurretS" parent="." instance=ExtResource("19_2t0fy")]
-visible = false
-
-[node name="TurretW" parent="." instance=ExtResource("20_asvu2")]
-visible = false
-
-[node name="Laser" parent="." instance=ExtResource("21_iu2it")]
-visible = false
-
-[node name="Wall2" parent="." instance=ExtResource("22_wh4sp")]
-visible = false
-
-[node name="Wall3" parent="." instance=ExtResource("23_v0jby")]
-visible = false
-
-[node name="Rock" parent="." instance=ExtResource("24_dk1px")]
-visible = false

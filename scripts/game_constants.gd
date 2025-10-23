@@ -1,6 +1,6 @@
 #script: game_constants.gd
 class_name GameConstants
-extends RefCounted
+extends Node
 
 const LEVEL_WIDTH := 16
 const LEVEL_HEIGHT := 12

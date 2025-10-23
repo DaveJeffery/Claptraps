@@ -62,7 +62,7 @@ func action() -> void:
 			if look(game_state.EAST, grid_pos).name not in SOLID_TO_LASER:
 				create("Laser", game_state.EAST, grid_pos)
 				look(game_state.EAST, grid_pos).forward = game_state.EAST
-				look(game_state.EAST, grid_pos).$AnimatedSprite2D.animation = "horiz"
+				#TODO look(game_state.EAST, grid_pos).$AnimatedSprite2D.animation = "horiz"
 				look(game_state.EAST, grid_pos).ignore = true
 		else:
 			create("Blank", 0, grid_pos)
@@ -93,6 +93,6 @@ func action() -> void:
 			if look(game_state.WEST, grid_pos).name not in SOLID_TO_LASER:
 				create("Laser", game_state.WEST, grid_pos)
 				look(game_state.WEST, grid_pos).forward = game_state.WEST
-				look(game_state.WEST, grid_pos).$AnimatedSprite2D.animation = "horiz"
+				#TODO look(game_state.WEST, grid_pos).$AnimatedSprite2D.animation = "horiz"
 		else:
 			create("Blank", 0, grid_pos)

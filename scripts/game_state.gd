@@ -4,7 +4,7 @@ extends Node
 
 var score: int
 
-var game_map: Array
+var game_map: TileMapLayer
 var dave_x: int
 var dave_y: int
 var dave_dest_x: int
@@ -30,7 +30,6 @@ var target_img: Texture2D
 
 func _init():
 	score = 0
-	game_map = []
 	dave_x = 0 #TODO Make Vector 2i
 	dave_y = 0 #TODO Make Vector 2i
 	dave_dest_x = 0 #TODO Make Vector 2i
