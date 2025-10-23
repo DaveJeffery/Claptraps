@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://c128vqxu2fd1t"]
+
+[ext_resource type="Script" uid="uid://b62m0fmilw50m" path="res://scenes/claptraps/turret_e/turret_e.gd" id="1_eqqaq"]
+[ext_resource type="Texture2D" uid="uid://csrpr5agyyr6" path="res://scenes/claptraps/turret_e/turret_horiz_on.png" id="2_s0w62"]
+
+[node name="TurretE" type="Node2D"]
+script = ExtResource("1_eqqaq")
+metadata/_custom_type_script = "uid://b6ixxea4gjxgj"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_s0w62")
