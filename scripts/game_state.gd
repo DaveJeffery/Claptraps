@@ -11,7 +11,7 @@ var dave_dest_x: int
 var dave_dest_y: int
 var x_offset: int
 var y_offset: int
-var player_moving: bool
+var player_moving: int
 var kill_dave: bool
 var obj_names: Dictionary
 var use_key: bool
@@ -37,7 +37,7 @@ func _init():
 	dave_dest_y = 0 #TODO Make Vector 2i
 	x_offset = 0 #TODO Make Vector 2i
 	y_offset = 0 #TODO Make Vector 2i
-	player_moving = false
+	player_moving = 0
 	kill_dave = false
 	obj_names = {}
 	use_key = false

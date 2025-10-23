@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cn4avo7epi58x"]
+
+[ext_resource type="Script" uid="uid://dqw2fn5gny7y6" path="res://scenes/claptraps/bush/bush.gd" id="1_gko2d"]
+[ext_resource type="Texture2D" uid="uid://rlkc46ndeage" path="res://scenes/claptraps/bush/bush.png" id="2_pygux"]
+
+[node name="Bush" type="Node2D"]
+script = ExtResource("1_gko2d")
+metadata/_custom_type_script = "uid://b6ixxea4gjxgj"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_pygux")
