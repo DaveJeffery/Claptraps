@@ -3,6 +3,8 @@ extends Node
 
 static var game_state: GameState
 #static var game_objects: GameObjects
+static var dave: Dave
+static var wall: Wall
 
 static func init(
 	gs: GameState, 
@@ -10,6 +12,8 @@ static func init(
 ) -> void:
 	game_state = gs
 	#game_objects = go
+	dave = Dave.new(game_state)
+	wall = Wall.new(game_state)
 
 
 static func look(direction, grid_pos:Vector2i) -> Thing:
@@ -24,11 +28,11 @@ static func look(direction, grid_pos:Vector2i) -> Thing:
 				game_state.dave_pos == Vector2i(x+1, y)  
 				or game_state.dave_dest == Vector2i(x+1, y)  
 			):
-				return Dave
+				return dave
 			else:
 				return game_state.game_map[x+1][y] #TODO
 		else:
-			return Wall
+			return wall
 
 	if direction == game_state.WEST:
 		if x > 0:
@@ -38,11 +42,11 @@ static func look(direction, grid_pos:Vector2i) -> Thing:
 				game_state.dave_pos == Vector2i(x - 1, y) 
 				or game_state.dave_dest == Vector2i(x - 1, y)
 			):
-				return Dave
+				return dave
 			else:
 				return game_state.game_map[x-1][y] #TODO
 		else:
-			return Wall
+			return wall
 
 	if direction == game_state.NORTH:
 		if y > 0:
@@ -52,11 +56,11 @@ static func look(direction, grid_pos:Vector2i) -> Thing:
 				game_state.dave_pos == Vector2i(x, y - 1)
 				or game_state.dave_dest == Vector2i(x, y - 1)
 			):
-				return Dave
+				return dave
 			else:
 				return game_state.game_map[x][y-1] #TODO
 		else:
-			return Wall
+			return wall
 	
 	if direction == game_state.SOUTH:
 		if y < game_state.level_size.y - 1:
@@ -66,11 +70,11 @@ static func look(direction, grid_pos:Vector2i) -> Thing:
 				game_state.dave_pos == Vector2i(x, y + 1)
 				or game_state.dave_dest == Vector2i(x, y + 1)
 			):
-				return Dave
+				return dave
 			else:
 				return game_state.game_map[x][y+1] #TODO
 		else:
-			return Wall
+			return wall
 
 	if direction == game_state.NE:
 		if y > 0 and x < game_state.level_size.x - 1:
@@ -80,11 +84,11 @@ static func look(direction, grid_pos:Vector2i) -> Thing:
 				game_state.dave_pos == Vector2i(x+1, y - 1)
 				or game_state.dave_dest == Vector2i(x+1, y - 1)
 			):
-				return Dave
+				return dave
 			else:
 				return game_state.game_map[x+1][y-1] #TODO
 		else:
-			return Wall
+			return wall
 
 	if direction == game_state.SE:
 		if (
@@ -97,11 +101,11 @@ static func look(direction, grid_pos:Vector2i) -> Thing:
 				game_state.dave_pos == Vector2i(x+1, y + 1)
 				or  game_state.dave_dest == Vector2i(x+1, y + 1)
 			):
-				return Dave
+				return dave
 			else:
 				return game_state.game_map[x+1][y+1] #TODO
 		else:
-			return Wall
+			return wall
 
 	if direction == game_state.SW:
 		if y < game_state.LEVEL_HEIGHT - 1 and x > 0:
@@ -111,11 +115,11 @@ static func look(direction, grid_pos:Vector2i) -> Thing:
 				game_state.dave_pos == Vector2i(x-1, y + 1)
 				or game_state.dave_dest == Vector2i(x-1, y + 1)
 			):
-				return Dave
+				return dave
 			else:
 				return game_state.game_map[x-1][y+1] #TODO
 		else:
-			return Wall
+			return wall
 
 	if direction == game_state.NW:
 		if y > 0 and x > 0:
@@ -125,11 +129,11 @@ static func look(direction, grid_pos:Vector2i) -> Thing:
 				game_state.dave_pos == Vector2i(x-1, y - 1)
 				or game_state.dave_dest == Vector2i(x-1, y - 1)
 			):
-				return Dave
+				return dave
 			else:
 				return game_state.game_map[x-1][y-1] #TODO
 		else:
-			return Wall
+			return wall
 			 
 	# If none of the above:
 	# return game_state.game_map[x][y]   
@@ -139,7 +143,7 @@ static func look(direction, grid_pos:Vector2i) -> Thing:
 		game_state.dave_pos == grid_pos
 		or game_state.dave_dest == grid_pos
 	):
-		return Dave
+		return dave
 	else:
 		return game_state.game_map[x][y] #TODO
 

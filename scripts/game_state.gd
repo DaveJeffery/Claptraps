@@ -11,10 +11,9 @@ const SE := 6
 const SW := 7
 const NW := 8
 
-var game_functions : GameFunctions
 var score: int
 var level_size: Vector2i
-var game_map: TileMapLayer
+var game_map: Array
 var dave_pos: Vector2i
 var dave_dest: Vector2i
 var xy_offset: Vector2i

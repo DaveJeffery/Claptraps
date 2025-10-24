@@ -48,3 +48,10 @@ func action() -> void:
 
 func check_squash(obj: Thing) -> bool:
 	return squash
+
+# Wrapper functions
+func look(direction, grid_pos:Vector2i) -> Thing:
+	return GameFunctions.look(direction, grid_pos)
+	
+func move(direction, obj, grid_pos) -> void:
+	return GameFunctions.move(direction, obj, grid_pos)
