@@ -2,14 +2,15 @@
 class_name GameState
 extends Node
 
-const NORTH := 1
-const EAST := 2
-const SOUTH := 3
-const WEST := 4
-const NE := 5
-const SE := 6
-const SW := 7
-const NW := 8
+var STILL := Direction.new(Vector2i(0, 0), Vector2i(0, 0), Vector2i(0, 0), Vector2i(0, 0))
+var NORTH := Direction.new(Vector2i(0, -1), Vector2i(0, 1), Vector2i(-1, 0), Vector2i(1, 0))
+var SOUTH := Direction.new(Vector2i(0, 1), Vector2i(0, -1), Vector2i(1, 0), Vector2i(-1, 0))
+var EAST := Direction.new(Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, -1), Vector2i(0, 1))
+var WEST := Direction.new(Vector2i(-1, 0), Vector2i(1, 0), Vector2i(0, 1), Vector2i(0, -1))
+var NE := Direction.new(Vector2i(1, -1), Vector2i(-1, 1), Vector2i(-1, -1), Vector2i(1, 1))
+var SE := Direction.new(Vector2i(1, 1), Vector2i(-1, -1), Vector2i(1, -1), Vector2i(-1, 1))
+var SW := Direction.new(Vector2i(-1, 1), Vector2i(1, -1), Vector2i(1, 1), Vector2i(-1, -1))
+var NW := Direction.new(Vector2i(-1, -1), Vector2i(1, 1), Vector2i(-1, 1), Vector2i(1, -1))
 
 var score: int
 var level_size: Vector2i

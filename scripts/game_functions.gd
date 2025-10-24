@@ -16,24 +16,11 @@ static func init(
 	#game_objects = go
 	dave = Dave.new(game_state)
 	wall = Wall.new(game_state)
-	
-	#TODO This is insane, this is what should be in GameState!
-	direction_offsets = {
-		game_state.EAST: Vector2i(1, 0),
-		game_state.WEST: Vector2i(-1, 0),
-		game_state.NORTH: Vector2i(0, -1),
-		game_state.SOUTH: Vector2i(0, 1),
-		game_state.NORTHEAST: Vector2i(1, -1),
-		game_state.NORTHWEST: Vector2i(-1, -1),
-		game_state.SOUTHEAST: Vector2i(1, 1),
-		game_state.SOUTHWEST: Vector2i(-1, 1),
-	}
 
 
-static func look(direction: int, position: Vector2i) -> Thing:
-	# Look up the offset; default to zero if unknown direction
-	var offset: Vector2i = direction_offsets.get(direction, Vector2i.ZERO)
-	var target_pos = position + offset
+static func look(direction: Vector2i, position: Vector2i) -> Thing:
+	# Find the position to look at
+	var target_pos = position + direction
 
 	# Semantic checks
 	var target_cell := _get_cell(target_pos)
@@ -49,40 +36,32 @@ static func look(direction: int, position: Vector2i) -> Thing:
 		return target_cell
 
 
-static func move(direction: int, object: Thing, grid_pos: Vector2i) -> void:
-	if object.moving != 0:
+static func move(direction: Vector2i, object: Thing, grid_pos: Vector2i) -> void:
+	if object.moving != Vector2i.ZERO:
 		return
 	
 	# Direction metadata
 	var direction_map := {
-		game_state.NORTH: { "offset": Vector2i(0, -1), "opposite": game_state.SOUTH, "left": game_state.WEST, "right": game_state.EAST },
-		game_state.SOUTH: { "offset": Vector2i(0, 1),  "opposite": game_state.NORTH, "left": game_state.EAST, "right": game_state.WEST },
-		game_state.EAST:  { "offset": Vector2i(1, 0),  "opposite": game_state.WEST,  "left": game_state.NORTH, "right": game_state.SOUTH },
-		game_state.WEST:  { "offset": Vector2i(-1, 0), "opposite": game_state.EAST,  "left": game_state.SOUTH, "right": game_state.NORTH },
+		game_state.NORTH: { "opposite": game_state.SOUTH, "left": game_state.WEST, "right": game_state.EAST },
+		game_state.SOUTH: { "opposite": game_state.NORTH, "left": game_state.EAST, "right": game_state.WEST },
+		game_state.EAST:  { "opposite": game_state.WEST,  "left": game_state.NORTH, "right": game_state.SOUTH },
+		game_state.WEST:  { "opposite": game_state.EAST,  "left": game_state.SOUTH, "right": game_state.NORTH },
 	}
 	
 	var dir_data = direction_map[direction]
-	var offset: Vector2i = dir_data["offset"]
-	var target_pos = grid_pos + offset
-	var target = _get_cell(target_pos)
+	var target_pos := grid_pos + direction
+	var target: Thing = _get_cell(target_pos)
 	object.moving = direction
 	
 	# Handle collisions
-	if target.being_moved_into > 0:
-		var hitting_object = target
-		var move_offset := Vector2i.ZERO
-		
-		match target.being_moved_into:
-			game_state.NORTH: move_offset = Vector2i(0, -1)
-			game_state.SOUTH: move_offset = Vector2i(0, 1)
-			game_state.EAST:  move_offset = Vector2i(1, 0)
-			game_state.WEST:  move_offset = Vector2i(-1, 0)
-		
-		var destination_pos = target_pos + move_offset
-		var destination = _get_cell(destination_pos)
+	if target.being_moved_into != Vector2i.ZERO:
+		var hitting_object := target
+		var move_offset := target.being_moved_into
+		var destination_pos := target_pos + move_offset
+		var destination := _get_cell(destination_pos)
 		
 		target = destination
-		target.moving = 0
+		target.moving = Vector2i.ZERO
 		target.grid_pos = target_pos
 		destination = Blank.new(game_state)
 		
@@ -102,10 +81,6 @@ static func move(direction: int, object: Thing, grid_pos: Vector2i) -> void:
 	object.backward = dir_data["opposite"]
 	object.left = dir_data["left"]
 	object.right = dir_data["right"]
-
-
-
-
 
 
 static func change(obj1: Thing, obj2: Thing) -> void:

@@ -11,13 +11,13 @@ var squash := false
 var ignore := false
 var h_push := false
 var v_push := false
-var moving := 0
-var being_moved_into := 0
+var moving := Vector2i.ZERO
+var being_moved_into := Vector2i.ZERO
 var moved := 0
-var forward := 1
-var backward := 3
-var left := 4
-var right := 2
+var forward := GameState.NORTH
+var backward := GameState.SOUTH
+var left := GameState.WEST
+var right := GameState.EAST
 var move_counter := 0
 var move_speed := 0
 var is_dave := false
@@ -51,9 +51,9 @@ func check_squash(obj: Thing) -> bool:
 
 
 ## Wrapper functions
-func look(direction:int, grid_pos: Vector2i) -> Thing:
+func look(direction:Vector2i, grid_pos: Vector2i) -> Thing:
 	return GameFunctions.look(direction, grid_pos)
 
 
-func move(direction:int, obj: Thing, grid_pos: Vector2i) -> void:
-	return GameFunctions.move(direction, obj, grid_pos)
+func move(direction:Vector2i, object: Thing, grid_pos: Vector2i) -> void:
+	return GameFunctions.move(direction, object, grid_pos)
