@@ -17,6 +17,7 @@ static func init(
 	dave = Dave.new(game_state)
 	wall = Wall.new(game_state)
 	
+	#TODO This is insane, this is what should be in GameState!
 	direction_offsets = {
 		game_state.EAST: Vector2i(1, 0),
 		game_state.WEST: Vector2i(-1, 0),
@@ -35,7 +36,7 @@ static func look(direction: int, position: Vector2i) -> Thing:
 	var target_pos = position + offset
 
 	# Semantic checks
-	var target_cell := _get_cell(target_pos.x, target_pos.y)
+	var target_cell := _get_cell(target_pos)
 
 	if not target_cell is Blank:
 		return target_cell
@@ -52,39 +53,18 @@ static func move(direction: int, object: Thing, grid_pos: Vector2i) -> void:
 	if object.moving != 0:
 		return
 	
-	var x := grid_pos.x
-	var y := grid_pos.y
-	
+	# Direction metadata
 	var direction_map := {
-		game_state.NORTH: { 
-			"offset": game_state.NORTH, 
-			"opposite": game_state.SOUTH, 
-			"left": game_state.WEST, 
-			"right": game_state.EAST, 
-		},
-		game_state.SOUTH: { 
-			"offset": game_state.SOUTH,  
-			"opposite": game_state.NORTH, 
-			"left": game_state.EAST, 
-			"right": game_state.WEST, 
-		},
-		game_state.EAST:  { 
-			"offset": game_state.EAST,  
-			"opposite": game_state.WEST,  
-			"left": game_state.NORTH, 
-			"right": game_state.SOUTH, 
-		},
-		game_state.WEST:  { 
-			"offset": game_state.WEST,
-			"opposite": game_state.EAST,  
-			"left": game_state.SOUTH, 
-			"right": game_state.NORTH, 
-		},
+		game_state.NORTH: { "offset": Vector2i(0, -1), "opposite": game_state.SOUTH, "left": game_state.WEST, "right": game_state.EAST },
+		game_state.SOUTH: { "offset": Vector2i(0, 1),  "opposite": game_state.NORTH, "left": game_state.EAST, "right": game_state.WEST },
+		game_state.EAST:  { "offset": Vector2i(1, 0),  "opposite": game_state.WEST,  "left": game_state.NORTH, "right": game_state.SOUTH },
+		game_state.WEST:  { "offset": Vector2i(-1, 0), "opposite": game_state.EAST,  "left": game_state.SOUTH, "right": game_state.NORTH },
 	}
 	
 	var dir_data = direction_map[direction]
-	var offset = dir_data["offset"]
-	var target = _get_cell(x + offset.x, y + offset.y)
+	var offset: Vector2i = dir_data["offset"]
+	var target_pos = grid_pos + offset
+	var target = _get_cell(target_pos)
 	object.moving = direction
 	
 	# Handle collisions
@@ -93,19 +73,17 @@ static func move(direction: int, object: Thing, grid_pos: Vector2i) -> void:
 		var move_offset := Vector2i.ZERO
 		
 		match target.being_moved_into:
-			game_state.NORTH:
-				move_offset = Vector2i(0, -1)
-			game_state.SOUTH:
-				move_offset = Vector2i(0, 1)
-			game_state.EAST:
-				move_offset = Vector2i(1, 0)
-			game_state.WEST:
-				move_offset = Vector2i(-1, 0)
+			game_state.NORTH: move_offset = Vector2i(0, -1)
+			game_state.SOUTH: move_offset = Vector2i(0, 1)
+			game_state.EAST:  move_offset = Vector2i(1, 0)
+			game_state.WEST:  move_offset = Vector2i(-1, 0)
 		
-		var destination = _get_cell(x + offset.x + move_offset.x, y + offset.y + move_offset.y)
+		var destination_pos = target_pos + move_offset
+		var destination = _get_cell(destination_pos)
+		
 		target = destination
 		target.moving = 0
-		target.grid_pos = Vector2i(x + offset.x, y + offset.y)
+		target.grid_pos = target_pos
 		destination = Blank.new(game_state)
 		
 		hitting_object.hit(target)
@@ -124,6 +102,7 @@ static func move(direction: int, object: Thing, grid_pos: Vector2i) -> void:
 	object.backward = dir_data["opposite"]
 	object.left = dir_data["left"]
 	object.right = dir_data["right"]
+
 
 
 
@@ -338,7 +317,10 @@ static func dave_hit() -> void:
 #
 	#hitting_object.hit(Dave())
 
-static func _get_cell(x: int, y: int) -> Thing:
+static func _get_cell(position: Vector2i) -> Thing:
+	var x := position.x
+	var y := position.y
+	
 	# Out-of-bounds check: return wall if outside the map
 	if (
 		x < 0 
