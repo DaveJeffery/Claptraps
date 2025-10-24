@@ -6,6 +6,8 @@ static var game_state: GameState
 static var dave: Dave #TODO This will need to be the *actual* Dave for hitby
 static var wall: Wall
 
+static var direction_offsets: Dictionary[int, Vector2i]
+
 static func init(
 	gs: GameState, 
 	#go: GameObjects,
@@ -14,147 +16,45 @@ static func init(
 	#game_objects = go
 	dave = Dave.new(game_state)
 	wall = Wall.new(game_state)
-
-
-static func look(direction: int, grid_pos: Vector2i) -> Thing:
-	var x := grid_pos.x
-	var y := grid_pos.y
 	
-	if direction == game_state.EAST:
-		if grid_pos.x < game_state.level_size.x - 1:
-			var target_cell := _get_cell(x + 1, y)
-			if not target_cell is Blank:
-				return target_cell
-			elif (
-				game_state.dave_pos == Vector2i(x + 1, y)  
-				or game_state.dave_dest == Vector2i(x + 1, y)  
-			):
-				return dave
-			else:
-				return target_cell
-		else:
-			return wall
+	direction_offsets = {
+		game_state.EAST: Vector2i(1, 0),
+		game_state.WEST: Vector2i(-1, 0),
+		game_state.NORTH: Vector2i(0, -1),
+		game_state.SOUTH: Vector2i(0, 1),
+		game_state.NORTHEAST: Vector2i(1, -1),
+		game_state.NORTHWEST: Vector2i(-1, -1),
+		game_state.SOUTHEAST: Vector2i(1, 1),
+		game_state.SOUTHWEST: Vector2i(-1, 1),
+	}
 
-	if direction == game_state.WEST:
-		if x > 0:
-			var target_cell := _get_cell(x - 1, y)
-			if not target_cell is Blank:
-				return target_cell
-			elif (
-				game_state.dave_pos == Vector2i(x - 1, y) 
-				or game_state.dave_dest == Vector2i(x - 1, y)
-			):
-				return dave
-			else:
-				return target_cell
-		else:
-			return wall
 
-	if direction == game_state.NORTH:
-		if y > 0:
-			var target_cell := _get_cell(x , y - 1)
-			if not target_cell is Blank:
-				return target_cell
-			elif (
-				game_state.dave_pos == Vector2i(x, y - 1)
-				or game_state.dave_dest == Vector2i(x, y - 1)
-			):
-				return dave
-			else:
-				return target_cell
-		else:
-			return wall
+static func look(direction: int, position: Vector2i) -> Thing:
+	# Look up the offset; default to zero if unknown direction
+	var offset: Vector2i = direction_offsets.get(direction, Vector2i.ZERO)
+	var target_pos = position + offset
+
+	# Out-of-bounds check: return wall if outside the map
+	if (
+		target_pos.x < 0 
+		or target_pos.x >= game_state.level_size.x
+		or target_pos.y < 0 
+		or target_pos.y >= game_state.level_size.y
+	):
+		return wall
 	
-	if direction == game_state.SOUTH:
-		if y < game_state.level_size.y - 1:
-			var target_cell := _get_cell(x , y + 1)
-			if not target_cell is Blank:
-				return target_cell
-			elif (
-				game_state.dave_pos == Vector2i(x, y + 1)
-				or game_state.dave_dest == Vector2i(x, y + 1)
-			):
-				return dave
-			else:
-				return target_cell
-		else:
-			return wall
+	# Semantic checks
+	var target_cell := _get_cell(target_pos.x, target_pos.y)
 
-	if direction == game_state.NE:
-		if y > 0 and x < game_state.level_size.x - 1:
-			var target_cell := _get_cell(x + 1, y - 1)
-			if not target_cell is Blank:
-				return target_cell
-			elif (
-				game_state.dave_pos == Vector2i(x + 1, y - 1)
-				or game_state.dave_dest == Vector2i(x + 1, y - 1)
-			):
-				return dave
-			else:
-				return target_cell
-		else:
-			return wall
-
-	if direction == game_state.SE:
-		if (
-			y < game_state.level_size.y - 1 
-			and x < game_state.level_size.x - 1
-		):
-			var target_cell := _get_cell(x + 1, y + 1)
-			if not target_cell is Blank:
-				return target_cell
-			elif (
-				game_state.dave_pos == Vector2i(x + 1, y + 1)
-				or  game_state.dave_dest == Vector2i(x + 1, y + 1)
-			):
-				return dave
-			else:
-				return target_cell
-		else:
-			return wall
-
-	if direction == game_state.SW:
-		if y < game_state.LEVEL_HEIGHT - 1 and x > 0:
-			var target_cell := _get_cell(x - 1, y + 1)
-			if not target_cell is Blank:
-				return target_cell
-			elif (
-				game_state.dave_pos == Vector2i(x - 1, y + 1)
-				or game_state.dave_dest == Vector2i(x - 1, y + 1)
-			):
-				return dave
-			else:
-				return target_cell
-		else:
-			return wall
-
-	if direction == game_state.NW:
-		if y > 0 and x > 0:
-			var target_cell := _get_cell(x - 1, y - 1)
-			if not target_cell is Blank:
-				return target_cell
-			elif (
-				game_state.dave_pos == Vector2i(x - 1, y - 1)
-				or game_state.dave_dest == Vector2i(x - 1, y - 1)
-			):
-				return dave
-			else:
-				return target_cell
-		else:
-			return wall
-			 
-	# If none of the above (as cell is more than 1 cell away):
-	# return game_state.game_map[x][y]
-	var distant_cell := _get_cell(x, y)   
-	if not distant_cell is Blank:
-		return distant_cell
+	if not target_cell is Blank:
+		return target_cell
 	elif (
-		game_state.dave_pos == grid_pos
-		or game_state.dave_dest == grid_pos
+		game_state.dave_pos == target_pos 
+		or game_state.dave_dest == target_pos
 	):
 		return dave
 	else:
-		return distant_cell
+		return target_cell
 
 
 static func move(direction: int, object: Thing, grid_pos: Vector2i) -> void:
