@@ -34,15 +34,6 @@ static func look(direction: int, position: Vector2i) -> Thing:
 	var offset: Vector2i = direction_offsets.get(direction, Vector2i.ZERO)
 	var target_pos = position + offset
 
-	# Out-of-bounds check: return wall if outside the map
-	if (
-		target_pos.x < 0 
-		or target_pos.x >= game_state.level_size.x
-		or target_pos.y < 0 
-		or target_pos.y >= game_state.level_size.y
-	):
-		return wall
-	
 	# Semantic checks
 	var target_cell := _get_cell(target_pos.x, target_pos.y)
 
@@ -58,189 +49,85 @@ static func look(direction: int, position: Vector2i) -> Thing:
 
 
 static func move(direction: int, object: Thing, grid_pos: Vector2i) -> void:
+	if object.moving != 0:
+		return
+	
 	var x := grid_pos.x
 	var y := grid_pos.y
-	var hitting_object: Thing
 	
-	if object.moving == 0:
-		if direction == game_state.NORTH:
-			object.moving = game_state.NORTH
-			if game_state.game_map[x][y-1].being_moved_into > 0:
+	var direction_map := {
+		game_state.NORTH: { 
+			"offset": game_state.NORTH, 
+			"opposite": game_state.SOUTH, 
+			"left": game_state.WEST, 
+			"right": game_state.EAST, 
+		},
+		game_state.SOUTH: { 
+			"offset": game_state.SOUTH,  
+			"opposite": game_state.NORTH, 
+			"left": game_state.EAST, 
+			"right": game_state.WEST, 
+		},
+		game_state.EAST:  { 
+			"offset": game_state.EAST,  
+			"opposite": game_state.WEST,  
+			"left": game_state.NORTH, 
+			"right": game_state.SOUTH, 
+		},
+		game_state.WEST:  { 
+			"offset": game_state.WEST,
+			"opposite": game_state.EAST,  
+			"left": game_state.SOUTH, 
+			"right": game_state.NORTH, 
+		},
+	}
+	
+	var dir_data = direction_map[direction]
+	var offset = dir_data["offset"]
+	var target = _get_cell(x + offset.x, y + offset.y)
+	object.moving = direction
+	
+	# Handle collisions
+	if target.being_moved_into > 0:
+		var hitting_object = target
+		var move_offset := Vector2i.ZERO
+		
+		match target.being_moved_into:
+			game_state.NORTH:
+				move_offset = Vector2i(0, -1)
+			game_state.SOUTH:
+				move_offset = Vector2i(0, 1)
+			game_state.EAST:
+				move_offset = Vector2i(1, 0)
+			game_state.WEST:
+				move_offset = Vector2i(-1, 0)
+		
+		var destination = _get_cell(x + offset.x + move_offset.x, y + offset.y + move_offset.y)
+		target = destination
+		target.moving = 0
+		target.grid_pos = Vector2i(x + offset.x, y + offset.y)
+		destination = Blank.new(game_state)
+		
+		hitting_object.hit(target)
+	
+	# Update cell properties
+	if target is Blank:
+		target.solid = object.solid
+		target.squash = object.squash
+		target.name = object.name
+	
+	target.empty = false
+	target.being_moved_into = dir_data["opposite"]
+	target.move_speed = 0
+	
+	object.forward = direction
+	object.backward = dir_data["opposite"]
+	object.left = dir_data["left"]
+	object.right = dir_data["right"]
 
-				hitting_object = game_state.game_map[x][y-1]
-				
-				if game_state.game_map[x][y-1].being_moved_into == game_state.EAST:
-					game_state.game_map[x][y-1] = game_state.game_map[x+1][y-1]
-					game_state.game_map[x][y-1].moving = 0
-					game_state.game_map[x][y-1].x = x
-					game_state.game_map[x][y-1].y = y-1
-					game_state.game_map[x+1][y-1] = Blank.new(game_state)
-					
-				if game_state.game_map[x][y-1].being_moved_into == game_state.WEST:
-					game_state.game_map[x][y-1] = game_state.game_map[x-1][y-1]
-					game_state.game_map[x][y-1].moving = 0
-					game_state.game_map[x][y-1].x = x
-					game_state.game_map[x][y-1].y = y-1
-					game_state.game_map[x-1][y-1] = Blank.new(game_state)
 
-				if game_state.game_map[x][y-1].being_moved_into == game_state.NORTH:
-					game_state.game_map[x][y-1] = game_state.game_map[x][y-2]
-					game_state.game_map[x][y-1].moving = 0
-					game_state.game_map[x][y-1].x = x
-					game_state.game_map[x][y-1].y = y-1
-					game_state.game_map[x][y-2] = Blank.new(game_state)
 
-				hitting_object.hit(game_state.game_map[x][y-1])
 
-			# Only set certain flags if space is blank
-			if game_state.game_map[x][y-1].game_object == 0:
-				game_state.game_map[x][y-1].solid = object.solid
-				game_state.game_map[x][y-1].squash = object.squash
-				game_state.game_map[x][y-1].name = object.name
-				
-			game_state.game_map[x][y-1].empty = false
-			game_state.game_map[x][y-1].being_moved_into = game_state.SOUTH
-			#game_state.game_map[x][y-1].sprite = 1
-			game_state.game_map[x][y-1].move_speed = 0
-			object.forward = game_state.NORTH
-			object.backward = game_state.SOUTH
-			object.left = game_state.WEST
-			object.right = game_state.EAST
-
-		if direction == game_state.EAST:
-			
-			object.moving = game_state.EAST
-
-			if game_state.game_map[x+1][y].being_moved_into > 0:
-
-				hitting_object = game_state.game_map[x+1][y]
-				
-				if game_state.game_map[x+1][y].being_moved_into == game_state.EAST:
-					game_state.game_map[x+1][y] = game_state.game_map[x+2][y]
-					game_state.game_map[x+1][y].moving  = 0
-					game_state.game_map[x+1][y].x = x+1
-					game_state.game_map[x+1][y].y = y
-					game_state.game_map[x+2][y] = Blank.new(game_state)
-
-				if game_state.game_map[x+1][y].being_moved_into == game_state.NORTH:
-					game_state.game_map[x+1][y] = game_state.game_map[x+1][y-1]
-					game_state.game_map[x+1][y].moving  = 0
-					game_state.game_map[x+1][y].x = x+1
-					game_state.game_map[x+1][y].y = y
-					game_state.game_map[x+1][y-1] = Blank.new(game_state)
-
-				if game_state.game_map[x+1][y].being_moved_into == game_state.SOUTH:
-					game_state.game_map[x+1][y] = game_state.game_map[x+1][y+1]
-					game_state.game_map[x+1][y].moving  = 0
-					game_state.game_map[x+1][y].x = x+1
-					game_state.game_map[x+1][y].y = y
-					game_state.game_map[x+1][y+1] = Blank.new(game_state)
-
-				hitting_object.hit(game_state.game_map[x+1][y])
-
-			if game_state.game_map[x+1][y].game_object == 0:
-				game_state.game_map[x+1][y].solid = object.solid
-				game_state.game_map[x+1][y].squash = object.squash
-				game_state.game_map[x+1][y].name = object.name
-				
-			game_state.game_map[x+1][y].empty = false
-			game_state.game_map[x+1][y].being_moved_into = game_state.WEST
-			#game_state.game_map[x+1][y].sprite = 1
-			game_state.game_map[x+1][y].move_speed = 0
-			object.forward = game_state.EAST
-			object.backward = game_state.WEST
-			object.left = game_state.NORTH
-			object.right = game_state.SOUTH
-
-		if direction == game_state.SOUTH:
-			
-			object.moving = game_state.SOUTH
-
-			if game_state.game_map[x][y+1].being_moved_into > 0:
-
-				hitting_object = game_state.game_map[x][y+1]
-				
-				if game_state.game_map[x][y+1].being_moved_into == game_state.EAST:
-					game_state.game_map[x][y+1] = game_state.game_map[x+1][y+1]
-					game_state.game_map[x][y+1].moving = 0
-					game_state.game_map[x][y+1].x = x
-					game_state.game_map[x][y+1].y = y+1
-					game_state.game_map[x+1][y+1] = Blank.new(game_state)
-					
-				if game_state.game_map[x][y+1].being_moved_into == game_state.WEST:
-					game_state.game_map[x][y+1] = game_state.game_map[x-1][y+1]
-					game_state.game_map[x][y+1].moving = 0
-					game_state.game_map[x][y+1].x = x
-					game_state.game_map[x][y+1].y = y+1
-					game_state.game_map[x-1][y+1] = Blank.new(game_state)
-
-				if game_state.game_map[x][y+1].being_moved_into == game_state.SOUTH:
-					game_state.game_map[x][y+1] = game_state.game_map[x][y+2]
-					game_state.game_map[x][y+1].moving = 0
-					game_state.game_map[x][y+1].x = x
-					game_state.game_map[x][y+1].y = y+1
-					game_state.game_map[x][y+2] = Blank.new(game_state)
-
-				hitting_object.hit(game_state.game_map[x][y+1])
-
-			if game_state.game_map[x][y+1].game_object == 0:
-				game_state.game_map[x][y+1].solid = object.solid
-				game_state.game_map[x][y+1].squash = object.squash
-				game_state.game_map[x][y+1].name = object.name
-				
-			game_state.game_map[x][y+1].empty = false    
-			game_state.game_map[x][y+1].being_moved_into = game_state.NORTH
-			#game_state.game_map[x][y+1].sprite = 1
-			game_state.game_map[x][y+1].move_speed = 0
-			object.forward = game_state.SOUTH
-			object.backward = game_state.NORTH
-			object.left = game_state.EAST
-			object.right = game_state.WEST
-
-		if direction == game_state.WEST:
-			
-			object.moving = game_state.WEST
-
-			if game_state.game_map[x-1][y].being_moved_into > 0:
-
-				hitting_object = game_state.game_map[x - 1][y]
-				
-				if game_state.game_map[x-1][y].being_moved_into == game_state.WEST:
-					game_state.game_map[x-1][y] = game_state.game_map[x-2][y]
-					game_state.game_map[x-1][y].moving = 0
-					game_state.game_map[x-1][y].x = x-1
-					game_state.game_map[x-1][y].y = y
-					game_state.game_map[x-2][y] = Blank.new(game_state)
-
-				if game_state.game_map[x-1][y].being_moved_into == game_state.NORTH:
-					game_state.game_map[x-1][y] = game_state.game_map[x-1][y-1]
-					game_state.game_map[x-1][y].moving = 0
-					game_state.game_map[x-1][y].x = x-1
-					game_state.game_map[x-1][y].y = y
-					game_state.game_map[x-1][y-1] = Blank.new(game_state)
-
-				if game_state.game_map[x-1][y].being_moved_into == game_state.SOUTH:
-					game_state.game_map[x-1][y] = game_state.game_map[x-1][y+1]
-					game_state.game_map[x-1][y].moving = 0
-					game_state.game_map[x-1][y].x = x-1
-					game_state.game_map[x-1][y].y = y
-					game_state.game_map[x-1][y+1] = Blank.new(game_state)
-
-				hitting_object.hit(game_state.game_map[x - 1][y])
-
-			if game_state.game_map[x-1][y].game_object == 0:
-				game_state.game_map[x-1][y].solid = object.solid
-				game_state.game_map[x-1][y].squash = object.squash
-				game_state.game_map[x-1][y].name = object.name
-				
-			game_state.game_map[x-1][y].empty = false
-			game_state.game_map[x-1][y].being_moved_into = game_state.EAST
-			#game_state.game_map[x-1][y].sprite = 1
-			game_state.game_map[x-1][y].move_speed = 0
-			object.forward = game_state.WEST
-			object.backward = game_state.EAST
-			object.left = game_state.SOUTH
-			object.right = game_state.NORTH
 
 static func change(obj1: Thing, obj2: Thing) -> void:
 	pass
@@ -452,6 +339,15 @@ static func dave_hit() -> void:
 	#hitting_object.hit(Dave())
 
 static func _get_cell(x: int, y: int) -> Thing:
+	# Out-of-bounds check: return wall if outside the map
+	if (
+		x < 0 
+		or x >= game_state.level_size.x
+		or y < 0 
+		or y >= game_state.level_size.y
+	):
+		return wall
+	
 	return game_state.game_map[x][y]
 
 static func _set_cell(x: int, y: int, object: Thing) -> void:
