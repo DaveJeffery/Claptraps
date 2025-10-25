@@ -2,25 +2,25 @@ class_name GameFunctions
 extends Node
 
 static var game_state: GameState
-#static var game_objects: GameObjects
+static var game_objects: GameObjects
 static var dave: Dave #TODO This will need to be the *actual* Dave for hitby
 static var wall: Wall
 
 static var direction_offsets: Dictionary[int, Vector2i]
 
 static func init(
-	gs: GameState, 
-	#go: GameObjects,
+	_game_state: GameState, 
+	_game_objects: GameObjects,
 ) -> void:
-	game_state = gs
-	#game_objects = go
+	game_state = _game_state
+	game_objects = _game_objects
 	dave = Dave.new(game_state)
 	wall = Wall.new(game_state)
 
 
-static func look(direction: Vector2i, position: Vector2i) -> Thing:
+static func look(direction: Direction, position: Vector2i) -> Thing:
 	# Find the position to look at
-	var target_pos = position + direction
+	var target_pos = position + direction.forward
 
 	# Semantic checks
 	var target_cell := _get_cell(target_pos)
@@ -36,32 +36,24 @@ static func look(direction: Vector2i, position: Vector2i) -> Thing:
 		return target_cell
 
 
-static func move(direction: Vector2i, object: Thing, grid_pos: Vector2i) -> void:
-	if object.moving != Vector2i.ZERO:
+static func move(direction: Direction, object: Thing, grid_pos: Vector2i) -> void:
+	# Can't move a moving object
+	if object.moving != Direction.STILL:
 		return
-	
-	# Direction metadata
-	var direction_map := {
-		game_state.NORTH: { "opposite": game_state.SOUTH, "left": game_state.WEST, "right": game_state.EAST },
-		game_state.SOUTH: { "opposite": game_state.NORTH, "left": game_state.EAST, "right": game_state.WEST },
-		game_state.EAST:  { "opposite": game_state.WEST,  "left": game_state.NORTH, "right": game_state.SOUTH },
-		game_state.WEST:  { "opposite": game_state.EAST,  "left": game_state.SOUTH, "right": game_state.NORTH },
-	}
-	
-	var dir_data = direction_map[direction]
-	var target_pos := grid_pos + direction
+
+	var target_pos := grid_pos + direction.forward
 	var target: Thing = _get_cell(target_pos)
 	object.moving = direction
 	
 	# Handle collisions
-	if target.being_moved_into != Vector2i.ZERO:
+	if target.being_moved_into != Direction.STILL:
 		var hitting_object := target
 		var move_offset := target.being_moved_into
-		var destination_pos := target_pos + move_offset
+		var destination_pos := target_pos + move_offset.forward
 		var destination := _get_cell(destination_pos)
 		
 		target = destination
-		target.moving = Vector2i.ZERO
+		target.moving = Direction.STILL
 		target.grid_pos = target_pos
 		destination = Blank.new(game_state)
 		
@@ -74,34 +66,34 @@ static func move(direction: Vector2i, object: Thing, grid_pos: Vector2i) -> void
 		target.name = object.name
 	
 	target.empty = false
-	target.being_moved_into = dir_data["opposite"]
+	target.being_moved_into = direction.backward
 	target.move_speed = 0
-	
-	object.forward = direction
-	object.backward = dir_data["opposite"]
-	object.left = dir_data["left"]
-	object.right = dir_data["right"]
 
 
-static func change(obj1: Thing, obj2: Thing) -> void:
-	pass
-	#for x_counter in range(game_state.LEVEL_WIDTH):
-		#for y_counter in range(game_state.LEVEL_HEIGHT):
-			#if game_state.game_map[x_counter][y_counter].game_object == game_state.obj_names[obj1]:
-				#
-				#if game_state.game_map[x_counter][y_counter].moving:
-					#if game_state.game_map[x_counter][y_counter].forward == game_state.NORTH:
-						#game_state.game_map[x_counter][y_counter-1] = copy.deepcopy(game_objects[game_state.game_map[x_counter][y_counter-1].game_object])
-					#elif game_state.game_map[x_counter][y_counter].forward == game_state.EAST:
-						#game_state.game_map[x_counter+1][y_counter] = copy.deepcopy(game_objects[game_state.game_map[x_counter+1][y_counter].game_object])
-					#elif game_state.game_map[x_counter][y_counter].forward == game_state.SOUTH:
-						#game_state.game_map[x_counter][y_counter+1] = copy.deepcopy(game_objects[game_state.game_map[x_counter][y_counter+1].game_object])
-					#elif game_state.game_map[x_counter][y_counter].forward == game_state.WEST:
-						#game_state.game_map[x_counter-1][y_counter] = copy.deepcopy(game_objects[game_state.game_map[x_counter-1][y_counter].game_object])
-#
-				#game_state.game_map[x_counter][y_counter] = copy.deepcopy(game_objects[game_state.obj_names[obj2]])
-				#game_state.game_map[x_counter][y_counter].x = x_counter
-				#game_state.game_map[x_counter][y_counter].y = y_counter
+static func change(object_from: String, object_to: String) -> void:
+
+	for x_pos in range(game_state.LEVEL_WIDTH):
+		for y_pos in range(game_state.LEVEL_HEIGHT):
+			var pos := Vector2i(x_pos, y_pos)
+			var target: Thing = _get_cell(pos)
+			
+			if target.game_object_name == object_from:
+				
+				# Handle movement
+				if target.moving != Direction.STILL:
+					
+					#If the target cell is moving...
+					# Set the cell it is moving to to a copy of the cell it is moving to
+					# reset the  cell to its original, default state
+						
+					var adjacent_pos := pos + target.moving.forward
+					var adjacent_content := _get_cell(adjacent_pos).game_object_name
+					_set_cell(adjacent_pos, adjacent_content)
+
+				# Change target cell to the new Thing type
+				_set_cell(pos, object_to)
+
+
 
 static func dave_is_to(direction, grid_pos: Vector2i) -> bool:
 	return true
@@ -307,5 +299,24 @@ static func _get_cell(position: Vector2i) -> Thing:
 	
 	return game_state.game_map[x][y]
 
-static func _set_cell(x: int, y: int, object: Thing) -> void:
+static func _set_cell(position: Vector2i, object_name: String) -> void:
+	var x := position.x
+	var y := position.y
+
+	# Out-of-bounds check
+	if (
+		x < 0 
+		or x >= game_state.level_size.x
+		or y < 0 
+		or y >= game_state.level_size.y
+	):
+		return
+
+	var object_type = game_objects.get(object_name)
+	if object_type == null:
+		push_warning("Unknown object_name '%s' at position %s" % [object_name, position])
+		return
+
+	var object: Thing = object_type.new(game_state)
+	object.grid_pos = position
 	game_state.game_map[x][y] = object

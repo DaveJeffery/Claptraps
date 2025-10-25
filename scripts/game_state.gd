@@ -2,16 +2,6 @@
 class_name GameState
 extends Node
 
-var STILL := Direction.new(Vector2i(0, 0), Vector2i(0, 0), Vector2i(0, 0), Vector2i(0, 0))
-var NORTH := Direction.new(Vector2i(0, -1), Vector2i(0, 1), Vector2i(-1, 0), Vector2i(1, 0))
-var SOUTH := Direction.new(Vector2i(0, 1), Vector2i(0, -1), Vector2i(1, 0), Vector2i(-1, 0))
-var EAST := Direction.new(Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, -1), Vector2i(0, 1))
-var WEST := Direction.new(Vector2i(-1, 0), Vector2i(1, 0), Vector2i(0, 1), Vector2i(0, -1))
-var NE := Direction.new(Vector2i(1, -1), Vector2i(-1, 1), Vector2i(-1, -1), Vector2i(1, 1))
-var SE := Direction.new(Vector2i(1, 1), Vector2i(-1, -1), Vector2i(1, -1), Vector2i(-1, 1))
-var SW := Direction.new(Vector2i(-1, 1), Vector2i(1, -1), Vector2i(1, 1), Vector2i(-1, -1))
-var NW := Direction.new(Vector2i(-1, -1), Vector2i(1, 1), Vector2i(-1, 1), Vector2i(1, -1))
-
 var score: int
 var level_size: Vector2i
 var game_map: Array
