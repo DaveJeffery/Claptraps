@@ -61,3 +61,7 @@ func change(object_1: String, object_2: String) -> void:
 
 func dave_is_to(direction:Direction, location: Vector2i) -> bool:
 	return GameFunctions.dave_is_to(direction, location)
+
+
+func create(object: Thing, direction: Direction, location: Vector2i) -> void:
+	return GameFunctions.create(object, direction, location)

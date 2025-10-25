@@ -82,7 +82,7 @@ static func change(object_from: String, object_to: String) -> void:
 				# Handle movement
 				if target.moving != Direction.STILL:
 					
-					#If the target cell is moving...
+					# If the target cell is moving...
 					# Set the cell it is moving to to a copy of the cell it is moving to
 					# reset the  cell to its original, default state
 						
@@ -116,61 +116,24 @@ static func dave_is_to(direction:Direction, grid_pos: Vector2i) -> bool:
 
 	return false
 
-static func create(obj: Thing, direction, grid_pos) -> void:
-	pass
-	#if direction == game_state.NORTH:
-		#dx = x
-		#dy = y - 1
-	#elif direction == game_state.SOUTH:
-		#dx = x
-		#dy = y + 1
-	#elif direction == game_state.EAST:
-		#dx = x + 1
-		#dy = y
-	#elif direction == game_state.WEST:
-		#dx = x - 1
-		#dy = y
-	#elif direction == game_state.NE:
-		#dx = x + 1
-		#dy = y - 1
-	#elif direction == game_state.SE:
-		#dx = x + 1
-		#dy = y + 1
-	#elif direction == game_state.SW:
-		#dx = x - 1
-		#dy = y + 1
-	#elif direction == game_state.NW:
-		#dx = x - 1
-		#dy = y - 1
-	#else:
-		#dx = x
-		#dy = y
-#
-	#hitting_object = game_state.game_map[dx][dy]
-#
-	#if hitting_object.moving:
-		#if hitting_object.forward == game_state.NORTH:
-			##game_state.game_map[dx][dy - 1] = copy.deepcopy(game_objects[game_state.game_map[dx][dy - 1].game_object])
-			#reset_flags(dx, dy-1)
-		#elif hitting_object.forward == game_state.EAST:
-			##game_state.game_map[dx+1][dy] = copy.deepcopy(game_objects[game_state.game_map[dx+1][dy].game_object])
-			#reset_flags(dx + 1, dy)
-		#elif hitting_object.forward == game_state.SOUTH:
-			##game_state.game_map[dx][dy + 1] = copy.deepcopy(game_objects[game_state.game_map[dx][dy + 1].game_object])
-			#reset_flags(dx, dy+1)
-		#elif hitting_object.forward == game_state.WEST:
-			##game_state.game_map[dx-1][dy] = copy.deepcopy(game_objects[game_state.game_map[dx-1][dy].game_object])
-			#reset_flags(dx - 1, dy)
-#
-			#
-	#game_state.game_map[dx][dy] = copy.deepcopy(game_objects[game_state.obj_names[obj]])
-	#game_state.game_map[dx][dy].x = dx
-	#game_state.game_map[dx][dy].y = dy
-#
-	#hitting_object.hit(game_state.game_map[dx][dy])
-#
-	#game_state.game_map[dx][dy].being_moved_into = hitting_object.being_moved_into
+
+static func create(
+	object: Thing, 
+	direction: Direction, 
+	grid_pos: Vector2i
+) -> void:
+	var hitting_cell := grid_pos + direction.forward
+	var hitting_object := _get_cell(hitting_cell)
+
+	if hitting_object.moving:
+		reset_flags(hitting_cell + hitting_object.moving.forward)
 	
+	_set_cell(hitting_cell, object.game_object_name)
+	
+	var new_object := _get_cell(hitting_cell)
+	hitting_object.hit(new_object)
+	new_object.being_moved_into = hitting_object.being_moved_into
+
 
 
 static func transport(hitby: Thing, tself: Thing, grid_pos: Vector2i) -> void:
@@ -247,15 +210,22 @@ static func transport(hitby: Thing, tself: Thing, grid_pos: Vector2i) -> void:
 					##game_state.game_map[tself.target[0]-1][tself.target[1]] = copy.deepcopy(game_objects[game_state.game_map[tself.target[0]-1][tself.target[1]].game_object])
 					#reset_flags(tself.target[0]-1, tself.target[1])
 
+
 static func reset_flags(grid_pos: Vector2i) -> void:
-	pass
-	#game_state.game_map[x][y].solid = game_objects[game_state.game_map[x][y].game_object].solid
-	#game_state.game_map[x][y].squash = game_objects[game_state.game_map[x][y].game_object].squash
-	#game_state.game_map[x][y].name = game_objects[game_state.game_map[x][y].game_object].name
-	#game_state.game_map[x][y].empty = game_objects[game_state.game_map[x][y].game_object].empty
-	#game_state.game_map[x][y].being_moved_into = 0
-	#game_state.game_map[x][y].move_speed = game_objects[game_state.game_map[x][y].game_object].move_speed
-	#game_state.game_map[x][y].ignore = False
+	var cell: Thing = _get_cell(grid_pos)
+	
+	var base_object_type = game_objects.get(cell.game_object_name)
+	if base_object_type == null:
+		return
+	var base_instance: Thing = base_object_type.new(game_state)
+
+	cell.solid = base_instance.solid
+	cell.squash = base_instance.squash
+	cell.name = base_instance.name
+	cell.empty = base_instance.empty
+	cell.being_moved_into = Direction.STILL
+	cell.move_speed = base_instance.move_speed
+	cell.ignore = false
 
 
 static func dave_hit() -> void:
@@ -285,6 +255,7 @@ static func dave_hit() -> void:
 #
 	#hitting_object.hit(Dave())
 
+
 static func _get_cell(position: Vector2i) -> Thing:
 	var x := position.x
 	var y := position.y
@@ -299,6 +270,7 @@ static func _get_cell(position: Vector2i) -> Thing:
 		return wall
 	
 	return game_state.game_map[x][y]
+
 
 static func _set_cell(position: Vector2i, object_name: String) -> void:
 	var x := position.x
