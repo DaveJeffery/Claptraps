@@ -135,80 +135,35 @@ static func create(
 	new_object.being_moved_into = hitting_object.being_moved_into
 
 
+static func transport(hitby: Thing, transporter: Thing, grid_pos: Vector2i) -> void:
+	if hitby.is_dave:
+		game_state.transporting = true
+		game_state.dave_pos = transporter.target
+		game_state.dave_dest = transporter.target
+		dave_hit()
+	else:
+		var destination := _get_cell(transporter.target)
+		if destination.being_moved_into != Direction.STILL:
+			var offset := destination.being_moved_into.forward
+			var move_source := _get_cell(transporter.target + offset)
+			_set_cell(transporter.target, move_source.game_object_name)
+			_get_cell(transporter.target).moving = Direction.STILL
+			_set_cell(transporter.target + offset, "Blank")
 
-static func transport(hitby: Thing, tself: Thing, grid_pos: Vector2i) -> void:
-	pass
-		#if hitby.is_dave:
-		#
-#
-#
-			#game_state.transporting = True
-			#
-#
-			#game_state.dave_x = game_state.dave_dest_x = tself.target[0]
-			#game_state.dave_y = game_state.dave_dest_y = tself.target[1]
-			#
-			#game_state.x_offset = game_state.dave_x - 5
-			#if game_state.x_offset < 0:
-				#game_state.x_offset = 0
-			#if game_state.x_offset > game_state.LEVEL_WIDTH - 16:
-				#game_state.x_offset = game_state.LEVEL_WIDTH - 16
-				#
-			#game_state.y_offset = game_state.dave_y - 5
-			#if game_state.y_offset < 0:
-				#game_state.y_offset = 0
-			#if game_state.y_offset > game_state.LEVEL_HEIGHT - 12:
-				#game_state.y_offset = game_state.LEVEL_HEIGHT - 12
-#
-			#Dave_hit()
-			#
-		#else:
-			#
-			#if game_state.game_map[tself.target[0]][tself.target[1]].being_moved_into > 0:
-				#
-				#if game_state.game_map[tself.target[0]][tself.target[1]].being_moved_into == game_state.NORTH:
-					#game_state.game_map[tself.target[0]][tself.target[1]] = game_state.game_map[tself.target[0]][tself.target[1]-1]
-					#game_state.game_map[tself.target[0]][tself.target[1]].moving = 0
-					#game_state.game_map[tself.target[0]][tself.target[1]-1] = copy.deepcopy(game_objects[0])
-					#
-				#if game_state.game_map[tself.target[0]][tself.target[1]].being_moved_into == game_state.EAST:
-					#game_state.game_map[tself.target[0]][tself.target[1]] = game_state.game_map[tself.target[0]+1][tself.target[1]]
-					#game_state.game_map[tself.target[0]][tself.target[1]].moving = 0
-					#game_state.game_map[tself.target[0]+1][tself.target[1]] = copy.deepcopy(game_objects[0])
-					#
-				#if game_state.game_map[tself.target[0]][tself.target[1]].being_moved_into == game_state.SOUTH:
-					#game_state.game_map[tself.target[0]][tself.target[1]] = game_state.game_map[tself.target[0]][tself.target[1]+1]
-					#game_state.game_map[tself.target[0]][tself.target[1]].moving = 0
-					#game_state.game_map[tself.target[0]][tself.target[1]+1] = copy.deepcopy(game_objects[0])
-					#
-				#if game_state.game_map[tself.target[0]][tself.target[1]].being_moved_into == game_state.WEST:
-					#game_state.game_map[tself.target[0]][tself.target[1]] = game_state.game_map[tself.target[0]-1][tself.target[1]]
-					#game_state.game_map[tself.target[0]][tself.target[1]].moving = 0
-					#game_state.game_map[tself.target[0]-1][tself.target[1]] = copy.deepcopy(game_objects[0])
-					#
-			#hitting_object = game_state.game_map[tself.target[0]][tself.target[1]]
-#
-			## Top line creates a new object, bottom line copies old one
-			##game_state.game_map[tself.target[0]][tself.target[1]] = copy.deepcopy(game_objects[hitby.game_object])
-			#game_state.game_map[tself.target[0]][tself.target[1]] = copy.deepcopy(game_state.game_map[x][y])
-			#game_state.game_map[tself.target[0]][tself.target[1]].x = tself.target[0]
-			#game_state.game_map[tself.target[0]][tself.target[1]].y = tself.target[1]
-#
-			#hitting_object.hit(game_state.game_map[tself.target[0]][tself.target[1]])
-#
-			#if hitting_object.moving:
-				#if hitting_object.forward == game_state.NORTH:
-					##game_state.game_map[tself.target[0]][tself.target[1] - 1] = copy.deepcopy(game_objects[game_state.game_map[tself.target[0]][tself.target[1] - 1].game_object])
-					#reset_flags(tself.target[0], tself.target[1] - 1)
-				#elif hitting_object.forward == game_state.EAST:
-					##game_state.game_map[tself.target[0]+1][tself.target[1]] = copy.deepcopy(game_objects[game_state.game_map[tself.target[0]+1][tself.target[1]].game_object])
-					#reset_flags(tself.target[0]+1, tself.target[1])
-				#elif hitting_object.forward == game_state.SOUTH:
-					##game_state.game_map[tself.target[0]][tself.target[1] + 1] = copy.deepcopy(game_objects[game_state.game_map[tself.target[0]][tself.target[1] + 1].game_object])
-					#reset_flags(tself.target[0], tself.target[1] + 1)
-				#elif hitting_object.forward == game_state.WEST:
-					##game_state.game_map[tself.target[0]-1][tself.target[1]] = copy.deepcopy(game_objects[game_state.game_map[tself.target[0]-1][tself.target[1]].game_object])
-					#reset_flags(tself.target[0]-1, tself.target[1])
+	var hitting_object := _get_cell(transporter.target)
+
+	# Get the source cell
+	var source_cell := _get_cell(grid_pos)
+
+	# Place a new instance of the same object at the target
+	_set_cell(transporter.target, source_cell.game_object_name)
+
+	hitting_object.hit(_get_cell(transporter.target))
+
+	if hitting_object.moving != Direction.STILL:
+		var offset: Vector2i =  hitting_object.forward
+		var reset_pos := transporter.target + offset
+		reset_flags(reset_pos)
 
 
 static func reset_flags(grid_pos: Vector2i) -> void:

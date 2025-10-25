@@ -69,3 +69,7 @@ func create(object: Thing, direction: Direction, location: Vector2i) -> void:
 	
 func dave_hit() -> void:
 	return GameFunctions.dave_hit()
+
+
+func transport(hitby: Thing, transporter: Thing, location: Vector2i) -> void:
+	return GameFunctions.transport(hitby, transporter, location)
