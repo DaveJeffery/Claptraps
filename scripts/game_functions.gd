@@ -229,32 +229,18 @@ static func reset_flags(grid_pos: Vector2i) -> void:
 
 
 static func dave_hit() -> void:
-	pass
-	#hitting_object = game_state.game_map[game_state.dave_x][game_state.dave_y]
-#
-	#if game_state.game_map[game_state.dave_x][game_state.dave_y].moving:
-		#if game_state.game_map[game_state.dave_x][game_state.dave_y].forward == game_state.NORTH:
-			##game_state.game_map[game_state.dave_x][game_state.dave_y-1] = copy.deepcopy(game_objects[game_state.game_map[game_state.dave_x][game_state.dave_y-1].game_object])
-			#reset_flags(game_state.dave_x, game_state.dave_y - 1)
-			#
-		#elif game_state.game_map[game_state.dave_x][game_state.dave_y].forward == game_state.EAST:
-			##game_state.game_map[game_state.dave_x+1][game_state.dave_y] = copy.deepcopy(game_objects[game_state.game_map[game_state.dave_x+1][game_state.dave_y].game_object])
-			#reset_flags(game_state.dave_x + 1, game_state.dave_y)
-			#
-		#elif game_state.game_map[game_state.dave_x][game_state.dave_y].forward == game_state.SOUTH:
-			##game_state.game_map[game_state.dave_x][game_state.dave_y+1] = copy.deepcopy(game_objects[game_state.game_map[game_state.dave_x][game_state.dave_y+1].game_object])
-			#reset_flags(game_state.dave_x, game_state.dave_y + 1)
-			#
-		#elif game_state.game_map[game_state.dave_x][game_state.dave_y].forward == game_state.WEST:
-			##game_state.game_map[game_state.dave_x-1][game_state.dave_y] = copy.deepcopy(game_objects[game_state.game_map[game_state.dave_x-1][game_state.dave_y].game_object])
-			#reset_flags(game_state.dave_x - 1, game_state.dave_y)
-#
-#
-#
-	#game_state.game_map[game_state.dave_x][game_state.dave_y] = copy.deepcopy(game_objects[0])
-#
-	#hitting_object.hit(Dave())
+	var hitting_object := _get_cell(game_state.dave_pos)
 
+	if hitting_object.moving != Direction.STILL:
+		
+		var direction = hitting_object.moving.forward
+		reset_flags(game_state.dave_pos + direction)
+	
+	_set_cell(game_state.dave_pos, "Blank")
+	hitting_object.hit(dave)
+
+
+## Helper functions
 
 static func _get_cell(position: Vector2i) -> Thing:
 	var x := position.x

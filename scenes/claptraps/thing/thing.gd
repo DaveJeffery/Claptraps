@@ -65,3 +65,7 @@ func dave_is_to(direction:Direction, location: Vector2i) -> bool:
 
 func create(object: Thing, direction: Direction, location: Vector2i) -> void:
 	return GameFunctions.create(object, direction, location)
+	
+	
+func dave_hit() -> void:
+	return GameFunctions.dave_hit()
