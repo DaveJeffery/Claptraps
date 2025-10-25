@@ -20,11 +20,11 @@ func action() -> void:
 		or look(game_state.EAST, grid_pos).startle_frog 
 		or look(game_state.WEST, grid_pos).startle_frog
 	):
-		create("Startled_Frog", 0, grid_pos)
+		create("Startled_Frog", Direction.STILL, grid_pos)
 
 
-func check_squash(tile: Thing) -> bool:
-	if tile.name in ["Box", "Chopper", "Key"]: #TODO Change to is Box or is...
+func check_squash(tile: String) -> bool:
+	if tile in ["Box", "Chopper", "Key"]:
 		return false
 	else:
 		return true

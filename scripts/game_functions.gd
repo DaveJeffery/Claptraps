@@ -118,7 +118,7 @@ static func dave_is_to(direction:Direction, grid_pos: Vector2i) -> bool:
 
 
 static func create(
-	object: Thing, 
+	object: String, 
 	direction: Direction, 
 	grid_pos: Vector2i
 ) -> void:
@@ -128,7 +128,7 @@ static func create(
 	if hitting_object.moving:
 		reset_flags(hitting_cell + hitting_object.moving.forward)
 	
-	_set_cell(hitting_cell, object.game_object_name)
+	_set_cell(hitting_cell, object)
 	
 	var new_object := _get_cell(hitting_cell)
 	hitting_object.hit(new_object)

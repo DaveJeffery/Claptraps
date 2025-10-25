@@ -13,7 +13,7 @@ var h_push := false
 var v_push := false
 var moving := Direction.STILL
 var being_moved_into := Direction.STILL
-var moved := 0
+var moved := Direction.STILL
 var move_counter := 0
 var move_speed := 0
 var is_dave := false
@@ -42,7 +42,7 @@ func action() -> void:
 	return
 
 
-func check_squash(object: Thing) -> bool:
+func check_squash(object: String) -> bool:
 	return squash
 
 
@@ -63,7 +63,7 @@ func dave_is_to(direction:Direction, location: Vector2i) -> bool:
 	return GameFunctions.dave_is_to(direction, location)
 
 
-func create(object: Thing, direction: Direction, location: Vector2i) -> void:
+func create(object: String, direction: Direction, location: Vector2i) -> void:
 	return GameFunctions.create(object, direction, location)
 	
 	

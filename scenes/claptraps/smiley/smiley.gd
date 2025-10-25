@@ -21,17 +21,19 @@ func _ready() -> void:
 	break_box = true
 		
 func action() -> void:
-	if moving > 0 or moved:
-		startle_frog = true
-	else:
+	if moving == Direction.STILL and moved == Direction.STILL:
 		startle_frog = false
+	else:
+		startle_frog = true
 
-	if moved > 0:
+	var target_cell := look(moved, grid_pos)
+
+	if moved != Direction.STILL:
 		if (
-			look(moved, grid_pos).empty 
-			or look(moved, grid_pos).name in smiley_squash
+			target_cell.empty 
+			or target_cell.name in smiley_squash
 		):
 			move(moved, self, grid_pos)
 			
-		if look(moved, grid_pos) == Box:
-			create(CalmFrog, moved, grid_pos)
+		if target_cell.game_object_name == "Box":
+			create("CalmFrog", moved, grid_pos)

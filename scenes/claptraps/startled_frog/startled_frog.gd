@@ -9,6 +9,7 @@ func _ready() -> void:
 	startle_frog = true
 	trigger_button = true
 	move_speed = 1
+	moving = Direction.NORTH
 
 
 func hit(hitby: Thing) -> void:
@@ -17,27 +18,28 @@ func hit(hitby: Thing) -> void:
 
 
 func action() -> void:
-	if look(left, grid_pos).empty:
-		move(left, self, grid_pos)
-	elif look(forward, grid_pos).empty:
-		move(forward, self, grid_pos)
-	elif look(right, grid_pos).empty:
-		move(right, self, grid_pos)
-	elif look(backward, grid_pos).empty:
-		move(backward, self, grid_pos)
+	
+	if look(moving.left, grid_pos).empty:
+		move(moving.left, self, grid_pos)
+	elif look(moving, grid_pos).empty:
+		move(moving, self, grid_pos)
+	elif look(moving.right, grid_pos).empty:
+		move(moving.right, self, grid_pos)
+	elif look(moving.backward, grid_pos).empty:
+		move(moving.backward, self, grid_pos)
 
-	if self.forward == game_state.NORTH:
+	if moving == Direction.NORTH:
 		$AnimatedSprite2D.animation = "north"
-	elif self.forward == game_state.EAST:
+	elif moving == Direction.EAST:
 		$AnimatedSprite2D.animation = "east"
-	elif self.forward == game_state.SOUTH:
+	elif moving == Direction.SOUTH:
 		$AnimatedSprite2D.animation = "south"
-	elif self.forward == game_state.WEST:
+	elif moving == Direction.WEST:
 		$AnimatedSprite2D.animation = "west"
 
 
-func check_squash(obj) -> bool:
-	if obj.name in ["Box", "Chopper", "Key"]:
+func check_squash(object: String) -> bool:
+	if object in ["Box", "Chopper", "Key"]:
 		return false
 	else:
 		return true
