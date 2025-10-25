@@ -54,5 +54,10 @@ func look(direction:Direction, location: Vector2i) -> Thing:
 func move(direction:Direction, object: Thing, location: Vector2i) -> void:
 	return GameFunctions.move(direction, object, location)
 
+
 func change(object_1: String, object_2: String) -> void:
 	return GameFunctions.change(object_1, object_2)
+
+
+func dave_is_to(direction:Direction, location: Vector2i) -> bool:
+	return GameFunctions.dave_is_to(direction, location)

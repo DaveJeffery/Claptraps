@@ -94,26 +94,27 @@ static func change(object_from: String, object_to: String) -> void:
 				_set_cell(pos, object_to)
 
 
+static func dave_is_to(direction:Direction, grid_pos: Vector2i) -> bool:
+	var x := grid_pos.x
+	var y := grid_pos.y
+	
+	if direction == Direction.NORTH:
+		if y > game_state.dave_y:
+			return true
 
-static func dave_is_to(direction, grid_pos: Vector2i) -> bool:
-	return true
-	#if direction == game_state.NORTH:
-		#if y > game_state.dave_y:
-			#return True
-#
-	#if direction == game_state.SOUTH:
-		#if y < game_state.dave_y:
-			#return True
-#
-	#if direction == game_state.EAST:
-		#if x < game_state.dave_x:
-			#return True
-#
-	#if direction == game_state.WEST:
-		#if x > game_state.dave_x:
-			#return True
-#
-	#return False
+	if direction == Direction.SOUTH:
+		if y < game_state.dave_y:
+			return true
+
+	if direction == Direction.EAST:
+		if x < game_state.dave_x:
+			return true
+
+	if direction == Direction.WEST:
+		if x > game_state.dave_x:
+			return true
+
+	return false
 
 static func create(obj: Thing, direction, grid_pos) -> void:
 	pass
