@@ -48,7 +48,7 @@ func action() -> void:
 			# If there is neither a north facing turret
 			# nor a North facing laser below it 
 			# replace the laser with a blank
-			create("Blank", 0, grid_pos)
+			create("Blank", Direction.STILL, grid_pos)
 		return
 	elif self.forward == game_state.EAST:
 		ignore = true
@@ -65,7 +65,7 @@ func action() -> void:
 				#TODO look(game_state.EAST, grid_pos).$AnimatedSprite2D.animation = "horiz"
 				look(game_state.EAST, grid_pos).ignore = true
 		else:
-			create("Blank", 0, grid_pos)
+			create("Blank", Direction.STILL, grid_pos)
 	elif self.forward == game_state.SOUTH:
 		ignore = true
 		if (
@@ -80,7 +80,7 @@ func action() -> void:
 				look(game_state.SOUTH, grid_pos).forward = game_state.SOUTH
 				look(game_state.SOUTH, grid_pos).ignore = true
 		else:
-			create("Blank", 0, grid_pos)
+			create("Blank", Direction.STILL, grid_pos)
 
 	elif self.forward == game_state.WEST:
 		if (
@@ -95,4 +95,4 @@ func action() -> void:
 				look(game_state.WEST, grid_pos).forward = game_state.WEST
 				#TODO look(game_state.WEST, grid_pos).$AnimatedSprite2D.animation = "horiz"
 		else:
-			create("Blank", 0, grid_pos)
+			create("Blank", Direction.STILL, grid_pos)

@@ -1,6 +1,8 @@
 class_name ButtonOn
 extends Thing
 
+var initialise: bool
+
 func _ready() -> void:
 	game_object = 11
 	$AnimatedSprite2D.animation = "default"
@@ -13,7 +15,7 @@ func _ready() -> void:
 func action() -> void:
 	if initialise:
 		initialise = false
-		if look(0, target).name == "Gate":
+		if look(Direction.STILL, target).name == "Gate":
 			$AnimatedSprite2D.animation = "on"
 		else:
 			$AnimatedSprite2D.animation = "off"
@@ -25,11 +27,11 @@ func action() -> void:
 		or look(game_state.WEST, grid_pos).trigger_button
 	):
 		if (
-			(look(0, target).empty and not look(0, target).is_dave) 
-			or look(0, target).name == "Laser"
+			(look(Direction.STILL, target).empty and not look(Direction.STILL, target).is_dave) 
+			or look(Direction.STILL, target).name == "Laser"
 		):
-			create("Gate", 0, target)
+			create("Gate", Direction.STILL, target)
 			$AnimatedSprite2D.animation = "on"
-	elif look(0, target).name == "Gate":
-		create("Blank", 0, target)
+	elif look(Direction.STILL, target).name == "Gate":
+		create("Blank", Direction.STILL, target)
 		$AnimatedSprite2D.animation = "off"

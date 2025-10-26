@@ -14,5 +14,4 @@ func hit(hitby: Thing) -> void:
 	transport(hitby, self, grid_pos)
 
 	# Keep this part in for regenerating transporters
-	create("Transporter", 0, grid_pos)
-	game_state.game_map[x][y].target = target
+	create("Transporter", Direction.STILL, grid_pos, target)

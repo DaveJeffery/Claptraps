@@ -120,7 +120,8 @@ static func dave_is_to(direction:Direction, grid_pos: Vector2i) -> bool:
 static func create(
 	object: String, 
 	direction: Direction, 
-	grid_pos: Vector2i
+	grid_pos: Vector2i,
+	target: Vector2i = Vector2i.ZERO
 ) -> void:
 	var hitting_cell := grid_pos + direction.forward
 	var hitting_object := _get_cell(hitting_cell)
@@ -133,6 +134,8 @@ static func create(
 	var new_object := _get_cell(hitting_cell)
 	hitting_object.hit(new_object)
 	new_object.being_moved_into = hitting_object.being_moved_into
+	if target != Vector2i.ZERO:
+		new_object.target = target
 
 
 static func transport(hitby: Thing, transporter: Thing, grid_pos: Vector2i) -> void:

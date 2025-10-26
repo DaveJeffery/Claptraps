@@ -16,4 +16,4 @@ func action() -> void:
 			or look(game_state.EAST, grid_pos).is_dave)
 		and game_state.use_key
 	):
-		create("Blank", 0, grid_pos)
+		create("Blank", Direction.STILL, grid_pos)

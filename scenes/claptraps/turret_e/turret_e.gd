@@ -10,19 +10,19 @@ const SOLID_TO_TURRET := [
 		"Gate", 
 		"Laser", 
 		"Lock", 
-		"Turret_N", 
-		"Turret_S", 
-		"Turret_E", 
-		"Turret_W"
+		"TurretN", 
+		"TurretS", 
+		"TurretE", 
+		"TurretW"
 	]
 
 
 func _ready() -> void:
 	game_object = 16
-	game_object_name = "Turret_E"
+	game_object_name = "TurretE"
 
 
 func action() -> void:
-	if look(game_state.EAST, grid_pos).name not in SOLID_TO_TURRET:
-		create("Laser", game_state.EAST, grid_pos)
-		look(game_state.EAST, grid_pos).forward = game_state.EAST
+	if look(Direction.EAST, grid_pos).name not in SOLID_TO_TURRET:
+		create("Laser", Direction.EAST, grid_pos)
+		look(Direction.EAST, grid_pos).forward = Direction.EAST

@@ -13,7 +13,7 @@ func _ready() -> void:
 # so you can put goal checks and things in here
 func action() -> void:
 	if game_state.min_score_hit:
-		game_state.message = "EPISODE_COMPLETE"
+		game_state.message = "EPISODE_COMPLETE" #TODO
 			
 		# Fade background to orange
 		if game_state.bg_col.r8 < 255:

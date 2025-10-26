@@ -15,12 +15,12 @@ func action() -> void:
 		or look(game_state.EAST, grid_pos).trigger_button 
 		or look(game_state.WEST, grid_pos).trigger_buttone
 	):
-		if look(0, target).name == "Gate":
-			create("Blank", 0, target)
+		if look(Direction.STILL, target).name == "Gate":
+			create("Blank", Direction.STILL, target)
 			$AnimatedSprite2D.animation = "on"
 	elif (
-		(look(0, target).empty and not look(0, target).is_dave) 
-		or look(0, target).name == "Laser"
+		(look(Direction.STILL, target).empty and not look(Direction.STILL, target).is_dave) 
+		or look(Direction.STILL, target).name == "Laser"
 	):
-		create("Gate", 0, target)
+		create("Gate", Direction.STILL, target)
 		$AnimatedSprite2D.animation = "off"

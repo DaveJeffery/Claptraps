@@ -3,7 +3,7 @@ extends Thing
 
 func _ready() -> void:
 	game_object = 4
-	game_object_name = "Startled_Frog"
+	game_object_name = "StartledFrog"
 	$AnimatedSprite2D.animation = "default"
 	solid = false
 	startle_frog = true

@@ -2,9 +2,8 @@ class_name RedFrog
 extends Thing
 
 func _ready() -> void:
-	game_object_name = "Red_Frog"
+	game_object_name = "RedFrog"
 	game_object = 9
-	#TODO self.sprite = 17
 	solid = false
 	squash = true
 
@@ -15,10 +14,10 @@ func action() -> void:
 		or look(game_state.EAST, grid_pos).startle_frog 
 		or look(game_state.WEST, grid_pos).startle_frog
 	):
-		create("Angry_Red_Frog", 0, grid_pos)
+		create("AngryRedFrog", Direction.STILL, grid_pos)
 
-func check_squash(obj: Thing) -> bool:
-	if obj.name in ["Box", "Chopper", "Key"]:
+func check_squash(object: String) -> bool:
+	if object in ["Box", "Chopper", "Key"]:
 		return false
 	else:
 		return true

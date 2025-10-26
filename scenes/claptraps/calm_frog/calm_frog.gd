@@ -4,7 +4,7 @@ extends Thing
 
 func _ready() -> void:
 	game_object = 3
-	game_object_name = "Frog"
+	game_object_name = "CalmFrog"
 	solid = false
 
 
@@ -20,7 +20,7 @@ func action() -> void:
 		or look(game_state.EAST, grid_pos).startle_frog 
 		or look(game_state.WEST, grid_pos).startle_frog
 	):
-		create("Startled_Frog", Direction.STILL, grid_pos)
+		create("StartledFrog", Direction.STILL, grid_pos)
 
 
 func check_squash(tile: String) -> bool:

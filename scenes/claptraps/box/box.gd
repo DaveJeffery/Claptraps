@@ -12,7 +12,7 @@ func _ready() -> void:
 
 
 func action() -> void:
-	if moving > 0 or moved:
+	if moving != Direction.STILL or moved != Direction.STILL:
 		startle_frog = true
 	else:
 		startle_frog = false
@@ -21,7 +21,7 @@ func action() -> void:
 		self.moved == game_state.SOUTH 
 		and look(game_state.SOUTH, grid_pos).break_box
 	):
-		create("Frog", 0, grid_pos)
+		create("Frog", Direction.STILL, grid_pos)
 
 	if look(game_state.SOUTH, grid_pos).empty:
 		move(game_state.SOUTH, self, grid_pos)

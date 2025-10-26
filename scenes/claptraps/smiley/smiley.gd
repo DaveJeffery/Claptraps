@@ -2,10 +2,10 @@ class_name Smiley
 extends Thing
 
 const smiley_squash: = [
-	"Frog",
-	"Startled_Frog",
-	"Red_Frog",
-	"Angry_Red_Frog",
+	"CalmFrog",
+	"StartledFrog",
+	"RedFrog",
+	"AngryRedFrog",
 	"Transporter",
 	"Laser",
 	]

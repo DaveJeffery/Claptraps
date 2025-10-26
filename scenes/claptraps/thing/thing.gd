@@ -63,10 +63,15 @@ func dave_is_to(direction:Direction, location: Vector2i) -> bool:
 	return GameFunctions.dave_is_to(direction, location)
 
 
-func create(object: String, direction: Direction, location: Vector2i) -> void:
-	return GameFunctions.create(object, direction, location)
-	
-	
+func create(
+	object: String, 
+	direction: Direction, 
+	location: Vector2i, 
+	destination: Vector2i = Vector2i.ZERO
+) -> void:
+	return GameFunctions.create(object, direction, location, destination)
+
+
 func dave_hit() -> void:
 	return GameFunctions.dave_hit()
 

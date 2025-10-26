@@ -3,9 +3,9 @@ extends Thing
 
 const APPLE_FALLS := [
 	"Frog",
-	"Startled_Frog",
-	"Red_Frog",
-	"Angry_Red_Frog",
+	"StartledFrog",
+	"RedFrog",
+	"AngryRedFrog",
 	"Laser",
 ]
 
@@ -20,7 +20,7 @@ func _ready() -> void:
 
 func action() -> void:
 
-	if moving > 0 or moved:
+	if moving == Direction.STILL or moved == Direction.STILL:
 		startle_frog = true
 	else:
 		startle_frog = false
@@ -47,7 +47,7 @@ func action() -> void:
 		look(game_state.SOUTH, grid_pos).name == "Apple" 
 		and (
 			look(game_state.SE, grid_pos).empty 
-			or look(game_state.SE, grid_pos).name in APPLE_FALL
+			or look(game_state.SE, grid_pos).name in APPLE_FALLS
 		) 
 		and (
 			look(game_state.EAST, grid_pos).empty 
@@ -65,4 +65,4 @@ func action() -> void:
 func eat() -> void:
 	life -= 1
 	if life < 0:
-		create("Blank", 0, grid_pos)
+		create("Blank", Direction.STILL, grid_pos)

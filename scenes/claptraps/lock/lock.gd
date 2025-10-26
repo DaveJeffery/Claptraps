@@ -7,11 +7,11 @@ func _ready() -> void:
 
 
 func hit(_hitby: Thing) -> void:
-	create("Blank", 0, grid_pos)
+	create("Blank", Direction.STILL, grid_pos)
 
 
-func check_squash(object: Thing) -> bool:
-	if object.name == "Key":
+func check_squash(object: String) -> bool:
+	if object == "Key":
 		return true
 	else:
 		return false
