@@ -29,21 +29,20 @@ func hit(hitby: Thing) -> void:
 
 func action() -> void:
 	# If this is a north facing laser...
-	if forward == game_state.NORTH:
+	if moving == game_state.NORTH:
 		if (
 			# If there is either a north facing turret
 			# or a North facing laser below it...
-			look(game_state.SOUTH, grid_pos).name == "Turret_N" 
+			look(Direction.SOUTH, grid_pos).name == "TurretN" 
 			or (
-					look(game_state.SOUTH, grid_pos).name == "Laser" 
-					and look(game_state.SOUTH, grid_pos).forward == game_state.NORTH
+					look(Direction.SOUTH, grid_pos).name == "Laser" 
+					and look(Direction.SOUTH, grid_pos).moving == Direction.NORTH
 				)
 		):
 			# ...if the tile above it isn't solid to lasers...
-			if look(game_state.NORTH, grid_pos).name not in SOLID_TO_LASER:
+			if look(Direction.NORTH, grid_pos).name not in SOLID_TO_LASER:
 				# ...create a north facing laser there.
-				create("Laser", game_state.NORTH, grid_pos)
-				look(game_state.NORTH, grid_pos).forward = game_state.NORTH
+				create("Laser", Direction.NORTH, grid_pos)
 		else:
 			# If there is neither a north facing turret
 			# nor a North facing laser below it 
@@ -53,46 +52,43 @@ func action() -> void:
 	elif self.forward == game_state.EAST:
 		ignore = true
 		if (
-			look(game_state.WEST, grid_pos).name == "Turret_E" 
+			look(Direction.WEST, grid_pos).name == "TurretE" 
 			or (
-				look(game_state.WEST, grid_pos).name == "Laser" 
-				and look(game_state.WEST, grid_pos).forward == game_state.EAST
+				look(Direction.WEST, grid_pos).name == "Laser" 
+				and look(Direction.WEST, grid_pos).forward == Direction.EAST
 			)
 		):
-			if look(game_state.EAST, grid_pos).name not in SOLID_TO_LASER:
-				create("Laser", game_state.EAST, grid_pos)
-				look(game_state.EAST, grid_pos).forward = game_state.EAST
-				#TODO look(game_state.EAST, grid_pos).$AnimatedSprite2D.animation = "horiz"
-				look(game_state.EAST, grid_pos).ignore = true
+			if look(Direction.EAST, grid_pos).name not in SOLID_TO_LASER:
+				create("Laser", Direction.EAST, grid_pos)
+				look(Direction.EAST, grid_pos).get_node("AnimatedSprite2D").animation = "horiz"
+				look(Direction.EAST, grid_pos).ignore = true
 		else:
 			create("Blank", Direction.STILL, grid_pos)
 	elif self.forward == game_state.SOUTH:
 		ignore = true
 		if (
-			look(game_state.NORTH, grid_pos).name == "Turret_S" 
+			look(Direction.NORTH, grid_pos).name == "TurretS" 
 			or (
-				look(game_state.NORTH, grid_pos).name == "Laser" 
-				and look(game_state.NORTH, grid_pos).forward == game_state.SOUTH
+				look(Direction.NORTH, grid_pos).name == "Laser" 
+				and look(Direction.NORTH, grid_pos).forward == Direction.SOUTH
 			)
 		):
-			if look(game_state.SOUTH, grid_pos).name not in SOLID_TO_LASER:
-				create("Laser", game_state.SOUTH, grid_pos)
-				look(game_state.SOUTH, grid_pos).forward = game_state.SOUTH
-				look(game_state.SOUTH, grid_pos).ignore = true
+			if look(Direction.SOUTH, grid_pos).name not in SOLID_TO_LASER:
+				create("Laser", Direction.SOUTH, grid_pos)
+				look(Direction.SOUTH, grid_pos).ignore = true
 		else:
 			create("Blank", Direction.STILL, grid_pos)
 
 	elif self.forward == game_state.WEST:
 		if (
-			look(game_state.EAST, grid_pos).name == "Turret_W" 
+			look(Direction.EAST, grid_pos).name == "TurretW" 
 			or (
-				look(game_state.EAST, grid_pos).name == "Laser" 
-				and look(game_state.EAST, grid_pos).forward == game_state.WEST
+				look(Direction.EAST, grid_pos).name == "Laser" 
+				and look(Direction.EAST, grid_pos).forward == Direction.WEST
 			)
 		):
-			if look(game_state.WEST, grid_pos).name not in SOLID_TO_LASER:
+			if look(Direction.WEST, grid_pos).name not in SOLID_TO_LASER:
 				create("Laser", game_state.WEST, grid_pos)
-				look(game_state.WEST, grid_pos).forward = game_state.WEST
-				#TODO look(game_state.WEST, grid_pos).$AnimatedSprite2D.animation = "horiz"
+				look(Direction.WEST, grid_pos).get_node("AnimatedSprite2D").animation = "horiz"
 		else:
 			create("Blank", Direction.STILL, grid_pos)

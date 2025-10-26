@@ -61,12 +61,12 @@ func erase_key_events(keymap: Dictionary) -> void:
 
 func add_key_events(keymap: Dictionary) -> void:
 	# User-defined key definitions
-	var keycode: Key
+	var keycode
 	var event: InputEventKey
 
 	for action in keymap:
 		# Get the key scancode
-		keycode = keymap[action]
+		keycode = int(keymap[action])
 		
 		# Create a new event object based on the saved scancode
 		event = InputEventKey.new()
@@ -74,6 +74,7 @@ func add_key_events(keymap: Dictionary) -> void:
 		
 		# Add the event object to the input map action
 		InputMap.action_add_event(action, event)
+
 
 func audio_set(value: bool) -> void:
 	audio = value
