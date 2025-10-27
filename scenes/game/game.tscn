@@ -1,9 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://dvyp1wx4s1ro2"]
+[gd_scene load_steps=6 format=3 uid="uid://dvyp1wx4s1ro2"]
 
-[ext_resource type="Script" uid="uid://cexoak00tockx" path="res://scenes/game/game.gd" id="1_w5aja"]
-[ext_resource type="PackedScene" uid="uid://copbryejmr5rx" path="res://scenes/game/select_episode/select_episode.tscn" id="2_7h61r"]
+[ext_resource type="Script" uid="uid://cexoak00tockx" path="res://scenes/game/game.gd" id="1_7h61r"]
+[ext_resource type="PackedScene" uid="uid://copbryejmr5rx" path="res://scenes/game/select_episode/select_episode.tscn" id="2_0sr1o"]
+[ext_resource type="PackedScene" uid="uid://bvvijqgi7agmc" path="res://scenes/game/intro_scene/intro_screen.tscn" id="3_lfrn8"]
+[ext_resource type="Script" uid="uid://cu41c3lj6ksdm" path="res://scenes/game/intro_scene/intro_screen.gd" id="4_5i0tg"]
+[ext_resource type="AudioStream" uid="uid://cqdcyepnxs31a" path="res://sounds/twiddle.wav" id="5_lfrn8"]
 
 [node name="Game" type="Node"]
-script = ExtResource("1_w5aja")
+script = ExtResource("1_7h61r")
 
-[node name="SelectEpisode" parent="." instance=ExtResource("2_7h61r")]
+[node name="SelectEpisode" parent="." instance=ExtResource("2_0sr1o")]
+visible = false
+
+[node name="IntroScreen" parent="." instance=ExtResource("3_lfrn8")]
+script = ExtResource("4_5i0tg")
+
+[node name="TwiddlePlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_lfrn8")

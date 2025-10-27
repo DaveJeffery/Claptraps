@@ -7,6 +7,7 @@ extends Node
 ## game completion screen.
 
 var episode_data: EpisodeData
+var game_objects: Array[String]
 var game_state: GameState
 var game_filename: String
 var intro_text: Array[String]
@@ -25,10 +26,10 @@ func _ready() -> void:
 	await select_episode()
 	load_episode()
 	load_definitions()
-	#update game state
+	update_game_state()
 	
-	#show intro screen + play twiddle
-	
+	await show_intro_screen()
+	await show_status_screen()
 	# GAME LOOP
 	#start music
 	#play level
@@ -42,6 +43,7 @@ func select_episode() -> void:
 	game_filename = episode_metadata.game_filename
 	intro_text = episode_metadata.intro_text
 	outro_text = episode_metadata.outro_text
+	game_state.message = game_state.default_message
 	
 	$SelectEpisode.set_process_input(false)
 	$SelectEpisode.hide()
@@ -52,4 +54,32 @@ func load_episode() -> void:
 
 
 func load_definitions() -> void:
+	# FIXME Temporary until we can sort this out
+	game_objects = Claptraps.game_objects
+
+
+func update_game_state() -> void:
+	game_state.lives = 3
+	game_state.score = 0
+
+
+func show_intro_screen() -> void:
+	$IntroScreen.init(intro_text)
+	$IntroScreen.show()
+
+	if game_state.play_music:
+		$TwiddlePlayer.play()
+
+	$IntroScreen.set_process_input(true)
+	await $IntroScreen.intro
+	
+	$IntroScreen.set_process_input(false)
+	$IntroScreen.hide()
+
+
+func show_status_screen() -> void:
 	pass
+	#
+	#
+	#if status_screen() == False:
+		#break
