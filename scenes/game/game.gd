@@ -78,7 +78,8 @@ func show_intro_screen() -> void:
 
 
 func show_status_screen() -> void:
-	pass
+	$StatusScreen.init(game_state)
+	$StatusScreen.show()
 	#
 	#
 	#if status_screen() == False:
