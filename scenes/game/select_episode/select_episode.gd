@@ -6,7 +6,8 @@ signal episode(episode_metadata: EpisodeMetadata)
 
 
 enum Levelset {
-	ONE = 1,
+	NONE,
+	ONE,
 	TWO,
 	THREE,
 }
@@ -14,24 +15,21 @@ enum Levelset {
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_released("clap_1"):
-		get_viewport().set_input_as_handled()
 		_process_selection(Levelset.ONE)
-		hide()
 	elif event.is_action_released("clap_2"):
-		get_viewport().set_input_as_handled()
 		_process_selection(Levelset.TWO)
-		hide()
 	elif event.is_action_released("clap_3"):
-		get_viewport().set_input_as_handled()
 		_process_selection(Levelset.THREE)
-		hide()
 	elif event.is_action_released("ui_cancel"):
-		get_viewport().set_input_as_handled()
-		emit_signal("episode", EpisodeMetadata.new(0))  
-		hide()
+		_process_selection(Levelset.NONE)
 
 
 func _process_selection(levelset:int) -> void:
+	get_viewport().set_input_as_handled()
+	
 	# Look up the data for the given levelset, set fields and emit the episode signal.
 	var episode_metadata := EpisodeMetadata.new(levelset)
 	emit_signal("episode", episode_metadata)
+
+	hide()
+	set_process_input(false)

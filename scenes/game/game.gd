@@ -58,8 +58,7 @@ func select_episode() -> void:
 	outro_text = episode_metadata.outro_text
 	game_state.message = game_state.default_message
 
-	$SelectEpisode.set_process_input(false)
-	$SelectEpisode.hide()
+
 
 
 func load_episode() -> void:
