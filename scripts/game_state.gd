@@ -13,6 +13,7 @@ var kill_dave: bool
 var obj_names: Dictionary
 var use_key: bool
 var level_number: int
+var minimum_score: int
 var min_score_hit: bool
 var level_finished: bool
 var lives: int
@@ -36,6 +37,7 @@ func _init():
 	obj_names = {}
 	use_key = false
 	level_number = 0
+	minimum_score = 0
 	min_score_hit = false
 	level_finished = false
 	lives = 3

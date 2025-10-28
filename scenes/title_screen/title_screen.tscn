@@ -70,3 +70,4 @@ visible = false
 [connection signal="draw" from="RedefineScreen" to="." method="_on_RedefineScreen_draw"]
 [connection signal="hidden" from="RedefineScreen" to="." method="_on_redefine_screen_hidden"]
 [connection signal="draw" from="QuitScreen" to="." method="_on_QuitScreen_draw"]
+[connection signal="hidden" from="QuitScreen" to="." method="_on_quit_screen_hidden"]

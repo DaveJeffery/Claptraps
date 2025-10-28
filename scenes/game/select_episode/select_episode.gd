@@ -26,8 +26,10 @@ func _input(event: InputEvent) -> void:
 		_process_selection(Levelset.THREE)
 		hide()
 	elif event.is_action_pressed("ui_cancel"):
+		print_debug("ui_cancel")
 		get_viewport().set_input_as_handled()
-		# TODO $QuitScreen.show()  
+		emit_signal("episode", EpisodeMetadata.new(0))  
+		hide()
 
 
 func _process_selection(levelset:int) -> void:

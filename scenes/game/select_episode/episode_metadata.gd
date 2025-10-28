@@ -7,6 +7,11 @@ var outro_text: Array[String]
 
 
 func _init(episode:int) -> void:
+	# This is used by SelectEpisode and Game to indicate Escape
+	# being pressed.
+	if episode == 0:
+		return
+	
 	game_filename = "res://levels/episode%d.tres" % episode
 	intro_text = [
 		"SET%d_INTRO1" % episode,

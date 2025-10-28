@@ -17,11 +17,14 @@ var audio_position := 0.0
 func _ready() -> void:
 	# Called every time the node is added to the scene.
 	# Initialization here
+	set_process_input(true)
 	$QuitScreen.set_process_input(false)
 	$QuitScreen.hide()
 	$MenuTimer.start()
 	if Settings.audio:
 		$AudioStreamPlayer.play()
+	
+	print_debug("Title screen loaded")
 
 
 func _input(event: InputEvent) -> void:
@@ -63,19 +66,14 @@ func _on_MenuTimer_timeout() -> void:
 	$VBoxContainer/MenuContainer/MenuLabel.text = menu_items[menu_counter]
 
 
-func _on_QuitScreen_hide() -> void:
-	# Resumes audio and menu when QuitScreen hidden
-	$QuitScreen.set_process_input(false)
-	get_tree().set_pause(false)
-	if Settings.audio:
-		$AudioStreamPlayer.play(audio_position)
-
 func _on_QuitScreen_draw() -> void:
-	# Pauses audio and menu when QuitScreen shown
+	# Pauses TitleScreen audio and menu when QuitScreen shown
+	set_process_input(false)
 	audio_position = $AudioStreamPlayer.get_playback_position()
 	$AudioStreamPlayer.stop()
+	
+	# Allow quit screen to receive keypresses
 	$QuitScreen.set_process_input(true)
-	get_tree().set_pause(true)
 
 
 func _on_RedefineScreen_draw() -> void:
@@ -84,3 +82,13 @@ func _on_RedefineScreen_draw() -> void:
 
 func _on_redefine_screen_hidden() -> void:
 	set_process_input(true)
+
+
+func _on_quit_screen_hidden() -> void:
+	# Stop QuitScreen from to receiving keypresses
+	$QuitScreen.set_process_input(false)
+	
+	# Resume TitleScreen audio and menu
+	set_process_input(true)
+	if Settings.audio:
+		$AudioStreamPlayer.play(audio_position)
