@@ -43,9 +43,8 @@ func _ready() -> void:
 	
 	
 func select_episode() -> void:
+	# This shows the select episode screen and waits for a keypress
 	$SelectEpisode.show()
-	$SelectEpisode.set_process_input(true)
-	
 	var episode_metadata:EpisodeMetadata = await $SelectEpisode.episode
 	
 	# This handles ESCAPE being pressed on the select episode screen
@@ -57,8 +56,6 @@ func select_episode() -> void:
 	intro_text = episode_metadata.intro_text
 	outro_text = episode_metadata.outro_text
 	game_state.message = game_state.default_message
-
-
 
 
 func load_episode() -> void:

@@ -12,15 +12,19 @@ enum Levelset {
 	THREE,
 }
 
+func _ready() -> void:
+	set_process_input(true)
+
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_released("clap_1"):
+	print_debug(event)
+	if event.is_action_pressed("clap_1"):
 		_process_selection(Levelset.ONE)
-	elif event.is_action_released("clap_2"):
+	elif event.is_action_pressed("clap_2"):
 		_process_selection(Levelset.TWO)
-	elif event.is_action_released("clap_3"):
+	elif event.is_action_pressed("clap_3"):
 		_process_selection(Levelset.THREE)
-	elif event.is_action_released("ui_cancel"):
+	elif event.is_action_pressed("clap_escape"):
 		_process_selection(Levelset.NONE)
 
 

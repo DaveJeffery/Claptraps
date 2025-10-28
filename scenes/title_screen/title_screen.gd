@@ -23,11 +23,9 @@ func _ready() -> void:
 	$MenuTimer.start()
 	if Settings.audio:
 		$AudioStreamPlayer.play()
-	
-	print_debug("Title screen loaded")
 
 
-func _input(event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_select"):
 		get_viewport().set_input_as_handled()
 		get_tree().change_scene_to_file(

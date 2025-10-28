@@ -7,10 +7,10 @@ func init(labels:Array[String]) -> void:
 		var label = $VBoxContainer.get_node("IntroText%d" % i)
 		label.text =labels[i]
 
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_select"):
+func _unhandled_key_input(event: InputEvent) -> void:
+	if event.is_action_released("ui_select"):
 		get_viewport().set_input_as_handled()
 		emit_signal("escape_pressed", false)
-	if event.is_action_pressed("ui_cancel"):
+	if event.is_action_released("ui_cancel"):
 		get_viewport().set_input_as_handled()
 		emit_signal("escape_pressed", true)

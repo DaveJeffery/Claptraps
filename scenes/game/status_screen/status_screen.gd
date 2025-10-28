@@ -10,7 +10,7 @@ func init(game_state:GameState) -> void:
 	$VBoxContainer/Lives.text = tr("LIVES") + " %d" % (game_state.lives)	
 
 
-func _input(event: InputEvent) -> void:
+func _unhandled_key_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_select"):
 		get_viewport().set_input_as_handled()
 		emit_signal("escape_pressed", false)
