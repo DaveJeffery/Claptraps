@@ -25,6 +25,11 @@ func _init() -> void:
 
 func _ready() -> void:
 	await select_episode()
+	
+	if game_filename.is_empty():
+		_go_to_title_screen()
+		return
+
 	load_episode()
 	load_definitions()
 	update_game_state()
@@ -43,18 +48,16 @@ func select_episode() -> void:
 	
 	var episode_metadata:EpisodeMetadata = await $SelectEpisode.episode
 	
-	if episode_metadata.game_filename == "":
-		print_debug("null episode_metadata")
-		call_deferred("_go_to_title_screen")
-		$SelectEpisode.set_process_input(false)
-		$SelectEpisode.hide()
+	# This handles ESCAPE being pressed on the select episode screen
+	game_filename = episode_metadata.game_filename
+	if game_filename.is_empty():
 		return
 	
-	game_filename = episode_metadata.game_filename
+	# This handles a number key being pressed on the select episode screen
 	intro_text = episode_metadata.intro_text
 	outro_text = episode_metadata.outro_text
 	game_state.message = game_state.default_message
-	
+
 	$SelectEpisode.set_process_input(false)
 	$SelectEpisode.hide()
 

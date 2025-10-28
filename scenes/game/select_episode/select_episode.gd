@@ -13,20 +13,19 @@ enum Levelset {
 
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("clap_1"):
+	if event.is_action_released("clap_1"):
 		get_viewport().set_input_as_handled()
 		_process_selection(Levelset.ONE)
 		hide()
-	elif event.is_action_pressed("clap_2"):
+	elif event.is_action_released("clap_2"):
 		get_viewport().set_input_as_handled()
 		_process_selection(Levelset.TWO)
 		hide()
-	elif event.is_action_pressed("clap_3"):
+	elif event.is_action_released("clap_3"):
 		get_viewport().set_input_as_handled()
 		_process_selection(Levelset.THREE)
 		hide()
-	elif event.is_action_pressed("ui_cancel"):
-		print_debug("ui_cancel")
+	elif event.is_action_released("ui_cancel"):
 		get_viewport().set_input_as_handled()
 		emit_signal("episode", EpisodeMetadata.new(0))  
 		hide()
