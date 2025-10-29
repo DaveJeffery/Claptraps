@@ -764,15 +764,16 @@ func _init_dave_position() -> void:
 
 ## These variables are used to keep Dave at least
 ## 5 squares from the sides of the map
-func _calculate_offset() -> void:  #TODO
-	game_state.x_offset = game_state.dave_x - 5
-	if game_state.x_offset < 0:
-		game_state.x_offset = 0
-	if game_state.x_offset > game_state.LEVEL_WIDTH - 16:
-		game_state.x_offset = game_state.LEVEL_WIDTH - 16
-		
-	game_state.y_offset = game_state.dave_y - 5
-	if game_state.y_offset < 0:
-		game_state.y_offset = 0
-	if game_state.y_offset > game_state.LEVEL_HEIGHT - 12:
-		game_state.y_offset = game_state.LEVEL_HEIGHT - 12
+func _calculate_offset() -> void: 
+	var x_offset: int = clamp(
+		game_state.dave_pos.x - 5, 
+		0, 
+		game_state.level_size.x - 16
+	)
+	var y_offset: int = clamp(
+		game_state.dave_pos.y - 5, 
+		0, 
+		game_state.level_size.y - 12
+	)
+	
+	game_state.xy_offset = Vector2i(x_offset, y_offset)
