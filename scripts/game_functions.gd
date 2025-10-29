@@ -54,7 +54,11 @@ static func look(direction: Direction, position: Vector2i) -> Thing:
 		return target_cell
 
 
-static func move(direction: Direction, object: Thing, grid_pos: Vector2i) -> void:
+static func move(
+	direction: Direction, 
+	object: Thing, 
+	grid_pos: Vector2i
+) -> void:
 	# Can't move a moving object
 	if object.moving != Direction.STILL:
 		return
@@ -100,12 +104,14 @@ static func change(object_from: String, object_to: String) -> void:
 				# Handle movement
 				if target.moving != Direction.STILL:
 					
-					# If the target cell is moving...
-					# Set the cell it is moving to to a copy of the cell it is moving to
+					# If the target cell is moving, set the cell it is
+					#  moving to to a copy of the cell it is moving to
 					# reset the  cell to its original, default state
 						
 					var adjacent_pos := pos + target.moving.forward
-					var adjacent_content := _get_cell(adjacent_pos).game_object_name
+					var adjacent_content := (
+						_get_cell(adjacent_pos).game_object_name
+					)
 					_set_cell(adjacent_pos, adjacent_content)
 
 				# Change target cell to the new Thing type
@@ -139,7 +145,7 @@ static func create(
 	object: String, 
 	direction: Direction, 
 	grid_pos: Vector2i,
-	target: Vector2i = Vector2i.ZERO
+	target: Vector2i = Vector2i.ZERO,
 ) -> void:
 	var hitting_cell := grid_pos + direction.forward
 	var hitting_object := _get_cell(hitting_cell)
@@ -156,7 +162,11 @@ static func create(
 		new_object.target = target
 
 
-static func transport(hitby: Thing, transporter: Thing, grid_pos: Vector2i) -> void:
+static func transport(
+	hitby: Thing, 
+	transporter: Thing, 
+	grid_pos: Vector2i,
+) -> void:
 	if hitby.is_dave:
 		game_state.transporting = true
 		game_state.dave_pos = transporter.target
@@ -249,7 +259,10 @@ static func _set_cell(position: Vector2i, object_name: String) -> void:
 
 	var object_type = game_objects.get(object_name)
 	if object_type == null:
-		push_warning("Unknown object_name '%s' at position %s" % [object_name, position])
+		push_warning(
+			"Unknown object_name '%s' at position %s" 
+			% [object_name, position]
+		)
 		return
 
 	var object: Thing = object_type.new(game_state)
