@@ -8,7 +8,7 @@ var game_map: Array
 var dave_pos: Vector2i
 var dave_dest: Vector2i
 var xy_offset: Vector2i
-var player_moving: int
+var player_moving: Direction
 var kill_dave: bool
 var obj_names: Dictionary
 var use_key: bool
@@ -32,7 +32,7 @@ func _init():
 	dave_pos = Vector2i.ZERO
 	dave_dest = Vector2i.ZERO
 	xy_offset = Vector2i.ZERO
-	player_moving = 0
+	player_moving = Direction.STILL
 	kill_dave = false
 	obj_names = {}
 	use_key = false

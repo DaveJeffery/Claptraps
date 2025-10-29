@@ -7,7 +7,7 @@ extends Node
 ## game completion screen.
 
 var episode_data: EpisodeData
-var game_objects: Array[String]
+var game_objects: GameObjects
 var game_state: GameState
 var game_filename: String
 var intro_text: Array[String]
@@ -110,7 +110,10 @@ func game_loop() -> void:
 		
 		## $PlayLevel plays a single level, returning true or false
 		var is_completed:bool
+		$PlayLevel.game()
+		$PlayLevel.show()
 		is_completed = await $PlayLevel.completed
+		$PlayLevel.hide()
 		
 		## Stop music        
 		$GameTunePlayer.stop()
