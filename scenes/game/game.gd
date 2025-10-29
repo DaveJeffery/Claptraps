@@ -103,9 +103,7 @@ func show_status_screen() -> void:
 
 
 func game_loop() -> void:
-
 	while true:
-
 		## Play music
 		if game_state.play_music:
 			$GameTunePlayer.play()
@@ -129,8 +127,8 @@ func game_loop() -> void:
 			else:
 				_go_to_title_screen()
 
-			## Show the status screen. If you press escape, go to title screen
-			show_status_screen()
+			## Show the status screen
+			await show_status_screen()
 			
 		else:
 			## Add 1 to level number, reset the score
@@ -138,47 +136,46 @@ func game_loop() -> void:
 			game_state.score = 0
 			
 			## If you have completed all of the levels, show outro screen
-				#if game_state.level_number > len(game_data.level_map) - 1:
-				#game_state.bg_col = 150, 150, 255
-				#screen.fill(game_state.bg_col)
-				#render_text(outro_text[0], 180)
-				#render_text(outro_text[1], 220)
-				#render_text(outro_text[2], 260)
-				#render_text(outro_text[3], 300)
-				#pygame.display.flip()
-				#if game_state.play_music:
-					#sound_twiddle.play()
-				#
-				#while(1):
-					#wait_event = pygame.event.wait()
-					#if wait_event.type == pygame.KEYDOWN:
-						#if wait_event.key == pygame.K_SPACE:
-							#break
-						#else:
-							#pass
-				#break
+			var num_of_levels:int = episode_data.levels.size()
+			
+			if game_state.level_number > num_of_levels:
+				await show_intro_screen()
+
 			## Draw the level complete screen
-			#prompt_rect = pygame.Rect(0, 0, 300, 100)
-			#prompt_rect.centerx = screen.get_rect().centerx
-			#prompt_rect.centery = screen.get_rect().centery
-			#pygame.draw.rect(screen, (0, 0, 0), prompt_rect)
-			#render_text('Level Complete!', 210)
-			#render_text('Press Space', 270)
-			#pygame.display.flip()
-			#if game_state.play_music:
-				#sound_twiddle.play()
-			#while(1):
-				#wait_event = pygame.event.wait()
-				#if wait_event.type == pygame.KEYDOWN:
-					#if wait_event.key == pygame.K_SPACE:
-						#
-						#break
-					#else:
-						#pass
-						
+			await level_complete_screen()
+			
 			## Show the status screen. If you press escape, go to title screen
-			#if status_screen() == False:
-				#break
+			await show_status_screen()
+
+
+func show_outro_screen() -> void:
+	$OutroScreen.init(outro_text)
+	$OutroScreen.show()
+
+	$OutroScreen.set_process_input(true)
+	escape_pressed = await $OutroScreen.escape_pressed
+	if escape_pressed:
+		call_deferred("_go_to_title_screen")	
+	
+	$OutroScreen.set_process_input(false)
+	$OutroScreen.hide()
+
+
+func level_complete_screen() -> void:
+	$CompleteScreen.init(game_state)
+	$CompleteScreen.show()
+	$CompleteScreen.set_process_input(true)
+	
+	if game_state.play_music:
+		$TwiddlePlayer.play()
+	
+	escape_pressed = await $CompleteScreen.escape_pressed
+	if escape_pressed:
+		call_deferred("_go_to_title_screen")
+		
+	$CompleteScreen.set_process_input(false)
+	$CompleteScreen.hide()
+
 
 func _minimum_score() -> int:
 	return episode_data.levels[game_state.level_number].minimum_score

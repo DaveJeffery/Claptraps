@@ -1,0 +1,51 @@
+[gd_scene load_steps=3 format=3 uid="uid://c14rh7m86pxm5"]
+
+[ext_resource type="Script" uid="uid://cosgerml4fxgu" path="res://scenes/game/complete_screen/complete_screen.gd" id="1_87mig"]
+[ext_resource type="FontFile" uid="uid://c5aukp5wo5erg" path="res://fonts/eartm.ttf" id="2_uyc7x"]
+
+[node name="CompleteScreen" type="ColorRect"]
+offset_right = 640.0
+offset_bottom = 480.0
+color = Color(0.5882353, 0.5882353, 1, 1)
+script = ExtResource("1_87mig")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 120.0
+offset_top = 80.0
+offset_right = 520.0
+offset_bottom = 400.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -160.0
+offset_right = 200.0
+offset_bottom = 160.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="LevelComplete" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_uyc7x")
+theme_override_font_sizes/font_size = 35
+text = "LEVEL_COMPLETE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Space" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_uyc7x")
+theme_override_font_sizes/font_size = 35
+text = "SPACE"
+horizontal_alignment = 1
+vertical_alignment = 1
