@@ -1,15 +1,15 @@
-#script: quit_screen.gd
+#script: retry_screen.gd
 
 extends ColorRect
 
-func _ready() -> void:
-	# Called every time the node is added to the scene.
-	# Initialization here
-	pass
+signal retry_asked(retry: bool)
+
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("clap_yes"):
-		get_tree().quit()
+		emit_signal("retry_asked", true)
 	elif event.is_action_pressed("clap_no"):
-		get_viewport().set_input_as_handled()
-		hide()
+		emit_signal("retry_asked", false)
+	
+	get_viewport().set_input_as_handled()
+	hide()

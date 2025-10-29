@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://dyuxsea16xdom"]
+
+[ext_resource type="Script" uid="uid://cbtsqjo6dgax0" path="res://scenes/title_screen/quit_screen/quit_screen.gd" id="1_focgo"]
+[ext_resource type="FontFile" uid="uid://c5aukp5wo5erg" path="res://fonts/eartm.ttf" id="2_ifjdm"]
+[ext_resource type="StyleBox" path="res://resources/claptraps_styleboxflat.tres" id="3_tbnsr"]
+
+[node name="RetryScreen" type="ColorRect"]
+offset_right = 640.0
+offset_bottom = 480.0
+color = Color(0.588235, 0.588235, 1, 1)
+script = ExtResource("1_focgo")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 0
+offset_top = 200.0
+offset_right = 640.0
+offset_bottom = 240.0
+mouse_filter = 0
+
+[node name="RetryLabel" type="Label" parent="CenterContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ifjdm")
+theme_override_font_sizes/font_size = 35
+theme_override_styles/normal = ExtResource("3_tbnsr")
+text = "RETRY"

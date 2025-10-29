@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dvyp1wx4s1ro2"]
+[gd_scene load_steps=10 format=3 uid="uid://dvyp1wx4s1ro2"]
 
 [ext_resource type="Script" uid="uid://cexoak00tockx" path="res://scenes/game/game.gd" id="1_7h61r"]
 [ext_resource type="PackedScene" uid="uid://copbryejmr5rx" path="res://scenes/game/select_episode/select_episode.tscn" id="2_0sr1o"]
@@ -6,6 +6,9 @@
 [ext_resource type="Script" uid="uid://cu41c3lj6ksdm" path="res://scenes/game/intro_scene/intro_screen.gd" id="4_5i0tg"]
 [ext_resource type="PackedScene" uid="uid://0q5pxay55d42" path="res://scenes/game/status_screen/status_screen.tscn" id="5_5i0tg"]
 [ext_resource type="AudioStream" uid="uid://cqdcyepnxs31a" path="res://sounds/twiddle.wav" id="5_lfrn8"]
+[ext_resource type="PackedScene" uid="uid://bn3wciwmpcvbn" path="res://scenes/play_level/play_level.tscn" id="6_2a8rs"]
+[ext_resource type="PackedScene" uid="uid://dyuxsea16xdom" path="res://scenes/game/retry_screen/retry_screen.tscn" id="7_4j704"]
+[ext_resource type="AudioStream" uid="uid://cirw3n53r5qhk" path="res://music/ct_game1.ogg" id="7_bdhmt"]
 
 [node name="Game" type="Node"]
 script = ExtResource("1_7h61r")
@@ -19,5 +22,12 @@ script = ExtResource("4_5i0tg")
 [node name="StatusScreen" parent="." instance=ExtResource("5_5i0tg")]
 visible = false
 
+[node name="PlayLevel" parent="." instance=ExtResource("6_2a8rs")]
+
+[node name="RetryScreen" parent="." instance=ExtResource("7_4j704")]
+
 [node name="TwiddlePlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_lfrn8")
+
+[node name="GameTunePlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_bdhmt")

@@ -105,8 +105,8 @@ static func change(object_from: String, object_to: String) -> void:
 				if target.moving != Direction.STILL:
 					
 					# If the target cell is moving, set the cell it is
-					#  moving to to a copy of the cell it is moving to
-					# reset the  cell to its original, default state
+					# moving to to a copy of the cell it is moving to
+					# reset the cell to its original, default state
 						
 					var adjacent_pos := pos + target.moving.forward
 					var adjacent_content := (
