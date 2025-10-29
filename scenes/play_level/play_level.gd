@@ -41,8 +41,8 @@ func game(
 	## position stored in the episode data
 	_init_dave_position()
 
-	## These variables are used to keep Dave at least
-	## 5 squares from the sides of the map
+	## Help the scrolling routing to keep Dave at least
+	## 5 squares from the sides of the screen
 	_calculate_offset()
 
 	## Quit variable
@@ -57,6 +57,9 @@ func game(
 	game_state.player_moving = Direction.STILL
 	
 	## These variables are used for scrolling
+	$TileMapLayer.tile_set = game_objects.tile_set
+	var player_move_counter := Vector2i(0, 0)
+	
 	#player_move_counter_horiz = 0
 	#scroll_horiz = False
 	#scroll_horiz_comp = False
@@ -65,9 +68,9 @@ func game(
 	#scroll_vert_comp = False
 
 	## These variables are used for animation
-	#dave_frame = 0
-	#anim_counter = 0
-	#dave_wait = 0
+	#dave_frame = 0     either 1, 2, 3 or 4   updated every time anim counter= 0
+	#anim_counter = 0   either 0, 1 or 2  added to each frame, loops back to 0
+	#dave_wait = 0  counts from 10 to 0 each frame set to 10 if dave moves - if <8, hits object below if 0, dave stands still
 
 ## MAIN LOOP
 	#while(1):

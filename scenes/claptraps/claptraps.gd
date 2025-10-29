@@ -62,3 +62,5 @@ func _init() -> void:
 		24: preload("res://scenes/claptraps/wall_3/wall_3.tscn"),
 		25: preload("res://scenes/claptraps/rock/rock.tscn"),
 	}
+
+	game_objects.tile_set = preload("claptraps_tile_set.tres")
