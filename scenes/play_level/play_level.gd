@@ -3,12 +3,16 @@ extends Node
 
 signal completed(is_completed: bool)
 
+@onready var dave := $TileMapLayer/Dave
+
 var game_state: GameState
 var game_data: EpisodeData
 var game_objects: GameObjects
 
 var program_quit: bool
 var program_status: bool
+
+var minimum_score: int
 
 var player_right: bool
 var player_left: bool
@@ -27,6 +31,7 @@ func _init(
 	game_objects = current_objects
 
 	## Reset minimum score hit and level flags
+	minimum_score = game_data.levels[game_state.level_number].minimum_score
 	game_state.min_score_hit = false
 	game_state.level_finished = false
 
@@ -160,256 +165,19 @@ func _process(_delta: float) -> void:
 		player_dir = Direction.STILL
 		
 ## Exit to menu
-	#if program_quit == True:
-		#game_state.bg_col = 150, 150, 255
-		#screen.fill(game_state.bg_col)
-#
-		#render_text('Quit Y/N?', 240)
-#
-		#pygame.display.flip()
-		#while(1):
-			#wait_event = pygame.event.wait()
-			#if wait_event.type == pygame.KEYDOWN:
-				#if wait_event.key == pygame.K_y:
-					#return False
-				#elif wait_event.key == pygame.K_n:
-					#program_quit = False
-					#break
-				#else:
-					#pass
-		#
+	if program_quit:
+		program_quit = await _show_quit_screen()
+		if program_quit:
+			emit_signal("completed", false)
+
 ## Handle Status Screen
-		#if event.key == pygame.K_TAB:
-			#game_state.use_key = False
-			#player_right = player_left = player_up = player_down = 0
-			#if status_screen() == False:
-				#program_quit = True
-	#
-	#
+	if program_status:
+		program_quit = await _show_quit_screen()
+		if program_quit:
+			emit_signal("completed", false)
+
 ## Move Player
-	#if not game_state.player_moving:
-		#
-		#if player_dir == game_state.EAST and game_state.dave_x < game_state.LEVEL_WIDTH - 1:
-			#if game_state.game_map[game_state.dave_x + 1][game_state.dave_y].solid == False:
-				#
-				#game_state.player_moving = game_state.EAST
-				#game_state.dave_dest_x, game_state.dave_dest_y = game_state.dave_x + 1, game_state.dave_y
-				#
-				#if game_state.dave_x - game_state.x_offset > 8 and game_state.x_offset < game_state.LEVEL_WIDTH - 16:
-					##game_state.x_offset += 1
-					#scroll_horiz = True
-	## Push Horizontally
-			#elif game_state.game_map[game_state.dave_x + 1][game_state.dave_y].h_push == True \
-					#and game_state.dave_x < game_state.LEVEL_WIDTH - 2 \
-					#and game_state.game_map[game_state.dave_x + 2][game_state.dave_y].check_squash(game_state.game_map[game_state.dave_x + 1][game_state.dave_y]) == True:
-					##and game_state.game_map[game_state.dave_x + 2][game_state.dave_y].squash == True:
-#
-					##game_state.game_map[game_state.dave_x + 2][game_state.dave_y].move_speed = 0
-					#move(game_state.EAST,
-						 #game_state.game_map[game_state.dave_x + 1][game_state.dave_y],
-						 #game_state.dave_x + 1, game_state.dave_y)
-#
-					#game_state.player_moving = game_state.EAST
-					#game_state.dave_dest_x, game_state.dave_dest_y = game_state.dave_x + 1, game_state.dave_y
-					#
-					#if game_state.dave_x - game_state.x_offset > 8 and game_state.x_offset < game_state.LEVEL_WIDTH - 16:
-						##game_state.x_offset += 1
-						#scroll_horiz = True
-#
-				#
-		#if player_dir == game_state.WEST and game_state.dave_x > 0:
-			#if game_state.game_map[game_state.dave_x - 1][game_state.dave_y].solid == False:
-#
-				#game_state.player_moving = game_state.WEST
-				#game_state.dave_dest_x, game_state.dave_dest_y = game_state.dave_x - 1, game_state.dave_y
-				#
-				#if game_state.dave_x - game_state.x_offset < 7 and game_state.x_offset > 0:
-					#scroll_horiz = True
-					#scroll_horiz_comp = True
-#
-		 ## Push Horizontally
-			#elif game_state.game_map[game_state.dave_x - 1][game_state.dave_y].h_push == True \
-					#and game_state.dave_x > 1 \
-					#and game_state.game_map[game_state.dave_x - 2][game_state.dave_y].check_squash(game_state.game_map[game_state.dave_x - 1][game_state.dave_y]) == True:
-					##and game_state.game_map[game_state.dave_x - 2][game_state.dave_y].squash == True:
-						#
-					##game_state.game_map[game_state.dave_x - 2][game_state.dave_y].move_speed = 0
-					#move(game_state.WEST,
-						 #game_state.game_map[game_state.dave_x - 1][game_state.dave_y],
-						 #game_state.dave_x - 1, game_state.dave_y)
-#
-					#game_state.player_moving = game_state.WEST
-					#game_state.dave_dest_x, game_state.dave_dest_y = game_state.dave_x - 1, game_state.dave_y
-					#
-					#if game_state.dave_x - game_state.x_offset < 7 and game_state.x_offset > 0:
-						#scroll_horiz = True
-						#scroll_horiz_comp = True
-#
-			#
-		#if player_dir == game_state.NORTH and game_state.dave_y > 0:
-			#if game_state.game_map[game_state.dave_x][game_state.dave_y - 1].solid == False:
-#
-				#game_state.player_moving = game_state.NORTH
-				#game_state.dave_dest_x, game_state.dave_dest_y = game_state.dave_x, game_state.dave_y - 1
-#
-				#
-				#if game_state.dave_y - game_state.y_offset < 5 and game_state.y_offset > 0:
-					##game_state.y_offset -= 1
-					#scroll_vert = True
-					#scroll_vert_comp = True
-#
-		 ## Push Vertically
-			#elif game_state.game_map[game_state.dave_x][game_state.dave_y - 1].v_push == True \
-					#and game_state.dave_y > 1 \
-					#and game_state.game_map[game_state.dave_x][game_state.dave_y - 2].check_squash(game_state.game_map[game_state.dave_x][game_state.dave_y - 1]) == True:
-#
-					##game_state.game_map[game_state.dave_x][game_state.dave_y - 2].move_speed = 0
-#
-					#move(game_state.NORTH,
-						 #game_state.game_map[game_state.dave_x][game_state.dave_y - 1],
-						 #game_state.dave_x, game_state.dave_y - 1)
-#
-					#game_state.player_moving = game_state.NORTH
-					#game_state.dave_dest_x, game_state.dave_dest_y = game_state.dave_x, game_state.dave_y - 1
-#
-					#
-					#if game_state.dave_y - game_state.y_offset < 5 and game_state.y_offset > 0:
-						##game_state.y_offset -= 1
-						#scroll_vert = True
-						#scroll_vert_comp = True
-				#
-		#if player_dir == game_state.SOUTH and game_state.dave_y < game_state.LEVEL_HEIGHT - 1:
-			#if game_state.game_map[game_state.dave_x][game_state.dave_y + 1].solid == False:
-#
-				#game_state.player_moving = game_state.SOUTH
-				#game_state.dave_dest_x, game_state.dave_dest_y = game_state.dave_x, game_state.dave_y + 1
-				#
-				#if game_state.dave_y - game_state.y_offset > 6 and game_state.y_offset < game_state.LEVEL_HEIGHT - 12:
-					##game_state.y_offset += 1
-					#scroll_vert = True
-#
-		 ## Push Vertically
-			#elif game_state.game_map[game_state.dave_x][game_state.dave_y + 1].v_push == True \
-					#and game_state.dave_y < game_state.LEVEL_HEIGHT - 2 \
-					#and game_state.game_map[game_state.dave_x][game_state.dave_y + 2].check_squash(game_state.game_map[game_state.dave_x][game_state.dave_y + 1]) == True:
-#
-					##game_state.game_map[game_state.dave_x][game_state.dave_y + 2].move_speed = 0
-#
-					#move(game_state.SOUTH,
-						 #game_state.game_map[game_state.dave_x][game_state.dave_y + 1],
-						 #game_state.dave_x, game_state.dave_y + 1)
-#
-					#game_state.player_moving = game_state.SOUTH
-					#game_state.dave_dest_x, game_state.dave_dest_y = game_state.dave_x, game_state.dave_y + 1
-					#
-					#if game_state.dave_y - game_state.y_offset > 6 and game_state.y_offset < game_state.LEVEL_HEIGHT - 12:
-						##game_state.y_offset += 1
-						#scroll_vert = True
-				#
-#
-	#if game_state.player_moving == game_state.EAST:
-		#player_move_counter_horiz += 1
-		#
-		#if anim_counter == 0:
-			#dave_frame +=1
-		#if dave_frame > 4:
-			#dave_frame = 1
-		#dave_wait = 10
-		#
-		#if player_move_counter_horiz == 4:
-			#player_move_counter_horiz = 0
-			#game_state.player_moving = 0
-			#game_state.dave_x += 1
-							#
-			#if scroll_horiz:
-				#scroll_horiz = False
-				#game_state.x_offset += 1
-				#
-## Let Dave hit objects
-			#if game_state.game_map[game_state.dave_x][game_state.dave_y].solid == False:
-				#Dave_hit()
-#
-			#
-	#if game_state.player_moving == game_state.WEST:
-		#player_move_counter_horiz -= 1
-		#
-		#if dave_frame < 4:
-			#dave_frame = 4
-		#if anim_counter == 0:
-			#dave_frame +=1
-		#if dave_frame > 8:
-			#dave_frame = 5
-		#dave_wait = 10
-		#
-		#if player_move_counter_horiz == -4:
-			#player_move_counter_horiz = 0
-			#game_state.player_moving = 0
-			#game_state.dave_x -= 1
-			#
-			#if scroll_horiz:
-				#scroll_horiz = False
-				#scroll_horiz_comp = False
-				#game_state.x_offset -= 1
-				#
-## Let Dave hit objects
-			#if game_state.game_map[game_state.dave_x][game_state.dave_y].solid == False:
-				#Dave_hit()
-#
-#
-	#if game_state.player_moving == game_state.NORTH:
-		#player_move_counter_vert -= 1
-#
-		#if dave_frame < 11:
-			#dave_frame = 11
-		#if anim_counter == 0:
-			#dave_frame +=1
-		#if dave_frame > 12:
-			#dave_frame = 11
-		#dave_wait = 10
-#
-		#if player_move_counter_vert == -4:
-			#player_move_counter_vert = 0
-			#game_state.player_moving = 0
-			#game_state.dave_y -= 1
-			#
-			#if scroll_vert:
-				#scroll_vert = False
-				#scroll_vert_comp = False
-				#game_state.y_offset -= 1
-				#
-## Let Dave hit objects
-			#if game_state.game_map[game_state.dave_x][game_state.dave_y].solid == False:
-				#Dave_hit()
-			#
-#
-	#if game_state.player_moving == game_state.SOUTH:
-		#player_move_counter_vert += 1
-#
-		#if dave_frame < 9:
-			#dave_frame = 9
-		#if anim_counter == 0:
-			#dave_frame +=1
-		#if dave_frame > 10:
-			#dave_frame = 9
-		#dave_wait = 10
-#
-		#if player_move_counter_vert == 4:
-			#player_move_counter_vert = 0
-			#game_state.player_moving = 0
-			#game_state.dave_y += 1
-			#
-			#if scroll_vert:
-				#scroll_vert = False
-				#game_state.y_offset += 1
-				#
-## Let Dave hit objects
-			#if game_state.game_map[game_state.dave_x][game_state.dave_y].solid == False:
-				#Dave_hit()
-			#
-## If Dave's standing still (but not just moved) hit objects beneath him
-	#if dave_wait < 8:
-		#Dave_hit()
-#
+	_move_player()
 #
 ## Perform sprite actions
 #
@@ -419,7 +187,7 @@ func _process(_delta: float) -> void:
 			#current_sprite = game_state.game_map[x_counter][y_counter]
 #
 			#if x_counter == game_state.dave_x and y_counter == game_state.dave_y and current_sprite.solid == False:
-				#Dave_hit()
+				#Dave_hit()  dave.dave_hit()
 #
 			## Animate sprite
 			#if current_sprite.animation != 0:
@@ -704,9 +472,7 @@ func _process(_delta: float) -> void:
 					#
 #
 ## Draw player
-	#player_rect.left = (game_state.dave_x - game_state.x_offset) * 40 + (player_move_counter_horiz * 10) * (not scroll_horiz)
-	#player_rect.top = (game_state.dave_y - game_state.y_offset) * 40 + (player_move_counter_vert * 10) * (not scroll_vert) 
-	#screen.blit(sprite_dave[dave_frame], player_rect)
+	_draw_player()
 #
 ## Transport-in effect
 	#if game_state.transporting == True:
@@ -738,23 +504,17 @@ func _process(_delta: float) -> void:
 		#anim_counter = 0
 #
 #
-#
+
 ## Dave action function is used for any goal checks etc.
-	#Dave().action()
-#
+	dave.action()
+
 ## If minimum score hit, set game_state.min_score_hit flag
-	#if game_state.score > game_data.minimum_score[game_state.level_number] - 1:
-		#game_state.min_score_hit = True
-## If level has been completed, this flag will be set
-	#if game_state.level_finished:
-		#return True
-#
-	#
-	#GameClock.tick(30)
-#
-#print "fps:  %d" % ((frames*1000)/(pygame.time.get_ticks()-ticks))
-#
-	#return True
+	if game_state.score >= minimum_score:
+		game_state.min_score_hit = true
+		
+## If level has been completed, this signal will be emitted
+	if game_state.level_finished:
+		emit_signal("completed", true)
 
 
 ## Fill a working map (game_state.game_map) with instances of Thing 
@@ -813,3 +573,273 @@ func _calculate_offset() -> void:
 	)
 	
 	game_state.xy_offset = Vector2i(x_offset, y_offset)
+
+
+## Move the Dave Thing instance on the TileMapLayer  TODO
+func _draw_player() -> void:
+	#player_rect.left = (game_state.dave_x - game_state.x_offset) * 40 + (player_move_counter_horiz * 10) * (not scroll_horiz)
+	#player_rect.top = (game_state.dave_y - game_state.y_offset) * 40 + (player_move_counter_vert * 10) * (not scroll_vert) 
+	#screen.blit(sprite_dave[dave_frame], player_rect)
+	pass
+
+
+## Show the quit screen
+func _show_quit_screen() -> bool:
+	set_process_input(false)
+
+	$QuitScreen.show()
+	$QuitScreen.set_process_input(true)
+	
+	program_quit = await $QuitScreen.quit_requested
+	
+	$QuitScreen.set_process_input(false)
+
+	return program_quit
+
+
+## Show the status screen
+func _show_status_screen() -> bool:
+	set_process_input(false)
+	
+	$StatusScreen.show()
+	$StatusScreen.set_process_input(true)
+	
+	program_quit = await $StatusScreen.escape_pressed
+	
+	$StatusScreen.set_process_input(false)
+	
+	return program_quit
+
+
+# Moves the player TODO more useful notes to follow
+func _move_player() -> void:
+	
+	## If the player is not moving, start the player moving, 
+	## change their destination position and push any 
+	## objects that are in the way
+	if not game_state.player_moving:
+		_move_static_player()
+
+	## Update movement counters and animation counters
+	#if game_state.player_moving == game_state.EAST:
+		#player_move_counter_horiz += 1
+		#
+		#if anim_counter == 0:
+			#dave_frame +=1
+		#if dave_frame > 4:
+			#dave_frame = 1
+		#dave_wait = 10
+		#
+		#if player_move_counter_horiz == 4:
+			#player_move_counter_horiz = 0
+			#game_state.player_moving = 0
+			#game_state.dave_x += 1
+							#
+			#if scroll_horiz:
+				#scroll_horiz = False
+				#game_state.x_offset += 1
+				#
+## Let Dave hit objects
+			#if game_state.game_map[game_state.dave_x][game_state.dave_y].solid == False:
+				#Dave_hit()
+#
+			#
+	#if game_state.player_moving == game_state.WEST:
+		#player_move_counter_horiz -= 1
+		#
+		#if dave_frame < 4:
+			#dave_frame = 4
+		#if anim_counter == 0:
+			#dave_frame +=1
+		#if dave_frame > 8:
+			#dave_frame = 5
+		#dave_wait = 10
+		#
+		#if player_move_counter_horiz == -4:
+			#player_move_counter_horiz = 0
+			#game_state.player_moving = 0
+			#game_state.dave_x -= 1
+			#
+			#if scroll_horiz:
+				#scroll_horiz = False
+				#scroll_horiz_comp = False
+				#game_state.x_offset -= 1
+				#
+## Let Dave hit objects
+			#if game_state.game_map[game_state.dave_x][game_state.dave_y].solid == False:
+				#Dave_hit()
+#
+#
+	#if game_state.player_moving == game_state.NORTH:
+		#player_move_counter_vert -= 1
+#
+		#if dave_frame < 11:
+			#dave_frame = 11
+		#if anim_counter == 0:
+			#dave_frame +=1
+		#if dave_frame > 12:
+			#dave_frame = 11
+		#dave_wait = 10
+#
+		#if player_move_counter_vert == -4:
+			#player_move_counter_vert = 0
+			#game_state.player_moving = 0
+			#game_state.dave_y -= 1
+			#
+			#if scroll_vert:
+				#scroll_vert = False
+				#scroll_vert_comp = False
+				#game_state.y_offset -= 1
+				#
+## Let Dave hit objects
+			#if game_state.game_map[game_state.dave_x][game_state.dave_y].solid == False:
+				#Dave_hit()
+			#
+#
+	#if game_state.player_moving == game_state.SOUTH:
+		#player_move_counter_vert += 1
+#
+		#if dave_frame < 9:
+			#dave_frame = 9
+		#if anim_counter == 0:
+			#dave_frame +=1
+		#if dave_frame > 10:
+			#dave_frame = 9
+		#dave_wait = 10
+#
+		#if player_move_counter_vert == 4:
+			#player_move_counter_vert = 0
+			#game_state.player_moving = 0
+			#game_state.dave_y += 1
+			#
+			#if scroll_vert:
+				#scroll_vert = False
+				#game_state.y_offset += 1
+				#
+## Let Dave hit objects
+			#if game_state.game_map[game_state.dave_x][game_state.dave_y].solid == False:
+				#Dave_hit()
+			#
+## If Dave's standing still (but not just moved) hit objects beneath him
+	#if dave_wait < 8:
+		#Dave_hit()
+	pass
+
+
+func _move_static_player():
+	#if player_dir == game_state.EAST and game_state.dave_x < game_state.LEVEL_WIDTH - 1:
+		#if game_state.game_map[game_state.dave_x + 1][game_state.dave_y].solid == False:
+			#
+			#game_state.player_moving = game_state.EAST
+			#game_state.dave_dest_x, game_state.dave_dest_y = game_state.dave_x + 1, game_state.dave_y
+			#
+			#if game_state.dave_x - game_state.x_offset > 8 and game_state.x_offset < game_state.LEVEL_WIDTH - 16:
+				##game_state.x_offset += 1
+				#scroll_horiz = True
+## Push Horizontally
+		#elif game_state.game_map[game_state.dave_x + 1][game_state.dave_y].h_push == True \
+				#and game_state.dave_x < game_state.LEVEL_WIDTH - 2 \
+				#and game_state.game_map[game_state.dave_x + 2][game_state.dave_y].check_squash(game_state.game_map[game_state.dave_x + 1][game_state.dave_y]) == True:
+				##and game_state.game_map[game_state.dave_x + 2][game_state.dave_y].squash == True:
+#
+				##game_state.game_map[game_state.dave_x + 2][game_state.dave_y].move_speed = 0
+				#move(game_state.EAST,
+					 #game_state.game_map[game_state.dave_x + 1][game_state.dave_y],
+					 #game_state.dave_x + 1, game_state.dave_y)
+#
+				#game_state.player_moving = game_state.EAST
+				#game_state.dave_dest_x, game_state.dave_dest_y = game_state.dave_x + 1, game_state.dave_y
+				#
+				#if game_state.dave_x - game_state.x_offset > 8 and game_state.x_offset < game_state.LEVEL_WIDTH - 16:
+					##game_state.x_offset += 1
+					#scroll_horiz = True
+			#
+	#if player_dir == game_state.WEST and game_state.dave_x > 0:
+		#if game_state.game_map[game_state.dave_x - 1][game_state.dave_y].solid == False:
+#
+			#game_state.player_moving = game_state.WEST
+			#game_state.dave_dest_x, game_state.dave_dest_y = game_state.dave_x - 1, game_state.dave_y
+			#
+			#if game_state.dave_x - game_state.x_offset < 7 and game_state.x_offset > 0:
+				#scroll_horiz = True
+				#scroll_horiz_comp = True
+#
+	 ## Push Horizontally
+		#elif game_state.game_map[game_state.dave_x - 1][game_state.dave_y].h_push == True \
+				#and game_state.dave_x > 1 \
+				#and game_state.game_map[game_state.dave_x - 2][game_state.dave_y].check_squash(game_state.game_map[game_state.dave_x - 1][game_state.dave_y]) == True:
+				##and game_state.game_map[game_state.dave_x - 2][game_state.dave_y].squash == True:
+					#
+				##game_state.game_map[game_state.dave_x - 2][game_state.dave_y].move_speed = 0
+				#move(game_state.WEST,
+					 #game_state.game_map[game_state.dave_x - 1][game_state.dave_y],
+					 #game_state.dave_x - 1, game_state.dave_y)
+#
+				#game_state.player_moving = game_state.WEST
+				#game_state.dave_dest_x, game_state.dave_dest_y = game_state.dave_x - 1, game_state.dave_y
+				#
+				#if game_state.dave_x - game_state.x_offset < 7 and game_state.x_offset > 0:
+					#scroll_horiz = True
+					#scroll_horiz_comp = True
+#
+		#
+	#if player_dir == game_state.NORTH and game_state.dave_y > 0:
+		#if game_state.game_map[game_state.dave_x][game_state.dave_y - 1].solid == False:
+#
+			#game_state.player_moving = game_state.NORTH
+			#game_state.dave_dest_x, game_state.dave_dest_y = game_state.dave_x, game_state.dave_y - 1
+#
+			#
+			#if game_state.dave_y - game_state.y_offset < 5 and game_state.y_offset > 0:
+				##game_state.y_offset -= 1
+				#scroll_vert = True
+				#scroll_vert_comp = True
+#
+	 ## Push Vertically
+		#elif game_state.game_map[game_state.dave_x][game_state.dave_y - 1].v_push == True \
+				#and game_state.dave_y > 1 \
+				#and game_state.game_map[game_state.dave_x][game_state.dave_y - 2].check_squash(game_state.game_map[game_state.dave_x][game_state.dave_y - 1]) == True:
+#
+				##game_state.game_map[game_state.dave_x][game_state.dave_y - 2].move_speed = 0
+#
+				#move(game_state.NORTH,
+					 #game_state.game_map[game_state.dave_x][game_state.dave_y - 1],
+					 #game_state.dave_x, game_state.dave_y - 1)
+#
+				#game_state.player_moving = game_state.NORTH
+				#game_state.dave_dest_x, game_state.dave_dest_y = game_state.dave_x, game_state.dave_y - 1
+#
+				#
+				#if game_state.dave_y - game_state.y_offset < 5 and game_state.y_offset > 0:
+					##game_state.y_offset -= 1
+					#scroll_vert = True
+					#scroll_vert_comp = True
+			#
+	#if player_dir == game_state.SOUTH and game_state.dave_y < game_state.LEVEL_HEIGHT - 1:
+		#if game_state.game_map[game_state.dave_x][game_state.dave_y + 1].solid == False:
+#
+			#game_state.player_moving = game_state.SOUTH
+			#game_state.dave_dest_x, game_state.dave_dest_y = game_state.dave_x, game_state.dave_y + 1
+			#
+			#if game_state.dave_y - game_state.y_offset > 6 and game_state.y_offset < game_state.LEVEL_HEIGHT - 12:
+				##game_state.y_offset += 1
+				#scroll_vert = True
+#
+	 ## Push Vertically
+		#elif game_state.game_map[game_state.dave_x][game_state.dave_y + 1].v_push == True \
+				#and game_state.dave_y < game_state.LEVEL_HEIGHT - 2 \
+				#and game_state.game_map[game_state.dave_x][game_state.dave_y + 2].check_squash(game_state.game_map[game_state.dave_x][game_state.dave_y + 1]) == True:
+#
+				##game_state.game_map[game_state.dave_x][game_state.dave_y + 2].move_speed = 0
+#
+				#move(game_state.SOUTH,
+					 #game_state.game_map[game_state.dave_x][game_state.dave_y + 1],
+					 #game_state.dave_x, game_state.dave_y + 1)
+#
+				#game_state.player_moving = game_state.SOUTH
+				#game_state.dave_dest_x, game_state.dave_dest_y = game_state.dave_x, game_state.dave_y + 1
+				#
+				#if game_state.dave_y - game_state.y_offset > 6 and game_state.y_offset < game_state.LEVEL_HEIGHT - 12:
+					##game_state.y_offset += 1
+					#scroll_vert = True
+	pass
