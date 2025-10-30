@@ -737,7 +737,7 @@ func _try_move(dir: Direction) -> bool:
 
 	var new_pos := game_state.dave_pos + dir.forward
 
-	# Bounds check
+	# Bounds check for the target cell
 	if new_pos.x < 0 or new_pos.y < 0 \
 	or new_pos.x >= game_state.level_size.x \
 	or new_pos.y >= game_state.level_size.y:
@@ -751,19 +751,26 @@ func _try_move(dir: Direction) -> bool:
 		game_state.dave_dest = new_pos
 		return true
 
-	# Handle pushable horizontally (or vertically, if needed)
-	if (dir == Direction.EAST or dir == Direction.WEST) and target_cell.h_push:
+	# Determine if the push property applies for this direction
+	var can_push := false
+	if dir == Direction.EAST or dir == Direction.WEST:
+		can_push = target_cell.h_push
+	elif dir == Direction.NORTH or dir == Direction.SOUTH:
+		can_push = target_cell.v_push
+
+	if can_push:
 		var push_pos := new_pos + dir.forward
 
 		# Bounds check for pushed cell
-		if push_pos.x < 0 or push_pos.x >= game_state.level_size.x:
+		if push_pos.x < 0 or push_pos.y < 0 \
+		or push_pos.x >= game_state.level_size.x \
+		or push_pos.y >= game_state.level_size.y:
 			return false
 
-		var push_cell := game_state.game_map[push_pos.y][push_pos.x]  as Thing
+		var push_cell := game_state.game_map[push_pos.y][push_pos.x] as Thing
 
-		# Check if the push is allowed
-		if push_cell.check_squash(target_cell):
-			move(dir, target_cell, new_pos)  # existing push function
+		if push_cell.check_squash(target_cell.game_object_name):
+			GameFunctions.move(dir, target_cell, new_pos)  # existing push function
 			game_state.player_moving = dir
 			game_state.dave_dest = new_pos
 			return true
