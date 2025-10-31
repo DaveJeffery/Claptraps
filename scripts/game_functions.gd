@@ -268,3 +268,40 @@ static func _set_cell(position: Vector2i, object_name: String) -> void:
 	var object: Thing = object_type.new(game_state)
 	object.grid_pos = position
 	game_state.game_map[x][y] = object
+
+
+static func move_thing_in_direction(pos: Vector2i, dir: Direction) -> void:
+	# Calculate the destination coordinates
+	var offset := dir.forward
+	var new_pos := pos + offset
+
+	# Safety check — stay inside the map bounds
+	if new_pos.x < 0 or new_pos.y < 0 or new_pos.y >= game_state.level_size.y or new_pos.x >= game_state.level_size.x:
+		return
+
+	# The object being hit in the destination cell
+	var hitting_object: Thing = game_state.game_map[new_pos.y][new_pos.x]
+
+	# Duplicate the moving object into its new position
+	var mover: Thing = game_state.game_map[pos.y][pos.x].duplicate()
+	mover.grid_pos = new_pos
+	mover.move_counter = 0
+	mover.moving = Direction.STILL
+	mover.moved = dir
+	game_state.game_map[new_pos.y][new_pos.x] = mover
+
+	# Replace the original position with a new blank object
+	var blank_scene := game_objects.objects[0]
+	var blank: Thing = blank_scene.instantiate()
+	blank.grid_pos = pos
+	blank.game_state = game_state
+	game_state.game_map[pos.y][pos.x] = blank
+
+	# Handle collision/hit logic
+	hitting_object.hit(mover)
+
+	# Reset flags based on the hitting object's own movement
+	if hitting_object.moving:
+		var fwd :Vector2i = hitting_object.forward.forward  # its Direction’s vector
+		var flag_pos := Vector2i(new_pos.x + fwd.x, new_pos.y + fwd.y)
+		GameFunctions.reset_flags(flag_pos)

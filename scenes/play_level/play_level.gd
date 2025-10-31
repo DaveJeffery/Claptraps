@@ -179,184 +179,8 @@ func _process(_delta: float) -> void:
 	_move_player()
 #
 ## Perform sprite actions
-#
-	#for y_counter in range(game_state.LEVEL_HEIGHT): 
-		#for x_counter in range(game_state.LEVEL_WIDTH):
-		   #
-			#current_sprite = game_state.game_map[x_counter][y_counter]
-#
-			#if x_counter == game_state.dave_x and y_counter == game_state.dave_y and current_sprite.solid == False:
-				#Dave_hit()  dave.dave_hit()
-#
-			## Animate sprite
-			#if current_sprite.animation != 0:
-				#if current_sprite.anim_timer < current_sprite.animation[current_sprite.anim_frame][1] - 1:
-					#current_sprite.anim_timer += 1
-				#else:
-					#current_sprite.anim_timer = 0
-					#current_sprite.anim_frame += 1
-					#if current_sprite.anim_frame == len(current_sprite.animation):
-						#current_sprite.anim_frame = 0
-						#
-				#current_sprite.sprite = current_sprite.animation[current_sprite.anim_frame][0]
-					#
-#
-			#if current_sprite.ignore == False:
-				#
-				#current_sprite.action()
-				#
-				#if current_sprite.moved > 0:
-					#current_sprite.moved = 0
-			#else:
-				#current_sprite.ignore = False
-#
-			#if current_sprite.moving > 0:
-				#current_sprite.move_counter += current_sprite.move_speed
-				#if current_sprite.move_counter > 3:
-					#
-					#if current_sprite.moving == game_state.NORTH:
-#
-						#hitting_object = game_state.game_map[x_counter][y_counter - 1]
-#
-						#game_state.game_map[x_counter][y_counter - 1] = copy.deepcopy(game_state.game_map[x_counter][y_counter])
-						#game_state.game_map[x_counter][y_counter] = copy.deepcopy(game_objects[0])
-						##game_state.game_map[x_counter][y_counter - 1].ignore = True
-						#game_state.game_map[x_counter][y_counter - 1].x = x_counter
-						#game_state.game_map[x_counter][y_counter - 1].y = y_counter - 1
-						#game_state.game_map[x_counter][y_counter - 1].move_counter = 0
-						#game_state.game_map[x_counter][y_counter - 1].moving = 0
-						#
-						#game_state.game_map[x_counter][y_counter - 1].moved = game_state.NORTH
-						## Blank above line and uncomment below if multiple Repton shuffles shouldn't kill
-						##if y_counter > 1 and \
-						##   game_state.game_map[x_counter][y_counter-2].gobject == 0:
-						##    game_state.game_map[x_counter][y_counter-1].moved = game_state.NORTH
-#
-						#hitting_object.hit(game_state.game_map[x_counter][y_counter - 1])
-#
-						#if hitting_object.moving:
-							#if hitting_object.forward == game_state.NORTH:
-								##game_state.game_map[x_counter][y_counter - 2] = copy.deepcopy(game_objects[game_state.game_map[x_counter][y_counter - 2].gobject])
-								#reset_flags(x_counter, y_counter - 2)
-							#elif hitting_object.forward == game_state.EAST:
-								##game_state.game_map[x_counter+1][y_counter - 1] = copy.deepcopy(game_objects[game_state.game_map[x_counter+1][y_counter - 1].gobject])
-								#reset_flags(x_counter + 1, y_counter - 1)
-							#elif hitting_object.forward == game_state.SOUTH:
-								##game_state.game_map[x_counter][y_counter] = copy.deepcopy(game_objects[game_state.game_map[x_counter][y_counter].gobject])
-								#reset_flags(x_counter, y_counter)
-							#elif hitting_object.forward == game_state.WEST:
-								##game_state.game_map[x_counter-1][y_counter - 1] = copy.deepcopy(game_objects[game_state.game_map[x_counter-1][y_counter - 1].gobject])
-								#reset_flags(x_counter - 1, y_counter - 1)
-#
-		   #
-					#if current_sprite.moving == game_state.SOUTH:
-#
-						#hitting_object = game_state.game_map[x_counter][y_counter + 1]
-#
-						#game_state.game_map[x_counter][y_counter+1] = copy.deepcopy(game_state.game_map[x_counter][y_counter])
-##                            game_state.game_map[x_counter][y_counter+1] = copy.deepcopy(game_objects[game_state.game_map[x_counter][y_counter].object])
-						#game_state.game_map[x_counter][y_counter] = copy.deepcopy(game_objects[0])
-						#game_state.game_map[x_counter][y_counter+1].ignore = True
-						#game_state.game_map[x_counter][y_counter+1].x = x_counter
-						#game_state.game_map[x_counter][y_counter+1].y = y_counter + 1
-						#game_state.game_map[x_counter][y_counter+1].move_counter = 0
-						#game_state.game_map[x_counter][y_counter+1].moving = 0
-						#
-						#game_state.game_map[x_counter][y_counter+1].moved = game_state.SOUTH
-						## Blank above line and uncomment below if multiple Repton shuffles shouldn't kill
-						##if y_counter < game_state.LEVEL_WIDTH - 2 and \
-						##   game_state.game_map[x_counter][y_counter+2].gobject == 0:
-						##    game_state.game_map[x_counter][y_counter+1].moved = game_state.SOUTH
-#
-						#hitting_object.hit(game_state.game_map[x_counter][y_counter + 1])
-			#
-						#if hitting_object.moving:
-							#if hitting_object.forward == game_state.NORTH:
-								##game_state.game_map[x_counter][y_counter] = copy.deepcopy(game_objects[game_state.game_map[x_counter][y_counter].gobject])
-								#reset_flags(x_counter, y_counter)
-							#elif hitting_object.forward == game_state.EAST:
-								##game_state.game_map[x_counter+1][y_counter + 1] = copy.deepcopy(game_objects[game_state.game_map[x_counter+1][y_counter + 1].gobject])
-								#reset_flags(x_counter + 1, y_counter + 1)
-							#elif hitting_object.forward == game_state.SOUTH:
-								##game_state.game_map[x_counter][y_counter + 2] = copy.deepcopy(game_objects[game_state.game_map[x_counter][y_counter + 2].gobject])
-								#reset_flags(x_counter, y_counter + 2)
-							#elif hitting_object.forward == game_state.WEST:
-								##game_state.game_map[x_counter-1][y_counter + 1] = copy.deepcopy(game_objects[game_state.game_map[x_counter-1][y_counter + 1].gobject])
-								#reset_flags(x_counter - 1, y_counter + 1)
-#
-#
-					#if current_sprite.moving == game_state.EAST:
-#
-						#hitting_object = game_state.game_map[x_counter + 1][y_counter]
-#
-						#game_state.game_map[x_counter + 1][y_counter] = copy.deepcopy(game_state.game_map[x_counter][y_counter])
-##                            game_state.game_map[x_counter+1][y_counter] = copy.deepcopy(game_objects[game_state.game_map[x_counter][y_counter].object])
-						#game_state.game_map[x_counter][y_counter] = copy.deepcopy(game_objects[0])
-						#game_state.game_map[x_counter+1][y_counter].ignore = True
-						#game_state.game_map[x_counter+1][y_counter].x = x_counter + 1
-						#game_state.game_map[x_counter+1][y_counter].y = y_counter
-						#game_state.game_map[x_counter + 1][y_counter].move_counter = 0
-						#game_state.game_map[x_counter + 1][y_counter].moving = 0
-						#
-						#game_state.game_map[x_counter + 1][y_counter].moved = game_state.EAST
-						## Blank above line and uncomment below if multiple Repton shuffles shouldn't kill
-						##if x_counter < game_state.LEVEL_HEIGHT - 2 and \
-						##   game_state.game_map[x_counter + 2][y_counter].gobject == 0:
-						##    game_state.game_map[x_counter + 1][y_counter].moved = game_state.EAST
-#
-						#hitting_object.hit(game_state.game_map[x_counter + 1][y_counter])
-#
-			#
-						#if hitting_object.moving:
-							#if hitting_object.forward == game_state.NORTH:
-								##game_state.game_map[x_counter + 1][y_counter-1] = copy.deepcopy(game_objects[game_state.game_map[x_counter + 1][y_counter-1].gobject])
-								#reset_flags(x_counter + 1, y_counter - 1)
-							#elif hitting_object.forward == game_state.EAST:
-								##game_state.game_map[x_counter + 2][y_counter] = copy.deepcopy(game_objects[game_state.game_map[x_counter + 2][y_counter].gobject])
-								#reset_flags(x_counter + 2, y_counter)
-							#elif hitting_object.forward == game_state.SOUTH:
-								##game_state.game_map[x_counter + 1][y_counter+1] = copy.deepcopy(game_objects[game_state.game_map[x_counter + 1][y_counter+1].gobject])
-								#reset_flags(x_counter + 1, y_counter + 1)
-							#elif hitting_object.forward == game_state.WEST:
-								##game_state.game_map[x_counter][y_counter] = copy.deepcopy(game_objects[game_state.game_map[x_counter][y_counter].gobject])
-								#reset_flags(x_counter, y_counter)
-#
-			   #
-					#if current_sprite.moving == game_state.WEST:
-#
-						#hitting_object = game_state.game_map[x_counter - 1][y_counter]
-#
-						#game_state.game_map[x_counter - 1][y_counter] = copy.deepcopy(game_state.game_map[x_counter][y_counter])
-##                            game_state.game_map[x_counter-1][y_counter] = copy.deepcopy(game_objects[game_state.game_map[x_counter][y_counter].object])
-						#game_state.game_map[x_counter][y_counter] = copy.deepcopy(game_objects[0])
-						##game_state.game_map[x_counter - 1][y_counter].ignore = True
-						#game_state.game_map[x_counter - 1][y_counter].x = x_counter - 1
-						#game_state.game_map[x_counter - 1][y_counter].y = y_counter
-						#game_state.game_map[x_counter - 1][y_counter].move_counter = 0
-						#game_state.game_map[x_counter - 1][y_counter].moving = 0
-						#
-						#game_state.game_map[x_counter - 1][y_counter].moved = game_state.WEST
-						## Blank above line and uncomment below if multiple Repton shuffles shouldn't kill
-						##if x_counter > 1 and \
-						##   game_state.game_map[x_counter - 2][y_counter].gobject == 0:
-						##    game_state.game_map[x_counter - 1][y_counter].moved = game_state.WEST
-#
-						#hitting_object.hit(game_state.game_map[x_counter - 1][y_counter])
-			#
-						#if hitting_object.moving:
-							#if hitting_object.forward == game_state.NORTH:
-								##game_state.game_map[x_counter - 1][y_counter-1] = copy.deepcopy(game_objects[game_state.game_map[x_counter - 1][y_counter-1].gobject])
-								#reset_flags(x_counter - 1, y_counter - 1)
-							#elif hitting_object.forward == game_state.EAST:
-								##game_state.game_map[x_counter][y_counter] = copy.deepcopy(game_objects[game_state.game_map[x_counter][y_counter].gobject])
-								#reset_flags(x_counter, y_counter)
-							#elif hitting_object.forward == game_state.SOUTH:
-								##game_state.game_map[x_counter - 1][y_counter+1] = copy.deepcopy(game_objects[game_state.game_map[x_counter - 1][y_counter+1].gobject])
-								#reset_flags(x_counter - 1, y_counter + 1)
-							#elif hitting_object.forward == game_state.WEST:
-								##game_state.game_map[x_counter - 2][y_counter] = copy.deepcopy(game_objects[game_state.game_map[x_counter - 2][y_counter].gobject])
-								#reset_flags(x_counter - 2, y_counter)
-#
+	_perform_sprite_actions()
+
 ## Kill Dave: oh no!
 					#
 	#if game_state.kill_dave == True:
@@ -487,22 +311,12 @@ func _process(_delta: float) -> void:
 			#game_state.bg_col = 255, 220, 150
 		#else:
 			#game_state.bg_col = 150, 150, 255
-		#
-	#
-	#pygame.display.flip()
-	#frames += 1
-#
-	#if dave_wait > 0:
-		#dave_wait -= 1
-	#elif dave_wait == 0:
-		#dave_frame = 0
-#
-	#
-	#anim_counter += 1
-	#if anim_counter > 2:
-		#anim_counter = 0
-#
-#
+
+## Flag to show when Dave should hit objects below him
+	if dave_wait > 0:
+		dave_wait -= 1
+	elif dave_wait == 0:
+		dave.animation.animation = Direction.STILL.anim_name
 
 ## Dave action function is used for any goal checks etc.
 	dave.action()
@@ -692,3 +506,171 @@ func _try_move(dir: Direction) -> bool:
 			return true
 
 	return false  # blocked
+
+
+func _perform_sprite_actions() -> void:
+	for y in range(game_state.level_size.y): 
+		for x in range(game_state.level_size.x):
+			var current_sprite = game_state.game_map[y][x]
+#
+			if (
+				Vector2i(x, y) == game_state.dave_pos 
+				and not current_sprite.solid
+			):
+				dave.dave_hit()
+
+			if not current_sprite.ignore:
+				current_sprite.action()
+
+				if current_sprite.moved > 0:
+					current_sprite.moved = 0
+			else:
+				current_sprite.ignore = false
+
+			if current_sprite.moving == Direction.STILL:
+				continue
+#
+			current_sprite.move_counter += current_sprite.move_speed
+			
+			if current_sprite.move_counter < 4:
+				continue
+
+			var hitting_object: Thing
+
+			if current_sprite.moving == game_state.NORTH:
+
+				hitting_object = game_state.game_map[y - 1][x]
+
+				game_state.game_map[y - 1][x] = game_state.game_map[y][x].duplicate()
+				game_state.game_map[y - 1][x].grid_pos = Vector2i(x, y - 1)
+				game_state.game_map[y - 1][x].move_counter = 0
+				game_state.game_map[y - 1][x].moving = Direction.STILL
+				game_state.game_map[y - 1][x].moved = Direction.NORTH
+
+				var blank_scene := game_objects.objects[0]  # the PackedScene
+				var blank: Thing = blank_scene.instantiate()  # new instance
+				blank.grid_pos = Vector2i(x, y)
+				blank.game_state = game_state
+				game_state.game_map[y][x] = blank
+
+				hitting_object.hit(game_state.game_map[y - 1][x])
+
+				if hitting_object.moving:
+					if hitting_object.forward == Direction.NORTH:
+						GameFunctions.reset_flags(Vector2i(x, y - 2))
+					elif hitting_object.forward == Direction.EAST:
+						GameFunctions.reset_flags(Vector2i(x + 1, y - 1))
+					elif hitting_object.forward == Direction.SOUTH:
+						GameFunctions.reset_flags(Vector2i(x, y))
+					elif hitting_object.forward == Direction.WEST:
+						GameFunctions.reset_flags(Vector2i(x - 1, y - 1))
+#
+   #
+			#if current_sprite.moving == game_state.SOUTH:
+#
+				#hitting_object = game_state.game_map[x_counter][y_counter + 1]
+#
+				#game_state.game_map[x_counter][y_counter+1] = copy.deepcopy(game_state.game_map[x_counter][y_counter])
+##                            game_state.game_map[x_counter][y_counter+1] = copy.deepcopy(game_objects[game_state.game_map[x_counter][y_counter].object])
+				#game_state.game_map[x_counter][y_counter] = copy.deepcopy(game_objects[0])
+				#game_state.game_map[x_counter][y_counter+1].ignore = True
+				#game_state.game_map[x_counter][y_counter+1].x = x_counter
+				#game_state.game_map[x_counter][y_counter+1].y = y_counter + 1
+				#game_state.game_map[x_counter][y_counter+1].move_counter = 0
+				#game_state.game_map[x_counter][y_counter+1].moving = 0
+				#
+				#game_state.game_map[x_counter][y_counter+1].moved = game_state.SOUTH
+				## Blank above line and uncomment below if multiple Repton shuffles shouldn't kill
+				##if y_counter < game_state.LEVEL_WIDTH - 2 and \
+				##   game_state.game_map[x_counter][y_counter+2].gobject == 0:
+				##    game_state.game_map[x_counter][y_counter+1].moved = game_state.SOUTH
+#
+				#hitting_object.hit(game_state.game_map[x_counter][y_counter + 1])
+	#
+				#if hitting_object.moving:
+					#if hitting_object.forward == game_state.NORTH:
+						##game_state.game_map[x_counter][y_counter] = copy.deepcopy(game_objects[game_state.game_map[x_counter][y_counter].gobject])
+						#reset_flags(x_counter, y_counter)
+					#elif hitting_object.forward == game_state.EAST:
+						##game_state.game_map[x_counter+1][y_counter + 1] = copy.deepcopy(game_objects[game_state.game_map[x_counter+1][y_counter + 1].gobject])
+						#reset_flags(x_counter + 1, y_counter + 1)
+					#elif hitting_object.forward == game_state.SOUTH:
+						##game_state.game_map[x_counter][y_counter + 2] = copy.deepcopy(game_objects[game_state.game_map[x_counter][y_counter + 2].gobject])
+						#reset_flags(x_counter, y_counter + 2)
+					#elif hitting_object.forward == game_state.WEST:
+						##game_state.game_map[x_counter-1][y_counter + 1] = copy.deepcopy(game_objects[game_state.game_map[x_counter-1][y_counter + 1].gobject])
+						#reset_flags(x_counter - 1, y_counter + 1)
+#
+#
+			#if current_sprite.moving == game_state.EAST:
+#
+				#hitting_object = game_state.game_map[x_counter + 1][y_counter]
+#
+				#game_state.game_map[x_counter + 1][y_counter] = copy.deepcopy(game_state.game_map[x_counter][y_counter])
+##                            game_state.game_map[x_counter+1][y_counter] = copy.deepcopy(game_objects[game_state.game_map[x_counter][y_counter].object])
+				#game_state.game_map[x_counter][y_counter] = copy.deepcopy(game_objects[0])
+				#game_state.game_map[x_counter+1][y_counter].ignore = True
+				#game_state.game_map[x_counter+1][y_counter].x = x_counter + 1
+				#game_state.game_map[x_counter+1][y_counter].y = y_counter
+				#game_state.game_map[x_counter + 1][y_counter].move_counter = 0
+				#game_state.game_map[x_counter + 1][y_counter].moving = 0
+				#
+				#game_state.game_map[x_counter + 1][y_counter].moved = game_state.EAST
+				## Blank above line and uncomment below if multiple Repton shuffles shouldn't kill
+				##if x_counter < game_state.LEVEL_HEIGHT - 2 and \
+				##   game_state.game_map[x_counter + 2][y_counter].gobject == 0:
+				##    game_state.game_map[x_counter + 1][y_counter].moved = game_state.EAST
+#
+				#hitting_object.hit(game_state.game_map[x_counter + 1][y_counter])
+#
+	#
+				#if hitting_object.moving:
+					#if hitting_object.forward == game_state.NORTH:
+						##game_state.game_map[x_counter + 1][y_counter-1] = copy.deepcopy(game_objects[game_state.game_map[x_counter + 1][y_counter-1].gobject])
+						#reset_flags(x_counter + 1, y_counter - 1)
+					#elif hitting_object.forward == game_state.EAST:
+						##game_state.game_map[x_counter + 2][y_counter] = copy.deepcopy(game_objects[game_state.game_map[x_counter + 2][y_counter].gobject])
+						#reset_flags(x_counter + 2, y_counter)
+					#elif hitting_object.forward == game_state.SOUTH:
+						##game_state.game_map[x_counter + 1][y_counter+1] = copy.deepcopy(game_objects[game_state.game_map[x_counter + 1][y_counter+1].gobject])
+						#reset_flags(x_counter + 1, y_counter + 1)
+					#elif hitting_object.forward == game_state.WEST:
+						##game_state.game_map[x_counter][y_counter] = copy.deepcopy(game_objects[game_state.game_map[x_counter][y_counter].gobject])
+						#reset_flags(x_counter, y_counter)
+#
+	   #
+			#if current_sprite.moving == game_state.WEST:
+#
+				#hitting_object = game_state.game_map[x_counter - 1][y_counter]
+#
+				#game_state.game_map[x_counter - 1][y_counter] = copy.deepcopy(game_state.game_map[x_counter][y_counter])
+##                            game_state.game_map[x_counter-1][y_counter] = copy.deepcopy(game_objects[game_state.game_map[x_counter][y_counter].object])
+				#game_state.game_map[x_counter][y_counter] = copy.deepcopy(game_objects[0])
+				##game_state.game_map[x_counter - 1][y_counter].ignore = True
+				#game_state.game_map[x_counter - 1][y_counter].x = x_counter - 1
+				#game_state.game_map[x_counter - 1][y_counter].y = y_counter
+				#game_state.game_map[x_counter - 1][y_counter].move_counter = 0
+				#game_state.game_map[x_counter - 1][y_counter].moving = 0
+				#
+				#game_state.game_map[x_counter - 1][y_counter].moved = game_state.WEST
+				## Blank above line and uncomment below if multiple Repton shuffles shouldn't kill
+				##if x_counter > 1 and \
+				##   game_state.game_map[x_counter - 2][y_counter].gobject == 0:
+				##    game_state.game_map[x_counter - 1][y_counter].moved = game_state.WEST
+#
+				#hitting_object.hit(game_state.game_map[x_counter - 1][y_counter])
+	#
+				#if hitting_object.moving:
+					#if hitting_object.forward == game_state.NORTH:
+						##game_state.game_map[x_counter - 1][y_counter-1] = copy.deepcopy(game_objects[game_state.game_map[x_counter - 1][y_counter-1].gobject])
+						#reset_flags(x_counter - 1, y_counter - 1)
+					#elif hitting_object.forward == game_state.EAST:
+						##game_state.game_map[x_counter][y_counter] = copy.deepcopy(game_objects[game_state.game_map[x_counter][y_counter].gobject])
+						#reset_flags(x_counter, y_counter)
+					#elif hitting_object.forward == game_state.SOUTH:
+						##game_state.game_map[x_counter - 1][y_counter+1] = copy.deepcopy(game_objects[game_state.game_map[x_counter - 1][y_counter+1].gobject])
+						#reset_flags(x_counter - 1, y_counter + 1)
+					#elif hitting_object.forward == game_state.WEST:
+						##game_state.game_map[x_counter - 2][y_counter] = copy.deepcopy(game_objects[game_state.game_map[x_counter - 2][y_counter].gobject])
+						#reset_flags(x_counter - 2, y_counter)
+	pass
