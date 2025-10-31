@@ -503,32 +503,13 @@ func _handle_death() -> void:
 	game_state.kill_dave = false
 	game_state.lives -= 1
 	game_state.use_key = false
+	game_state.transporting = false
 	
 	_init_dave_movement()
 	
 	_init_dave_position()
 
-
-
-	scroll_horiz = scroll_vert = False
-
-	game_state.transporting = False
-	if game_state.min_score_hit == True:
-		game_state.bg_col = 255, 220, 150
-	else:
-		game_state.bg_col = 150, 150, 255
-
-	game_state.x_offset = game_state.dave_x - 5
-	if game_state.x_offset < 0:
-		game_state.x_offset = 0
-	if game_state.x_offset > game_state.LEVEL_WIDTH - 16:
-		game_state.x_offset = game_state.LEVEL_WIDTH - 16
-		
-	game_state.y_offset = game_state.dave_y - 5
-	if game_state.y_offset < 0:
-		game_state.y_offset = 0
-	if game_state.y_offset > game_state.LEVEL_HEIGHT - 12:
-		game_state.y_offset = game_state.LEVEL_HEIGHT - 12
+	_calculate_offset()
 	
 	if game_state.lives == 0:
 		render_text('Poor Dave', 240)
