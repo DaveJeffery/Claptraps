@@ -8,7 +8,7 @@ func _ready() -> void:
 
 func action() -> void:
 	if (
-		not game_state.player_moving == 0 
+		not game_state.player_moving == Direction.STILL 
 		and (
 			look(game_state.NORTH, grid_pos).is_dave 
 			or look(game_state.SOUTH, grid_pos).is_dave 
