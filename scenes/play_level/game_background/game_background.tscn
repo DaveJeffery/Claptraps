@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://brpsoof2yc5lw"]
+
+[ext_resource type="Script" uid="uid://fghe4vd8wtxe" path="res://scenes/play_level/game_background/game_background.gd" id="1_a6ivw"]
+
+[node name="GameBackground" type="ColorRect"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_a6ivw")

@@ -271,12 +271,13 @@ static func _set_cell(position: Vector2i, object_name: String) -> void:
 
 
 static func move_thing_in_direction(pos: Vector2i, dir: Direction) -> void:
-	# Calculate the destination coordinates
 	var offset := dir.forward
 	var new_pos := pos + offset
 
 	# Safety check — stay inside the map bounds
-	if new_pos.x < 0 or new_pos.y < 0 or new_pos.y >= game_state.level_size.y or new_pos.x >= game_state.level_size.x:
+	if new_pos.x < 0 or new_pos.y < 0 \
+	or new_pos.y >= game_state.level_size.y \
+	or new_pos.x >= game_state.level_size.x:
 		return
 
 	# The object being hit in the destination cell
@@ -302,6 +303,7 @@ static func move_thing_in_direction(pos: Vector2i, dir: Direction) -> void:
 
 	# Reset flags based on the hitting object's own movement
 	if hitting_object.moving:
-		var fwd :Vector2i = hitting_object.forward.forward  # its Direction’s vector
-		var flag_pos := Vector2i(new_pos.x + fwd.x, new_pos.y + fwd.y)
+		var hit_dir: Direction = hitting_object.forward   # Explicitly typed
+		var fwd: Vector2i = hit_dir.forward
+		var flag_pos := new_pos + fwd
 		GameFunctions.reset_flags(flag_pos)

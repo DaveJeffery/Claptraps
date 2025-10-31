@@ -6,6 +6,8 @@ signal completed(is_completed: bool)
 @onready var tile_map_layer := $TileMapLayer
 @onready var dave := $TileMapLayer/Dave
 
+var game_background: GameBackground
+
 var game_state: GameState
 var game_data: EpisodeData
 var game_objects: GameObjects
@@ -62,15 +64,7 @@ func _init(
 	program_quit = false
 	
 	## Initialise Dave's movement
-	player_right = false
-	player_left = false
-	player_up = false 
-	player_down = false
-	player_dir = Direction.STILL
-	game_state.player_moving = Direction.STILL
-	
-	## x, y go from -4 to 0 or 0 to 4
-	player_move_counter = Vector2i(0, 0)
+	_init_dave_movement()
 	
 	## These variables initialise the scrolling and player screen
 	tile_map_layer.tile_set = game_objects.tile_set
@@ -79,6 +73,12 @@ func _init(
 	## Decremented each frame until it reaches zero.
 	## Set to 10 whenever Dave moves, if <8 hits object below it.
 	dave_wait = 0 
+
+
+func _ready() -> void:
+	game_background = GameBackground.new(game_state)
+	add_child(game_background)
+	move_child(game_background, 0)
 
 
 func _input(event: InputEvent) -> void:
@@ -182,61 +182,8 @@ func _process(_delta: float) -> void:
 	_perform_sprite_actions()
 
 ## Kill Dave: oh no!
-					#
-	#if game_state.kill_dave == True:
-		#game_state.kill_dave = False
-		#game_state.lives -= 1
-		#
-		#game_state.use_key = False
-		#player_right = player_left = player_up = player_down = 0
-		#game_state.dave_x = game_state.dave_dest_x = game_data.dave_pos[game_state.level_number][0]
-		#game_state.dave_y = game_state.dave_dest_y = game_data.dave_pos[game_state.level_number][1]
-		#player_move_counter_horiz = player_move_counter_vert = 0
-		#game_state.player_moving = 0
-		#scroll_horiz = scroll_vert = False
-#
-		#game_state.transporting = False
-		#if game_state.min_score_hit == True:
-			#game_state.bg_col = 255, 220, 150
-		#else:
-			#game_state.bg_col = 150, 150, 255
-#
-		#game_state.x_offset = game_state.dave_x - 5
-		#if game_state.x_offset < 0:
-			#game_state.x_offset = 0
-		#if game_state.x_offset > game_state.LEVEL_WIDTH - 16:
-			#game_state.x_offset = game_state.LEVEL_WIDTH - 16
-			#
-		#game_state.y_offset = game_state.dave_y - 5
-		#if game_state.y_offset < 0:
-			#game_state.y_offset = 0
-		#if game_state.y_offset > game_state.LEVEL_HEIGHT - 12:
-			#game_state.y_offset = game_state.LEVEL_HEIGHT - 12
-		#
-		#if game_state.lives == 0:
-			#render_text('Poor Dave', 240)
-			#pygame.display.flip()
-			#while(1):
-				#wait_event = pygame.event.wait()
-				#if wait_event.type == pygame.KEYDOWN:
-					#if wait_event.key == pygame.K_SPACE:
-						#break
-					#else:
-						#pass
-			#return False
-		#else:
-			#render_text('Watch out Dave! That killed you!', 240)
-			#pygame.display.flip()
-			#while(1):
-				#wait_event = pygame.event.wait()
-				#if wait_event.type == pygame.KEYDOWN:
-					#if wait_event.key == pygame.K_SPACE:
-						#break
-					#else:
-						#pass
-#
-		#if status_screen() == False:
-			#program_quit = True
+	if game_state.kill_dave:
+		_handle_death()
 #
 ## Transport-out effect       
 	#if game_state.transporting == True:
@@ -369,6 +316,19 @@ func _init_dave_position() -> void:
 	var source_pos := game_data.levels[game_state.level_number].dave_pos
 	game_state.dave_pos = source_pos
 	game_state.dave_dest = source_pos
+
+
+## Initialise Dave's movement
+func _init_dave_movement() -> void:
+	player_right = false
+	player_left = false
+	player_up = false 
+	player_down = false
+	player_dir = Direction.STILL
+	game_state.player_moving = Direction.STILL
+	
+	## x, y go from -4 to 0 or 0 to 4
+	player_move_counter = Vector2i(0, 0)
 
 
 ## These variables are used to keep Dave at least
@@ -535,142 +495,63 @@ func _perform_sprite_actions() -> void:
 			if current_sprite.move_counter < 4:
 				continue
 
-			var hitting_object: Thing
+			if current_sprite.moving not in [Direction.STILL, null]:
+				GameFunctions.move_thing_in_direction(Vector2i(x, y), current_sprite.moving)
 
-			if current_sprite.moving == game_state.NORTH:
 
-				hitting_object = game_state.game_map[y - 1][x]
+func _handle_death() -> void:
+	game_state.kill_dave = false
+	game_state.lives -= 1
+	game_state.use_key = false
+	
+	_init_dave_movement()
+	
+	_init_dave_position()
 
-				game_state.game_map[y - 1][x] = game_state.game_map[y][x].duplicate()
-				game_state.game_map[y - 1][x].grid_pos = Vector2i(x, y - 1)
-				game_state.game_map[y - 1][x].move_counter = 0
-				game_state.game_map[y - 1][x].moving = Direction.STILL
-				game_state.game_map[y - 1][x].moved = Direction.NORTH
 
-				var blank_scene := game_objects.objects[0]  # the PackedScene
-				var blank: Thing = blank_scene.instantiate()  # new instance
-				blank.grid_pos = Vector2i(x, y)
-				blank.game_state = game_state
-				game_state.game_map[y][x] = blank
 
-				hitting_object.hit(game_state.game_map[y - 1][x])
+	scroll_horiz = scroll_vert = False
 
-				if hitting_object.moving:
-					if hitting_object.forward == Direction.NORTH:
-						GameFunctions.reset_flags(Vector2i(x, y - 2))
-					elif hitting_object.forward == Direction.EAST:
-						GameFunctions.reset_flags(Vector2i(x + 1, y - 1))
-					elif hitting_object.forward == Direction.SOUTH:
-						GameFunctions.reset_flags(Vector2i(x, y))
-					elif hitting_object.forward == Direction.WEST:
-						GameFunctions.reset_flags(Vector2i(x - 1, y - 1))
-#
-   #
-			#if current_sprite.moving == game_state.SOUTH:
-#
-				#hitting_object = game_state.game_map[x_counter][y_counter + 1]
-#
-				#game_state.game_map[x_counter][y_counter+1] = copy.deepcopy(game_state.game_map[x_counter][y_counter])
-##                            game_state.game_map[x_counter][y_counter+1] = copy.deepcopy(game_objects[game_state.game_map[x_counter][y_counter].object])
-				#game_state.game_map[x_counter][y_counter] = copy.deepcopy(game_objects[0])
-				#game_state.game_map[x_counter][y_counter+1].ignore = True
-				#game_state.game_map[x_counter][y_counter+1].x = x_counter
-				#game_state.game_map[x_counter][y_counter+1].y = y_counter + 1
-				#game_state.game_map[x_counter][y_counter+1].move_counter = 0
-				#game_state.game_map[x_counter][y_counter+1].moving = 0
-				#
-				#game_state.game_map[x_counter][y_counter+1].moved = game_state.SOUTH
-				## Blank above line and uncomment below if multiple Repton shuffles shouldn't kill
-				##if y_counter < game_state.LEVEL_WIDTH - 2 and \
-				##   game_state.game_map[x_counter][y_counter+2].gobject == 0:
-				##    game_state.game_map[x_counter][y_counter+1].moved = game_state.SOUTH
-#
-				#hitting_object.hit(game_state.game_map[x_counter][y_counter + 1])
-	#
-				#if hitting_object.moving:
-					#if hitting_object.forward == game_state.NORTH:
-						##game_state.game_map[x_counter][y_counter] = copy.deepcopy(game_objects[game_state.game_map[x_counter][y_counter].gobject])
-						#reset_flags(x_counter, y_counter)
-					#elif hitting_object.forward == game_state.EAST:
-						##game_state.game_map[x_counter+1][y_counter + 1] = copy.deepcopy(game_objects[game_state.game_map[x_counter+1][y_counter + 1].gobject])
-						#reset_flags(x_counter + 1, y_counter + 1)
-					#elif hitting_object.forward == game_state.SOUTH:
-						##game_state.game_map[x_counter][y_counter + 2] = copy.deepcopy(game_objects[game_state.game_map[x_counter][y_counter + 2].gobject])
-						#reset_flags(x_counter, y_counter + 2)
-					#elif hitting_object.forward == game_state.WEST:
-						##game_state.game_map[x_counter-1][y_counter + 1] = copy.deepcopy(game_objects[game_state.game_map[x_counter-1][y_counter + 1].gobject])
-						#reset_flags(x_counter - 1, y_counter + 1)
-#
-#
-			#if current_sprite.moving == game_state.EAST:
-#
-				#hitting_object = game_state.game_map[x_counter + 1][y_counter]
-#
-				#game_state.game_map[x_counter + 1][y_counter] = copy.deepcopy(game_state.game_map[x_counter][y_counter])
-##                            game_state.game_map[x_counter+1][y_counter] = copy.deepcopy(game_objects[game_state.game_map[x_counter][y_counter].object])
-				#game_state.game_map[x_counter][y_counter] = copy.deepcopy(game_objects[0])
-				#game_state.game_map[x_counter+1][y_counter].ignore = True
-				#game_state.game_map[x_counter+1][y_counter].x = x_counter + 1
-				#game_state.game_map[x_counter+1][y_counter].y = y_counter
-				#game_state.game_map[x_counter + 1][y_counter].move_counter = 0
-				#game_state.game_map[x_counter + 1][y_counter].moving = 0
-				#
-				#game_state.game_map[x_counter + 1][y_counter].moved = game_state.EAST
-				## Blank above line and uncomment below if multiple Repton shuffles shouldn't kill
-				##if x_counter < game_state.LEVEL_HEIGHT - 2 and \
-				##   game_state.game_map[x_counter + 2][y_counter].gobject == 0:
-				##    game_state.game_map[x_counter + 1][y_counter].moved = game_state.EAST
-#
-				#hitting_object.hit(game_state.game_map[x_counter + 1][y_counter])
-#
-	#
-				#if hitting_object.moving:
-					#if hitting_object.forward == game_state.NORTH:
-						##game_state.game_map[x_counter + 1][y_counter-1] = copy.deepcopy(game_objects[game_state.game_map[x_counter + 1][y_counter-1].gobject])
-						#reset_flags(x_counter + 1, y_counter - 1)
-					#elif hitting_object.forward == game_state.EAST:
-						##game_state.game_map[x_counter + 2][y_counter] = copy.deepcopy(game_objects[game_state.game_map[x_counter + 2][y_counter].gobject])
-						#reset_flags(x_counter + 2, y_counter)
-					#elif hitting_object.forward == game_state.SOUTH:
-						##game_state.game_map[x_counter + 1][y_counter+1] = copy.deepcopy(game_objects[game_state.game_map[x_counter + 1][y_counter+1].gobject])
-						#reset_flags(x_counter + 1, y_counter + 1)
-					#elif hitting_object.forward == game_state.WEST:
-						##game_state.game_map[x_counter][y_counter] = copy.deepcopy(game_objects[game_state.game_map[x_counter][y_counter].gobject])
-						#reset_flags(x_counter, y_counter)
-#
-	   #
-			#if current_sprite.moving == game_state.WEST:
-#
-				#hitting_object = game_state.game_map[x_counter - 1][y_counter]
-#
-				#game_state.game_map[x_counter - 1][y_counter] = copy.deepcopy(game_state.game_map[x_counter][y_counter])
-##                            game_state.game_map[x_counter-1][y_counter] = copy.deepcopy(game_objects[game_state.game_map[x_counter][y_counter].object])
-				#game_state.game_map[x_counter][y_counter] = copy.deepcopy(game_objects[0])
-				##game_state.game_map[x_counter - 1][y_counter].ignore = True
-				#game_state.game_map[x_counter - 1][y_counter].x = x_counter - 1
-				#game_state.game_map[x_counter - 1][y_counter].y = y_counter
-				#game_state.game_map[x_counter - 1][y_counter].move_counter = 0
-				#game_state.game_map[x_counter - 1][y_counter].moving = 0
-				#
-				#game_state.game_map[x_counter - 1][y_counter].moved = game_state.WEST
-				## Blank above line and uncomment below if multiple Repton shuffles shouldn't kill
-				##if x_counter > 1 and \
-				##   game_state.game_map[x_counter - 2][y_counter].gobject == 0:
-				##    game_state.game_map[x_counter - 1][y_counter].moved = game_state.WEST
-#
-				#hitting_object.hit(game_state.game_map[x_counter - 1][y_counter])
-	#
-				#if hitting_object.moving:
-					#if hitting_object.forward == game_state.NORTH:
-						##game_state.game_map[x_counter - 1][y_counter-1] = copy.deepcopy(game_objects[game_state.game_map[x_counter - 1][y_counter-1].gobject])
-						#reset_flags(x_counter - 1, y_counter - 1)
-					#elif hitting_object.forward == game_state.EAST:
-						##game_state.game_map[x_counter][y_counter] = copy.deepcopy(game_objects[game_state.game_map[x_counter][y_counter].gobject])
-						#reset_flags(x_counter, y_counter)
-					#elif hitting_object.forward == game_state.SOUTH:
-						##game_state.game_map[x_counter - 1][y_counter+1] = copy.deepcopy(game_objects[game_state.game_map[x_counter - 1][y_counter+1].gobject])
-						#reset_flags(x_counter - 1, y_counter + 1)
-					#elif hitting_object.forward == game_state.WEST:
-						##game_state.game_map[x_counter - 2][y_counter] = copy.deepcopy(game_objects[game_state.game_map[x_counter - 2][y_counter].gobject])
-						#reset_flags(x_counter - 2, y_counter)
-	pass
+	game_state.transporting = False
+	if game_state.min_score_hit == True:
+		game_state.bg_col = 255, 220, 150
+	else:
+		game_state.bg_col = 150, 150, 255
+
+	game_state.x_offset = game_state.dave_x - 5
+	if game_state.x_offset < 0:
+		game_state.x_offset = 0
+	if game_state.x_offset > game_state.LEVEL_WIDTH - 16:
+		game_state.x_offset = game_state.LEVEL_WIDTH - 16
+		
+	game_state.y_offset = game_state.dave_y - 5
+	if game_state.y_offset < 0:
+		game_state.y_offset = 0
+	if game_state.y_offset > game_state.LEVEL_HEIGHT - 12:
+		game_state.y_offset = game_state.LEVEL_HEIGHT - 12
+	
+	if game_state.lives == 0:
+		render_text('Poor Dave', 240)
+		pygame.display.flip()
+		while(1):
+			wait_event = pygame.event.wait()
+			if wait_event.type == pygame.KEYDOWN:
+				if wait_event.key == pygame.K_SPACE:
+					break
+				else:
+					pass
+		return False
+	else:
+		render_text('Watch out Dave! That killed you!', 240)
+		pygame.display.flip()
+		while(1):
+			wait_event = pygame.event.wait()
+			if wait_event.type == pygame.KEYDOWN:
+				if wait_event.key == pygame.K_SPACE:
+					break
+				else:
+					pass
+
+	if status_screen() == False:
+		program_quit = True
+	

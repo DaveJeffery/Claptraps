@@ -1,8 +1,6 @@
 class_name Dave
 extends Thing
 
-@onready var animation := $AnimatedSPrite2D
-
 func _ready() -> void:
 	game_object = 0
 	is_dave = true
@@ -10,6 +8,7 @@ func _ready() -> void:
 	startle_frog = true
 	trigger_button = true
 	solid_to_red_frog = false
+	animation = $AnimatedSprite2D
 
 
 # Dave action function called once per loop, 
@@ -17,11 +16,3 @@ func _ready() -> void:
 func action() -> void:
 	if game_state.min_score_hit:
 		game_state.message = "EPISODE_COMPLETE" #TODO
-			
-		# Fade background to orange
-		if game_state.bg_col.r8 < 255:
-			game_state.bg_col.r8 += 2
-		if game_state.bg_col.g8 < 220:
-			game_state.bg_col.g8 += 2
-		if game_state.bg_col.b8 > 150:
-			game_state.bg_col.b8 -= 2

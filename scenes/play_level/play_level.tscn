@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bn3wciwmpcvbn"]
+[gd_scene load_steps=6 format=3 uid="uid://bn3wciwmpcvbn"]
 
 [ext_resource type="Script" uid="uid://c5nrpwqr0mdng" path="res://scenes/play_level/play_level.gd" id="1_ove0q"]
 [ext_resource type="PackedScene" uid="uid://crymprjskn36x" path="res://scenes/title_screen/quit_screen/quit_screen.tscn" id="2_8srbb"]
 [ext_resource type="PackedScene" uid="uid://0q5pxay55d42" path="res://scenes/game/status_screen/status_screen.tscn" id="2_55tdp"]
 [ext_resource type="Script" uid="uid://tw2dascsjos5" path="res://scenes/claptraps/dave/dave.gd" id="2_jrkmq"]
+[ext_resource type="PackedScene" uid="uid://brpsoof2yc5lw" path="res://scenes/play_level/game_background/game_background.tscn" id="5_veaju"]
 
 [node name="PlayLevel" type="Node"]
 script = ExtResource("1_ove0q")
@@ -21,3 +22,5 @@ metadata/_custom_type_script = "uid://tw2dascsjos5"
 
 [node name="Camera2D" type="Camera2D" parent="TileMapLayer"]
 anchor_mode = 0
+
+[node name="GameBackground" parent="." instance=ExtResource("5_veaju")]
