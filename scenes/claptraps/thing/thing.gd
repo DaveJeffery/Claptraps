@@ -21,9 +21,9 @@ var empty := false
 var needs_target := false
 var target := Vector2i(-1,-1)
 #NOTE animation should probably be changed into a string for animated sprites
-var animation := 0  
-var anim_frame := 0
-var anim_timer := 0
+var animation: AnimatedSprite2D  
+#FIXME var animation_playing := "default"
+#FIXME var anim_timer := 0
 var trigger_button := false
 var solid_to_red_frog := true
 var break_box := false

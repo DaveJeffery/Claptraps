@@ -1,11 +1,11 @@
 class_name Direction
 extends Node
 
-static var NORTH := Direction.new(Vector2i(0, -1))
-static var EAST  := Direction.new(Vector2i(1, 0))
-static var SOUTH := Direction.new(Vector2i(0, 1))
-static var WEST  := Direction.new(Vector2i(-1, 0))
-static var STILL := Direction.new(Vector2i(0, 0))
+static var NORTH := Direction.new(Vector2i(0, -1), "up")
+static var EAST  := Direction.new(Vector2i(1, 0),  "right")
+static var SOUTH := Direction.new(Vector2i(0, 1),  "down")
+static var WEST  := Direction.new(Vector2i(-1, 0), "left")
+static var STILL := Direction.new(Vector2i(0, 0),  "default")
 
 static var NE := Direction.new(Vector2i(1, -1))
 static var SE := Direction.new(Vector2i(1, 1))
@@ -16,6 +16,7 @@ var forward: Vector2i
 var backward: Direction
 var left: Direction
 var right: Direction
+var anim_name: String
 
 func _ready() -> void:
 	NORTH.backward = SOUTH
@@ -52,5 +53,6 @@ func _ready() -> void:
 	STILL.left = STILL
 	STILL.right = STILL
 
-func _init(_forward: Vector2i):
+func _init(_forward: Vector2i, _anim_name := ""):
 	forward = _forward
+	anim_name = _anim_name

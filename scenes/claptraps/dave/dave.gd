@@ -1,6 +1,8 @@
 class_name Dave
 extends Thing
 
+@onready var animation := $AnimatedSPrite2D
+
 func _ready() -> void:
 	game_object = 0
 	is_dave = true
@@ -8,6 +10,7 @@ func _ready() -> void:
 	startle_frog = true
 	trigger_button = true
 	solid_to_red_frog = false
+
 
 # Dave action function called once per loop, 
 # so you can put goal checks and things in here

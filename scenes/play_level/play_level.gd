@@ -3,6 +3,7 @@ extends Node
 
 signal completed(is_completed: bool)
 
+@onready var tile_map_layer := $TileMapLayer
 @onready var dave := $TileMapLayer/Dave
 
 var game_state: GameState
@@ -19,6 +20,9 @@ var player_left: bool
 var player_up: bool
 var player_down: bool
 var player_dir: Direction
+var player_move_counter: Vector2i
+var dave_wait: int
+
 
 func _init(
 	current_state: GameState, 
@@ -65,21 +69,16 @@ func _init(
 	player_dir = Direction.STILL
 	game_state.player_moving = Direction.STILL
 	
-	## These variables are used for scrolling
-	$TileMapLayer.tile_set = game_objects.tile_set
-	var player_move_counter := Vector2i(0, 0)
+	## x, y go from -4 to 0 or 0 to 4
+	player_move_counter = Vector2i(0, 0)
 	
-	#player_move_counter_horiz = 0
-	#scroll_horiz = False
-	#scroll_horiz_comp = False
-	#player_move_counter_vert = 0
-	#scroll_vert = False
-	#scroll_vert_comp = False
-
-	## These variables are used for animation
-	#dave_frame = 0     either 1, 2, 3 or 4   updated every time anim counter= 0
-	#anim_counter = 0   either 0, 1 or 2  added to each frame, loops back to 0
-	#dave_wait = 0  counts from 10 to 0 each frame set to 10 if dave moves - if <8, hits object below if 0, dave stands still
+	## These variables initialise the scrolling and player screen
+	tile_map_layer.tile_set = game_objects.tile_set
+	#TODO More will probably be added later
+	
+	## Decremented each frame until it reaches zero.
+	## Set to 10 whenever Dave moves, if <8 hits object below it.
+	dave_wait = 0 
 
 
 func _input(event: InputEvent) -> void:
@@ -613,119 +612,36 @@ func _show_status_screen() -> bool:
 
 # Moves the player TODO more useful notes to follow
 func _move_player() -> void:
-	
-	## If the player is not moving, start the player moving, 
-	## change their destination position and push any 
-	## objects that are in the way
 	if not game_state.player_moving:
 		_move_static_player()
+		return
 
-	## Update movement counters and animation counters
-	#if game_state.player_moving == game_state.EAST:
-		#player_move_counter_horiz += 1
-		#
-		#if anim_counter == 0:
-			#dave_frame +=1
-		#if dave_frame > 4:
-			#dave_frame = 1
-		#dave_wait = 10
-		#
-		#if player_move_counter_horiz == 4:
-			#player_move_counter_horiz = 0
-			#game_state.player_moving = 0
-			#game_state.dave_x += 1
-							#
-			#if scroll_horiz:
-				#scroll_horiz = False
-				#game_state.x_offset += 1
-				#
-## Let Dave hit objects
-			#if game_state.game_map[game_state.dave_x][game_state.dave_y].solid == False:
-				#Dave_hit()
-#
-			#
-	#if game_state.player_moving == game_state.WEST:
-		#player_move_counter_horiz -= 1
-		#
-		#if dave_frame < 4:
-			#dave_frame = 4
-		#if anim_counter == 0:
-			#dave_frame +=1
-		#if dave_frame > 8:
-			#dave_frame = 5
-		#dave_wait = 10
-		#
-		#if player_move_counter_horiz == -4:
-			#player_move_counter_horiz = 0
-			#game_state.player_moving = 0
-			#game_state.dave_x -= 1
-			#
-			#if scroll_horiz:
-				#scroll_horiz = False
-				#scroll_horiz_comp = False
-				#game_state.x_offset -= 1
-				#
-## Let Dave hit objects
-			#if game_state.game_map[game_state.dave_x][game_state.dave_y].solid == False:
-				#Dave_hit()
-#
-#
-	#if game_state.player_moving == game_state.NORTH:
-		#player_move_counter_vert -= 1
-#
-		#if dave_frame < 11:
-			#dave_frame = 11
-		#if anim_counter == 0:
-			#dave_frame +=1
-		#if dave_frame > 12:
-			#dave_frame = 11
-		#dave_wait = 10
-#
-		#if player_move_counter_vert == -4:
-			#player_move_counter_vert = 0
-			#game_state.player_moving = 0
-			#game_state.dave_y -= 1
-			#
-			#if scroll_vert:
-				#scroll_vert = False
-				#scroll_vert_comp = False
-				#game_state.y_offset -= 1
-				#
-## Let Dave hit objects
-			#if game_state.game_map[game_state.dave_x][game_state.dave_y].solid == False:
-				#Dave_hit()
-			#
-#
-	#if game_state.player_moving == game_state.SOUTH:
-		#player_move_counter_vert += 1
-#
-		#if dave_frame < 9:
-			#dave_frame = 9
-		#if anim_counter == 0:
-			#dave_frame +=1
-		#if dave_frame > 10:
-			#dave_frame = 9
-		#dave_wait = 10
-#
-		#if player_move_counter_vert == 4:
-			#player_move_counter_vert = 0
-			#game_state.player_moving = 0
-			#game_state.dave_y += 1
-			#
-			#if scroll_vert:
-				#scroll_vert = False
-				#game_state.y_offset += 1
-				#
-## Let Dave hit objects
-			#if game_state.game_map[game_state.dave_x][game_state.dave_y].solid == False:
-				#Dave_hit()
-			#
-## If Dave's standing still (but not just moved) hit objects beneath him
-	#if dave_wait < 8:
-		#Dave_hit()
-	pass
+	var dir: Direction = game_state.player_moving
+	if dir == Direction.STILL:
+		return
+
+	# Movement
+	player_move_counter += dir.forward
+	dave.animation.animation = dir.anim_name
+	dave_wait = 10
+
+	# Check for move completion
+	if abs(player_move_counter.x) == 4 or abs(player_move_counter.y) == 4:
+		player_move_counter = Vector2i.ZERO
+		game_state.player_moving = Direction.STILL
+		game_state.dave_pos += dir.forward
+
+		# Let Dave hit objects
+		if not game_state.game_map[game_state.dave_pos.y][game_state.dave_pos.x].solid:
+			GameFunctions.dave_hit()
+
+	# Standing still (but not just moved)
+	if dave_wait < 8:
+		GameFunctions.dave_hit()
 
 
+## If the player is not moving, start the player moving, change their 
+## destination position and push any objects that are in the way.
 func _move_static_player():
 	_try_move(Direction.EAST)
 	_try_move(Direction.WEST)
