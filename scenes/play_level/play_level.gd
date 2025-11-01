@@ -200,46 +200,7 @@ func _process(_delta: float) -> void:
 	#screen.fill(game_state.bg_col)
 #
 ## Draw map
-	#for y_counter in range(12 + scroll_vert):
-		#for x_counter in range(16 + scroll_horiz):
-#
-			#map_sprite = game_state.game_map[x_counter - scroll_horiz_comp + game_state.x_offset][y_counter - scroll_vert_comp + game_state.y_offset]
-#
-			#if map_sprite.sprite > 0:
-				#if map_sprite.moving == game_state.NORTH:
-					#
-					#screen.blit(game_sprites[map_sprite.sprite]
-					#,((x_counter - scroll_horiz_comp) * 40 - (player_move_counter_horiz * 10) * scroll_horiz
-					#, (y_counter - scroll_vert_comp) * 40 - \
-					  #(player_move_counter_vert * 10) * scroll_vert - map_sprite.move_counter * 10))
-#
-				#elif map_sprite.moving == game_state.EAST:
-					#
-					#screen.blit(game_sprites[map_sprite.sprite]
-					#,((x_counter - scroll_horiz_comp) * 40 - \
-					  #(player_move_counter_horiz * 10) * scroll_horiz + map_sprite.move_counter * 10
-					#, (y_counter - scroll_vert_comp) * 40 - (player_move_counter_vert * 10) * scroll_vert))
-#
-				#elif map_sprite.moving == game_state.SOUTH:
-					#
-					#screen.blit(game_sprites[map_sprite.sprite]
-					#,((x_counter - scroll_horiz_comp) * 40 - (player_move_counter_horiz * 10) * scroll_horiz
-					#, (y_counter - scroll_vert_comp) * 40 - \
-					  #(player_move_counter_vert * 10) * scroll_vert + map_sprite.move_counter * 10))
-#
-				#elif map_sprite.moving == game_state.WEST:
-					#
-					#screen.blit(game_sprites[map_sprite.sprite]
-					#,((x_counter - scroll_horiz_comp) * 40 - \
-					  #(player_move_counter_horiz * 10) * scroll_horiz - map_sprite.move_counter * 10
-					#, (y_counter - scroll_vert_comp) * 40 - (player_move_counter_vert * 10) * scroll_vert))
-#
-				#else:
-#
-					#screen.blit(game_sprites[map_sprite.sprite]
-					#,((x_counter - scroll_horiz_comp) * 40 - (player_move_counter_horiz * 10) * scroll_horiz
-					#, (y_counter - scroll_vert_comp) * 40 - (player_move_counter_vert * 10) * scroll_vert))
-					#
+	_draw_map()
 #
 ## Draw player
 	_draw_player()
@@ -400,13 +361,16 @@ func _move_player() -> void:
 	dave_wait = 10
 
 	# Check for move completion
+
 	if abs(player_move_counter.x) == 4 or abs(player_move_counter.y) == 4:
 		player_move_counter = Vector2i.ZERO
 		game_state.player_moving = Direction.STILL
 		game_state.dave_pos += dir.forward
 
 		# Let Dave hit objects
-		if not game_state.game_map[game_state.dave_pos.y][game_state.dave_pos.x].solid:
+		var pos = game_state.dave_pos
+		var tile: Thing = game_state.game_map[pos.y][pos.x]
+		if not tile.solid:
 			GameFunctions.dave_hit()
 
 	# Standing still (but not just moved)
@@ -505,34 +469,79 @@ func _handle_death() -> void:
 	game_state.use_key = false
 	game_state.transporting = false
 	
+	# Stop Dave from moving
 	_init_dave_movement()
 	
+	# Reset Dave's position
 	_init_dave_position()
 
+	# Adjust the scrolling for Dave's new position
 	_calculate_offset()
 	
-	if game_state.lives == 0:
-		render_text('Poor Dave', 240)
-		pygame.display.flip()
-		while(1):
-			wait_event = pygame.event.wait()
-			if wait_event.type == pygame.KEYDOWN:
-				if wait_event.key == pygame.K_SPACE:
-					break
-				else:
-					pass
-		return False
-	else:
-		render_text('Watch out Dave! That killed you!', 240)
-		pygame.display.flip()
-		while(1):
-			wait_event = pygame.event.wait()
-			if wait_event.type == pygame.KEYDOWN:
-				if wait_event.key == pygame.K_SPACE:
-					break
-				else:
-					pass
+	#if game_state.lives == 0:
+		#render_text('Poor Dave', 240)
+		#pygame.display.flip()
+		#while(1):
+			#wait_event = pygame.event.wait()
+			#if wait_event.type == pygame.KEYDOWN:
+				#if wait_event.key == pygame.K_SPACE:
+					#break
+				#else:
+					#pass
+		#return False
+	#else:
+		#render_text('Watch out Dave! That killed you!', 240)
+		#pygame.display.flip()
+		#while(1):
+			#wait_event = pygame.event.wait()
+			#if wait_event.type == pygame.KEYDOWN:
+				#if wait_event.key == pygame.K_SPACE:
+					#break
+				#else:
+					#pass
+#
+	#if status_screen() == False:
+		#program_quit = True
 
-	if status_screen() == False:
-		program_quit = True
-	
+func _draw_map() -> void:
+	#for y_counter in range(12 + scroll_vert):
+		#for x_counter in range(16 + scroll_horiz):
+#
+			#map_sprite = game_state.game_map[x_counter - scroll_horiz_comp + game_state.x_offset][y_counter - scroll_vert_comp + game_state.y_offset]
+#
+			#if map_sprite.sprite > 0:
+				#if map_sprite.moving == game_state.NORTH:
+					#
+					#screen.blit(game_sprites[map_sprite.sprite]
+					#,((x_counter - scroll_horiz_comp) * 40 - (player_move_counter_horiz * 10) * scroll_horiz
+					#, (y_counter - scroll_vert_comp) * 40 - \
+					  #(player_move_counter_vert * 10) * scroll_vert - map_sprite.move_counter * 10))
+#
+				#elif map_sprite.moving == game_state.EAST:
+					#
+					#screen.blit(game_sprites[map_sprite.sprite]
+					#,((x_counter - scroll_horiz_comp) * 40 - \
+					  #(player_move_counter_horiz * 10) * scroll_horiz + map_sprite.move_counter * 10
+					#, (y_counter - scroll_vert_comp) * 40 - (player_move_counter_vert * 10) * scroll_vert))
+#
+				#elif map_sprite.moving == game_state.SOUTH:
+					#
+					#screen.blit(game_sprites[map_sprite.sprite]
+					#,((x_counter - scroll_horiz_comp) * 40 - (player_move_counter_horiz * 10) * scroll_horiz
+					#, (y_counter - scroll_vert_comp) * 40 - \
+					  #(player_move_counter_vert * 10) * scroll_vert + map_sprite.move_counter * 10))
+#
+				#elif map_sprite.moving == game_state.WEST:
+					#
+					#screen.blit(game_sprites[map_sprite.sprite]
+					#,((x_counter - scroll_horiz_comp) * 40 - \
+					  #(player_move_counter_horiz * 10) * scroll_horiz - map_sprite.move_counter * 10
+					#, (y_counter - scroll_vert_comp) * 40 - (player_move_counter_vert * 10) * scroll_vert))
+#
+				#else:
+#
+					#screen.blit(game_sprites[map_sprite.sprite]
+					#,((x_counter - scroll_horiz_comp) * 40 - (player_move_counter_horiz * 10) * scroll_horiz
+					#, (y_counter - scroll_vert_comp) * 40 - (player_move_counter_vert * 10) * scroll_vert))
+					#
+	pass
