@@ -6,6 +6,8 @@ extends Node
 ## built in level sets, including losing lives, game over or
 ## game completion screen.
 
+const PLAY_LEVEL = preload("res://scenes/play_level/play_level.tscn")
+
 var episode_data: EpisodeData
 var game_objects: GameObjects
 var game_state: GameState
@@ -103,17 +105,20 @@ func show_status_screen() -> void:
 
 
 func game_loop() -> void:
+	var play_level:PlayLevel = PLAY_LEVEL.instantiate()
+	play_level.setup(game_state, episode_data, game_objects)
+	add_child(play_level)
+	
 	while true:
 		## Play music
 		if game_state.play_music:
 			$GameTunePlayer.play()
 		
-		## $PlayLevel plays a single level, returning true or false
+		## play_level plays a single level, returning true or false
 		var is_completed:bool
-		$PlayLevel.game()
-		$PlayLevel.show()
-		is_completed = await $PlayLevel.completed
-		$PlayLevel.hide()
+		play_level.game()
+		is_completed = await play_level.completed
+		play_level.queue_free()
 		
 		## Stop music        
 		$GameTunePlayer.stop()

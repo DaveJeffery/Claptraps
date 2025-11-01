@@ -6,6 +6,8 @@ signal completed(is_completed: bool)
 @onready var tile_map_layer := $TileMapLayer
 @onready var dave := $TileMapLayer/Dave
 
+const GAME_BACKGROUND = preload("res://scenes/play_level/play_level.tscn")
+
 var game_background: GameBackground
 
 var game_state: GameState
@@ -26,57 +28,8 @@ var player_move_counter: Vector2i
 var dave_wait: int
 
 
-func _init(
-	current_state: GameState, 
-	current_episode: EpisodeData,
-	current_objects: GameObjects
-) -> void:
-	# Store parameters as globals
-	game_state = current_state
-	game_data = current_episode
-	game_objects = current_objects
-
-	## Reset minimum score hit and level flags
-	minimum_score = game_data.levels[game_state.level_number].minimum_score
-	game_state.min_score_hit = false
-	game_state.level_finished = false
-
-	## Copy level data to our working copy of the map
-	## game_state.game_map is our working copy of the current level
-
-	game_state.level_size = (
-		game_data.levels[game_state.level_number].map_size
-	)
-	
-	## Fill a working map (game_state.game_map) with instances of Thing 
-	## objects rather than integers so we can access their behaviours
-	_fill_game_map()
-	
-	## Initialise Dave's position on the map using the starting 
-	## position stored in the episode data
-	_init_dave_position()
-
-	## Help the scrolling routing to keep Dave at least
-	## 5 squares from the sides of the screen
-	_calculate_offset()
-
-	## Quit variable
-	program_quit = false
-	
-	## Initialise Dave's movement
-	_init_dave_movement()
-	
-	## These variables initialise the scrolling and player screen
-	tile_map_layer.tile_set = game_objects.tile_set
-	#TODO More will probably be added later
-	
-	## Decremented each frame until it reaches zero.
-	## Set to 10 whenever Dave moves, if <8 hits object below it.
-	dave_wait = 0 
-
-
 func _ready() -> void:
-	game_background = GameBackground.new()
+	game_background = GAME_BACKGROUND.instantiate()
 	game_background.setup(game_state)
 	add_child(game_background)
 	move_child(game_background, 0)
@@ -237,6 +190,55 @@ func _process(_delta: float) -> void:
 ## If level has been completed, this signal will be emitted
 	if game_state.level_finished:
 		emit_signal("completed", true)
+
+
+func setup(
+	current_state: GameState, 
+	current_episode: EpisodeData,
+	current_objects: GameObjects
+) -> void:
+	# Store parameters as globals
+	game_state = current_state
+	game_data = current_episode
+	game_objects = current_objects
+
+	## Reset minimum score hit and level flags
+	minimum_score = game_data.levels[game_state.level_number].minimum_score
+	game_state.min_score_hit = false
+	game_state.level_finished = false
+
+	## Copy level data to our working copy of the map
+	## game_state.game_map is our working copy of the current level
+
+	game_state.level_size = (
+		game_data.levels[game_state.level_number].map_size
+	)
+	
+	## Fill a working map (game_state.game_map) with instances of Thing 
+	## objects rather than integers so we can access their behaviours
+	_fill_game_map()
+	
+	## Initialise Dave's position on the map using the starting 
+	## position stored in the episode data
+	_init_dave_position()
+
+	## Help the scrolling routing to keep Dave at least
+	## 5 squares from the sides of the screen
+	_calculate_offset()
+
+	## Quit variable
+	program_quit = false
+	
+	## Initialise Dave's movement
+	_init_dave_movement()
+	
+	## These variables initialise the scrolling and player screen
+	tile_map_layer.tile_set = game_objects.tile_set
+	#TODO More will probably be added later
+	
+	## Decremented each frame until it reaches zero.
+	## Set to 10 whenever Dave moves, if <8 hits object below it.
+	dave_wait = 0 
 
 
 ## Fill a working map (game_state.game_map) with instances of Thing 
