@@ -76,7 +76,8 @@ func _init(
 
 
 func _ready() -> void:
-	game_background = GameBackground.new(game_state)
+	game_background = GameBackground.new()
+	game_background.setup(game_state)
 	add_child(game_background)
 	move_child(game_background, 0)
 

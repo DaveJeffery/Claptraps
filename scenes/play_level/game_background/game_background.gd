@@ -8,8 +8,6 @@ const BLUE := Color(0.588, 0.588, 1.0)    # Original blue
 
 var game_state: GameState
 
-func _init(current_game_state: GameState) -> void:
-	game_state = current_game_state
 
 func _ready() -> void:
 	# Optional: start as blue
@@ -24,3 +22,6 @@ func _process(_delta: float) -> void:
 		# Fade back to blue if needed
 		if tween.is_active() == false and color != BLUE:
 			tween.tween_property(self, "color", BLUE, 1.5)
+
+func setup(current_game_state: GameState) -> void:
+	game_state = current_game_state
