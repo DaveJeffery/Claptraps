@@ -27,25 +27,19 @@ func _ready() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_select"):
-		get_viewport().set_input_as_handled()
 		get_tree().change_scene_to_file(
 			"res://scenes/game/game.tscn"
 		)
 	elif event.is_action_pressed("ui_cancel"):
-		get_viewport().set_input_as_handled()
 		$QuitScreen.show()
 	elif event.is_action_pressed("clap_music"):
-		get_viewport().set_input_as_handled()
 		toggle_music()
 	elif event.is_action_pressed("clap_redefine"):
-		get_viewport().set_input_as_handled()
 		$RedefineScreen.show()
 		set_process_input(false)
 	elif event.is_action_pressed("clap_userdef"):
-		get_viewport().set_input_as_handled()
 		print_debug("User Levels!")
 	elif event.is_action_pressed("clap_editor"):
-		get_viewport().set_input_as_handled()
 		get_tree().change_scene_to_file("res://scenes/editor_scene.tscn") #BUG
 
  
