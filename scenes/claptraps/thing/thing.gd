@@ -30,7 +30,7 @@ var break_box := false
 var startle_frog := false
 
 
-func _init(current_game_state: GameState) -> void:
+func setup(current_game_state: GameState) -> void:
 	game_state = current_game_state
 
 

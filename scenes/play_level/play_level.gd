@@ -34,6 +34,7 @@ func _ready() -> void:
 	add_child(game_background)
 	move_child(game_background, 0)
 
+	dave.setup(game_state)
 
 func _input(event: InputEvent) -> void:
 

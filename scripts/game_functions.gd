@@ -17,7 +17,9 @@
 
 
 class_name GameFunctions
-extends Node
+extends RefCounted
+
+const BLANK = preload("res://scenes/claptraps/blank/blank.tscn")
 
 static var game_state: GameState
 static var game_objects: GameObjects
@@ -32,8 +34,8 @@ static func init(
 ) -> void:
 	game_state = _game_state
 	game_objects = _game_objects
-	dave = Dave.new(game_state)
-	wall = Wall.new(game_state)
+	dave = Dave.new() #dave.setup(game_state)
+	wall = Wall.new() #wall.setup(game_state)
 
 
 static func look(direction: Direction, position: Vector2i) -> Thing:
@@ -77,7 +79,7 @@ static func move(
 		target = destination
 		target.moving = Direction.STILL
 		target.grid_pos = target_pos
-		destination = Blank.new(game_state)
+		destination = Blank.new()
 		
 		hitting_object.hit(target)
 	
