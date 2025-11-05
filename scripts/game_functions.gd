@@ -34,8 +34,9 @@ static func init(
 ) -> void:
 	game_state = _game_state
 	game_objects = _game_objects
-	dave = Dave.new() #dave.setup(game_state)
-	wall = Wall.new() #wall.setup(game_state)
+	dave = Dave.new() 
+	dave.setup(game_state)
+	wall = Wall.new() 
 
 
 static func look(direction: Direction, position: Vector2i) -> Thing:
@@ -76,10 +77,10 @@ static func move(
 		var destination_pos := target_pos + move_offset.forward
 		var destination := _get_cell(destination_pos)
 		
-		target = destination
+		target = destination  #FIXME Surely we need to set the target cell here
 		target.moving = Direction.STILL
 		target.grid_pos = target_pos
-		destination = Blank.new()
+		_set_cell(destination_pos, "Blank") #TODO Check this!
 		
 		hitting_object.hit(target)
 	
