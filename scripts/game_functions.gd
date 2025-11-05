@@ -246,32 +246,47 @@ static func _get_cell(position: Vector2i) -> Thing:
 	
 	return game_state.game_map[x][y]
 
-
-static func _set_cell(position: Vector2i, object_name: String) -> void:
-	var x := position.x
-	var y := position.y
-
-	# Out-of-bounds check
-	if (
-		x < 0 
-		or x >= game_state.level_size.x
-		or y < 0 
-		or y >= game_state.level_size.y
-	):
+## If the object_source variable is a String, a new object is created
+## at position. If object_source is a Thing, then the object source is
+## "moved" to the new position. The object_source's previous location 
+## should be set to Blank.
+static func _set_cell(position: Vector2i, object_source) -> void:
+	if not _in_bounds(position):
 		return
 
-	var object_type = game_objects.get(object_name)
-	if object_type == null:
-		push_warning(
-			"Unknown object_name '%s' at position %s" 
-			% [object_name, position]
-		)
+	var object: Thing
+
+	if object_source is String:
+		var object_type = game_objects.get(object_source)
+		if object_type == null:
+			push_warning("Unknown object_name '%s' at position %s" % [object_source, position])
+			return
+		object = object_type.new(game_state)
+
+	elif object_source is Thing:
+		object = object_source
+
+		var old_pos := object.grid_pos
+		if old_pos != position and _in_bounds(old_pos):
+			if game_state.game_map[old_pos.y][old_pos.x] == object:
+				game_state.game_map[old_pos.y][old_pos.x] = game_objects.get("Blank").new(game_state)
+
+	else:
+		push_warning("_set_cell(): invalid source type %s" % typeof(object_source))
 		return
 
-	var object: Thing = object_type.new(game_state)
 	object.grid_pos = position
-	game_state.game_map[x][y] = object
+	game_state.game_map[position.y][position.x] = object
 
+
+## Helper to check if a position is within bounds
+static func _in_bounds(pos: Vector2i) -> bool:
+	return (
+		pos.x >= 0
+		and pos.x < game_state.level_size.x
+		and pos.y >= 0
+		and pos.y < game_state.level_size.y
+	)
 
 static func move_thing_in_direction(pos: Vector2i, dir: Direction) -> void:
 	var offset := dir.forward
