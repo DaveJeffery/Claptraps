@@ -65,7 +65,8 @@ func load_episode() -> void:
 
 func load_definitions() -> void:
 	# FIXME Temporary until we can sort this out
-	game_objects = Claptraps.game_objects
+	var ct = Claptraps.new()
+	game_objects = ct.game_objects
 
 
 func update_game_state() -> void:
