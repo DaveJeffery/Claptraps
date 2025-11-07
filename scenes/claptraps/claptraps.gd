@@ -1,7 +1,7 @@
 class_name Claptraps
 extends Node
 
-static var game_objects: GameObjects
+static var game_objects: GameObjects = GameObjects.new()
 
 
 func _init() -> void:
